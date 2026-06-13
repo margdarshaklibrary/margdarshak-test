@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { courses } from '../data/courses.js';
+import { internships } from '../data/internships.js';
+---
+
+<Layout title="Register Now - Margdarshak Shikshan Sansthan" description="Register for a course or internship program at Margdarshak Shikshan Sansthan. Secure your seat online for Tally, GST, Web Development and more.">
+  
+  <!-- Page Header -->
+  <section class="hero-gradient text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 text-center space-y-4">
+      <div class="inline-block bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+        Enrollment Desk
+      </div>
+      <h1 class="text-3xl md:text-5xl font-headline font-black">
+        Program Registration Form
+      </h1>
+      <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg">
+        Secure your seat today. Select your preferred course or internship program and kickstart your career.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Left Column: Trust-Building, Refund note, Internship note, Contacts -->
+      <div class="lg:col-span-5 space-y-8">
+        
+        <!-- Trust badge section -->
+        <div class="bg-primary/5 border border-primary/10 p-6 rounded-3xl space-y-4">
+          <h3 class="text-xl font-headline font-bold text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary font-bold">verified_user</span> Why Register With Us?
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
+              <span class="text-slate-600 text-sm">
+                <strong>Government Registered:</strong> National validity on MCA (Govt. of India) registered certifications.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
+              <span class="text-slate-600 text-sm">
+                <strong>Industry Curriculum:</strong> 100% practical, project-based training on actual live-client ledgers.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
+              <span class="text-slate-600 text-sm">
+                <strong>Job Placement Assistance:</strong> Active placement drives, interview prep, and direct resume marketing.
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Refund and Internship Notes -->
+        <div class="space-y-4">
+          <h3 class="text-xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">Important Notes</h3>
+          
+          <div class="bg-success/5 border border-success/15 p-5 rounded-2xl space-y-2">
+            <h4 class="font-bold text-success text-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">savings</span> 100% Fee Refund Policy
+            </h4>
+            <p class="text-slate-600 text-xs md:text-sm leading-relaxed">
+              We reward dedication. If you achieve **90%+ attendance** during your program and complete all weekly tasks, you are eligible for a **100% refund** of your entire course/internship fees upon completion.
+            </p>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-100 p-5 rounded-2xl space-y-2">
+            <h4 class="font-bold text-blue-700 text-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">work</span> Practical Internships
+            </h4>
+            <p class="text-slate-600 text-xs md:text-sm leading-relaxed">
+              All courses include an integrated 1-month practical internship working on live client accounting, coding files, or active advertising campaigns under direct industry supervision.
+            </p>
+          </div>
+        </div>
+
+        <!-- Office Address and CTAs -->
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200/80 space-y-6">
+          <div class="space-y-2">
+            <h4 class="font-bold text-primary text-base">Office Address</h4>
+            <p class="text-slate-500 text-sm leading-relaxed">
+              VIP Road, Benta Chowk, Laheriasarai, Darbhanga – 846003 (Bihar)
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <a href="tel:+919229025257" class="flex items-center justify-center gap-2 py-3 bg-white text-primary rounded-xl font-bold border border-slate-200 hover:bg-slate-50 text-xs transition-all shadow-sm">
+              <span class="material-symbols-outlined text-sm font-bold">call</span> Call Desk
+            </a>
+            <a href="https://wa.me/919229025257" target="_blank" class="flex items-center justify-center gap-2 py-3 bg-success text-white rounded-xl font-bold hover:bg-emerald-600 text-xs transition-all shadow-sm">
+              <span class="material-symbols-outlined text-sm">chat</span> WhatsApp Us
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Registration Form -->
+      <div class="lg:col-span-7 bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-200/60 shadow-xl space-y-6">
+        <div>
+          <h3 class="text-2xl font-headline font-bold text-primary">Student Registration Form</h3>
+          <p class="text-slate-500 text-sm mt-1">Please provide your valid credentials to proceed with enrollment verification.</p>
+        </div>
+
+        <form class="space-y-6" id="registration-form">
+          
+          <!-- Name -->
+          <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700 block" for="name">Full Name</label>
+            <input id="name" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter your full name" type="text" required />
+          </div>
+
+          <!-- Contact info grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-slate-700 block" for="mobile">Mobile Number</label>
+              <input id="mobile" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter mobile number" type="tel" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-slate-700 block" for="whatsapp">WhatsApp Number</label>
+              <input id="whatsapp" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter WhatsApp number" type="tel" required />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700 block" for="email">Email Address</label>
+            <input id="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="name@example.com" type="email" required />
+          </div>
+
+          <!-- Program selection grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-slate-700 block" for="program-type">Select Program Type</label>
+              <select id="program-type" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
+                <option value="course">Job-Oriented Course</option>
+                <option value="internship">1-Month Internship</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-slate-700 block" for="program-select">Select Course or Internship</label>
+              <select id="program-select" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
+                <!-- Javascript will dynamically inject options here -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Learning mode -->
+          <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700 block" for="learning-mode">Learning Mode</label>
+            <select id="learning-mode" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
+              <option value="Hybrid">Hybrid (Classroom & Live Online)</option>
+              <option value="Offline">Offline Center (Darbhanga Labs)</option>
+              <option value="Online">Online Classes</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700 block" for="message">Message (Optional)</label>
+            <textarea id="message" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm h-28" placeholder="Tell us about your learning goals or background..."></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button class="w-full py-4 bg-[#d9383a] text-white font-bold rounded-xl hover:bg-[#c12f31] transition-all shadow-lg hover:shadow-secondary/20 flex items-center justify-center gap-2" type="submit">
+            <span class="material-symbols-outlined text-sm font-bold">how_to_reg</span> Register and Book Seat
+          </button>
+        </form>
+
+        <!-- Form Feedback Message -->
+        <div id="register-feedback" class="hidden bg-success/10 text-success p-6 rounded-2xl border border-success/30 text-center space-y-4 shadow-sm">
+          <span class="material-symbols-outlined text-5xl text-success" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          <h4 class="text-xl font-bold">Registration Successful!</h4>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Your seat query has been registered. An enrollment manager from Margdarshak Shikshan Sansthan will call you on your provided mobile number within 2 hours.
+          </p>
+          <div class="pt-2">
+            <a href="https://wa.me/919229025257" target="_blank" class="inline-flex items-center gap-2 px-6 py-2.5 bg-success text-white rounded-lg font-bold text-xs hover:bg-emerald-600 transition-all">
+              <span class="material-symbols-outlined text-sm">chat</span> Instant Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Client-side Dynamic Form Handling & URL Params Parsing -->
+  <script is:inline define:vars={{ courses, internships }}>
+    // Select options datasets
+    const coursesData = courses;
+    const internshipsData = internships;
+
+    const programTypeEl = document.getElementById('program-type');
+    const programSelectEl = document.getElementById('program-select');
+    const regForm = document.getElementById('registration-form');
+    const feedbackEl = document.getElementById('register-feedback');
+
+    // Function to rebuild selector options
+    function updateOptions(type, selectedValue = null) {
+      if (!programSelectEl) return;
+      programSelectEl.innerHTML = '';
+      
+      const list = type === 'internship' ? internshipsData : coursesData;
+      
+      list.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.name;
+        if (selectedValue && item.id === selectedValue) {
+          option.selected = true;
+        }
+        programSelectEl.appendChild(option);
+      });
+    }
+
+    // Event listener for program type change
+    if (programTypeEl) {
+      programTypeEl.addEventListener('change', (e) => {
+        updateOptions(e.target.value);
+      });
+    }
+
+    // Parse URL Search Parameters for prefilling
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const paramProgram = params.get('program'); // 'course' or 'internship'
+      const paramName = params.get('name');
+      const paramMobile = params.get('mobile');
+      const paramMode = params.get('mode');
+      
+      // Prefill fields
+      if (paramName && document.getElementById('name')) {
+        document.getElementById('name').value = paramName;
+      }
+      if (paramMobile && document.getElementById('mobile')) {
+        document.getElementById('mobile').value = paramMobile;
+        document.getElementById('whatsapp').value = paramMobile; // default whatsapp same as mobile
+      }
+      if (paramMode && document.getElementById('learning-mode')) {
+        document.getElementById('learning-mode').value = paramMode;
+      }
+
+      if (paramProgram) {
+        if (programTypeEl) {
+          programTypeEl.value = paramProgram;
+        }
+        
+        // Select specific course or internship
+        const specificId = params.get(paramProgram); // e.g. 'web-development'
+        updateOptions(paramProgram, specificId);
+      } else {
+        // Default values
+        updateOptions('course');
+      }
+    });
+
+    // Form submission
+    if (regForm && feedbackEl) {
+      regForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        regForm.classList.add('hidden');
+        feedbackEl.classList.remove('hidden');
+        window.scrollTo({
+          top: feedbackEl.offsetTop - 150,
+          behavior: 'smooth'
+        });
+      });
+    }
+  </script>
+
+</Layout>

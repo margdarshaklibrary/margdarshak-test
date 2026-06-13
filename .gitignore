@@ -1,0 +1,29 @@
+# Build outputs
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Local Node installations
+.node/
+.node20/
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Stitch MCP / Temp JSON files
+*.json
+!package.json

@@ -1,0 +1,475 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { courses } from '../data/courses.js';
+import { internships } from '../data/internships.js';
+
+// Get 3 popular courses and 3 popular internships for previews
+const popularCourses = courses.slice(0, 3); // DCA, Web Dev, Digital Marketing
+const popularInternships = internships.filter(item => 
+  ["web-development", "gst-filing", "ai-tools"].includes(item.id)
+);
+---
+
+<Layout title="Margdarshak Shikshan Sansthan - Padhega Bharat, Badhega Bharat">
+  
+  <!-- Hero Section -->
+  <section class="relative hero-gradient min-h-[700px] flex items-center overflow-hidden text-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 w-full">
+      <div class="space-y-6 md:space-y-8">
+        <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+          <span class="text-accent font-bold text-sm tracking-wider uppercase">Padhega Bharat, Badhega Bharat</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-headline font-black leading-tight">
+          Learn Skills. <br />
+          <span class="text-accent">Build Experience.</span> <br />
+          Get Rewarded.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-200 max-w-xl">
+          Industry-ready certification programs with a unique <span class="font-bold text-success">100% Fee Refund guarantee</span>. Join India's most student-friendly learning ecosystem in Darbhanga.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <div class="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10">
+            <span class="material-symbols-outlined text-accent text-2xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+            <span class="font-semibold text-sm">₹1,000/month fee</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10">
+            <span class="material-symbols-outlined text-success text-2xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+            <span class="font-semibold text-sm">90%+ Attendance = 100% Refund</span>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <a class="bg-primary text-white border-2 border-primary hover:bg-white hover:text-primary px-8 py-4 rounded-lg font-bold text-base text-center transition-all duration-300 shadow-xl" href="/courses">
+            Explore Courses
+          </a>
+          <a class="bg-transparent border-2 border-white hover:bg-white hover:text-[#002D62] text-white px-8 py-4 rounded-lg font-bold text-base text-center transition-all duration-300" href="/internships">
+            Apply for Internship
+          </a>
+          <a class="flex items-center justify-center gap-2 bg-success text-white px-8 py-4 rounded-lg font-bold text-base hover:bg-emerald-600 transition-all shadow-lg" href="https://wa.me/919229025257" target="_blank">
+            <span class="material-symbols-outlined">chat</span>
+            WhatsApp Us
+          </a>
+        </div>
+      </div>
+      <div class="hidden lg:block relative">
+        <div class="animate-float relative z-10 rounded-2xl overflow-hidden border-8 border-white/10 shadow-2xl">
+          <img alt="Students Collaborating" class="w-full h-[480px] object-cover" src="/assets/ef416198aade12024c457f8fe0004783.png" />
+        </div>
+        <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 blur-3xl rounded-full" />
+        <div class="absolute -top-10 -left-10 w-64 h-64 bg-secondary/20 blur-3xl rounded-full" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Institute Introduction Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">
+            About Margdarshak
+          </div>
+          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">
+            Empowering Bharat Through Skilled Education
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-base">
+            Margdarshak Shikshan Sansthan is Darbhanga’s premier educational institute dedicated to bridging the gap between theoretical knowledge and real-world employment. With a curriculum engineered by industry experts, we provide students with hands-on practice in computerized accounting, programming, tax filings, and digital marketing.
+          </p>
+          <p class="text-slate-600 leading-relaxed text-base">
+            Our unique hybrid learning infrastructure allows students to study in our state-of-the-art offline computer labs or attend live online classes, backed by our core mission: providing premium education accessible to everyone.
+          </p>
+          <div class="pt-2">
+            <a href="/about" class="text-secondary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
+              Learn More About Our Mission <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">workspace_premium</span>
+            </div>
+            <h3 class="font-bold text-lg text-primary mb-2">Government Registered</h3>
+            <p class="text-slate-500 text-sm">Certificates registered under the Ministry of Corporate Affairs, Govt. of India, recognized nationwide.</p>
+          </div>
+          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">diversity_3</span>
+            </div>
+            <h3 class="font-bold text-lg text-primary mb-2">Expert Mentorship</h3>
+            <p class="text-slate-500 text-sm">Learn from experienced tax advisors, certified accountants, and software developers.</p>
+          </div>
+          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">handshake</span>
+            </div>
+            <h3 class="font-bold text-lg text-primary mb-2">Practical-First Focus</h3>
+            <p class="text-slate-500 text-sm">Every program includes mandatory live-project training and client interaction modules.</p>
+          </div>
+          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-success/10 text-success rounded-xl flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">assignment_turned_in</span>
+            </div>
+            <h3 class="font-bold text-lg text-primary mb-2">100% Refund Integrity</h3>
+            <p class="text-slate-500 text-sm">Our trust policy: stay dedicated, keep 90% attendance, and study for free.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlighted 100% Fee Refund Section -->
+  <section class="py-12 bg-background">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="bg-success rounded-3xl p-8 md:p-12 text-white relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-2xl"></div>
+        <div class="relative z-10 max-w-2xl space-y-6">
+          <div class="inline-block bg-white/20 text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+            Unique Learning Opportunity
+          </div>
+          <h2 class="text-3xl md:text-5xl font-headline font-black leading-tight">
+            Education is FREE if you are DEDICATED!
+          </h2>
+          <p class="text-lg opacity-90 leading-relaxed">
+            At Margdarshak Shikshan Sansthan, we reward sincerity. Maintain a minimum of **90% attendance** during your course and successfully complete the **1-month internship** program to receive a **100% refund** of your entire tuition fees. No catches, no hidden conditions.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
+              <span class="material-symbols-outlined text-white">check_circle</span>
+              <span class="text-sm font-semibold">90%+ Attendance</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
+              <span class="material-symbols-outlined text-white">check_circle</span>
+              <span class="text-sm font-semibold">Project Submission</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
+              <span class="material-symbols-outlined text-white">check_circle</span>
+              <span class="text-sm font-semibold">Internship Completion</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-2xl text-center w-full lg:w-80 shrink-0">
+          <span class="material-symbols-outlined text-5xl text-white mb-3">currency_exchange</span>
+          <div class="text-4xl font-black mb-1">100%</div>
+          <div class="text-lg font-bold opacity-90 mb-4">Refund Opportunity</div>
+          <div class="border-t border-white/20 pt-4 mb-4 text-xs opacity-75">
+            Available on all Courses & Internships
+          </div>
+          <a href="/register" class="block w-full bg-white text-success py-3 rounded-xl font-bold text-sm hover:bg-slate-100 transition-all text-center">
+            Register & Apply Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Courses Preview Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+        <div>
+          <div class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+            Industry Hotspots
+          </div>
+          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">Job-Oriented Courses</h2>
+          <p class="text-slate-600 mt-2">Acquire hands-on expertise with Darbhanga’s most in-demand curriculum.</p>
+        </div>
+        <a class="text-secondary font-bold flex items-center gap-2 hover:gap-3 transition-all shrink-0" href="/courses">
+          View All Courses <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {popularCourses.map(course => (
+          <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="h-48 overflow-hidden relative bg-slate-100">
+                <img alt={course.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={course.image} />
+                <div class="absolute top-4 right-4 bg-[#d9383a] text-white text-xs font-bold px-3 py-1 rounded-full">
+                  ₹1,000/Month
+                </div>
+              </div>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center gap-2 text-secondary font-bold text-sm">
+                  <span class="material-symbols-outlined text-sm">schedule</span> {course.duration}
+                </div>
+                <h3 class="text-xl font-bold text-primary group-hover:text-secondary transition-colors">
+                  {course.name}
+                </h3>
+                <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                  {course.shortDescription}
+                </p>
+                <div class="bg-success/5 border border-success/15 p-3 rounded-lg flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-success text-lg shrink-0 mt-0.5">verified_user</span>
+                  <span class="text-xs text-slate-700 leading-normal">
+                    <strong>Refund Policy:</strong> 90%+ attendance unlocks a 100% fee refund opportunity.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0 space-y-3">
+              <div class="grid grid-cols-2 gap-2">
+                <a href={`/courses/${course.id}`} class="py-2.5 rounded-lg border-2 border-primary text-primary font-bold text-center text-xs hover:bg-primary hover:text-white transition-all">
+                  View Details
+                </a>
+                <a href="/register" class="py-2.5 rounded-lg bg-[#d9383a] text-white font-bold text-center text-xs hover:bg-[#c12f31] transition-all">
+                  Register Now
+                </a>
+              </div>
+              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Course:%20" target="_blank" class="block w-full py-2 bg-success text-white rounded-lg text-center font-bold text-xs hover:bg-emerald-600 transition-all flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-sm">chat</span> Explore in App / WhatsApp
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Internship Preview Section -->
+  <section class="py-20 bg-background">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+        <div>
+          <div class="inline-block bg-secondary/10 text-secondary px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+            Real Experience
+          </div>
+          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">1-Month Internship Programs</h2>
+          <p class="text-slate-600 mt-2">Work on live client tasks, build a portfolio, and boost your resume.</p>
+        </div>
+        <a class="text-secondary font-bold flex items-center gap-2 hover:gap-3 transition-all shrink-0" href="/internships">
+          View All Internships <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {popularInternships.map(internship => (
+          <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="h-48 overflow-hidden relative bg-slate-100">
+                <img alt={internship.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={internship.image} />
+                <div class="absolute top-4 right-4 bg-[#d9383a] text-white text-xs font-bold px-3 py-1 rounded-full">
+                  Fee: ₹1,000 (Refundable)
+                </div>
+              </div>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center gap-2 text-secondary font-bold text-sm">
+                  <span class="material-symbols-outlined text-sm">schedule</span> {internship.duration}
+                </div>
+                <h3 class="text-xl font-bold text-primary group-hover:text-secondary transition-colors">
+                  {internship.name}
+                </h3>
+                <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                  {internship.shortDescription}
+                </p>
+                <div class="bg-success/5 border border-success/15 p-3 rounded-lg flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-success text-lg shrink-0 mt-0.5">verified_user</span>
+                  <span class="text-xs text-slate-700 leading-normal">
+                    <strong>100% Refund:</strong> 90%+ attendance & task submissions = full registration refund.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0 space-y-3">
+              <div class="grid grid-cols-2 gap-2">
+                <a href={`/internships/${internship.id}`} class="py-2.5 rounded-lg border-2 border-primary text-primary font-bold text-center text-xs hover:bg-primary hover:text-white transition-all">
+                  View Details
+                </a>
+                <a href="/register" class="py-2.5 rounded-lg bg-[#d9383a] text-white font-bold text-center text-xs hover:bg-[#c12f31] transition-all">
+                  Register Now
+                </a>
+              </div>
+              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Internship:%20" target="_blank" class="block w-full py-2 bg-success text-white rounded-lg text-center font-bold text-xs hover:bg-emerald-600 transition-all flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-sm">chat</span> Explore in App / WhatsApp
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Hybrid Learning Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col lg:flex-row items-center gap-16">
+      <div class="lg:w-1/2 space-y-8">
+        <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary leading-tight">
+          Learn Your Way: <br />
+          <span class="text-secondary">Offline Center or Online Classes.</span>
+        </h2>
+        <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+          We understand that students require flexibility. Whether you prefer a highly guided, physically mentored laboratory setup in Darbhanga, or the comfort of attending live interactive modules from your home, our hybrid training platform serves both choices seamlessly.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-slate-50 p-6 rounded-xl border border-slate-200/60 shadow-sm">
+            <span class="material-symbols-outlined text-primary text-4xl mb-3">location_on</span>
+            <h4 class="font-bold text-lg text-primary mb-1">In-Person Training</h4>
+            <p class="text-slate-500 text-sm">State-of-the-art computers and offline lab mentoring in Laheriasarai, Darbhanga.</p>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-xl border border-slate-200/60 shadow-sm">
+            <span class="material-symbols-outlined text-primary text-4xl mb-3">laptop_mac</span>
+            <h4 class="font-bold text-lg text-primary mb-1">Live Online Classes</h4>
+            <p class="text-slate-500 text-sm">Interactive digital portals, recorded video libraries, and remote workspace tools.</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 w-full">
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-primary/10 rounded-2xl blur-xl group-hover:bg-primary/20 transition-all"></div>
+          <img alt="Hybrid Learning Environment" class="relative z-10 rounded-2xl shadow-xl w-full h-[400px] object-cover" src="/assets/91a8b75afe4c1c96eaa3ce3e270a27fc.png" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Journey (timeline) -->
+  <section class="py-20 bg-slate-900 text-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 relative">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-block bg-accent/25 text-accent px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+          Roadmap to Success
+        </div>
+        <h2 class="text-3xl md:text-4xl font-headline font-bold mb-3">Your Journey at Margdarshak</h2>
+        <p class="text-slate-400 text-sm md:text-base">We follow a transparent, structured pathway to transform dedicated beginners into job-ready professionals.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+        <!-- Connecting line for desktop -->
+        <div class="hidden md:block absolute top-10 left-[12%] right-[12%] h-0.5 bg-white/15 -z-0"></div>
+
+        <!-- Step 1 -->
+        <div class="relative z-10 text-center md:text-left space-y-4 group">
+          <div class="w-16 h-16 bg-primary border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
+            <span class="material-symbols-outlined text-2xl font-bold">assignment_ind</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">1. Register</h3>
+          <p class="text-slate-400 text-sm">Select your program, fill in your credentials, and activate your seat with just ₹1,000.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative z-10 text-center md:text-left space-y-4 group">
+          <div class="w-16 h-16 bg-secondary border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
+            <span class="material-symbols-outlined text-2xl font-bold">school</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">2. Attend & Learn</h3>
+          <p class="text-slate-400 text-sm">Engage in classes with 90%+ attendance and build essential practical skills.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative z-10 text-center md:text-left space-y-4 group">
+          <div class="w-16 h-16 bg-accent border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
+            <span class="material-symbols-outlined text-2xl font-bold">work</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">3. Live Internship</h3>
+          <p class="text-slate-400 text-sm">Complete a 1-month practical internship working on live commercial/taxation tasks.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative z-10 text-center md:text-left space-y-4 group">
+          <div class="w-16 h-16 bg-success border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
+            <span class="material-symbols-outlined text-2xl font-bold">verified</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">4. Certificate & Refund</h3>
+          <p class="text-slate-400 text-sm">Get certified, claim your 100% attendance fee refund, and kickstart your job hunt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Download Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="bg-primary rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 overflow-hidden text-white relative">
+        <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="md:w-3/5 space-y-6">
+          <div class="inline-block bg-accent text-primary font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider">
+            Mobile-First Classroom
+          </div>
+          <h2 class="text-3xl md:text-4xl font-headline font-bold">Your Learning Partner in Your Pocket</h2>
+          <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+            Download our mobile app to access online course modules, verify your daily attendance record, log interactive practical tasks, submit projects, and coordinate with internship directors on the go.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a class="inline-block transition-transform hover:scale-105" href="#">
+              <img alt="Get it on Google Play" class="h-14 object-contain" src="/assets/bb6f546f30af445716ee8eb80e5b4643.png" />
+            </a>
+          </div>
+        </div>
+        <div class="md:w-2/5 flex justify-center">
+          <div class="relative w-64 h-64 md:w-80 md:h-80 bg-accent/10 rounded-full flex items-center justify-center border border-white/10">
+            <span class="material-symbols-outlined text-white text-9xl animate-float">phone_iphone</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA Section -->
+  <section class="py-20 bg-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">Have Questions? Let's Talk</h2>
+          <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+            Unsure which course is right for your goals? Want to clarify the terms of the 100% attendance fee refund? Reach out to our career counselors today and get clear guidance.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">call</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-800">Phone Support</h4>
+                <a href="tel:+919229025257" class="text-primary font-bold text-sm hover:underline">+91 92290 25257</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-success/10 text-success rounded-full flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">chat</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-800">WhatsApp Helpdesk</h4>
+                <a href="https://wa.me/919229025257" target="_blank" class="text-success font-bold text-sm hover:underline">92290 25257</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">location_on</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-800">Visit Center</h4>
+                <span class="text-slate-500 text-xs font-semibold">VIP Road, Benta Chowk, Laheriasarai, Darbhanga</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-accent/10 text-slate-900 rounded-full flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">mail</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-800">Email Address</h4>
+                <a href="mailto:info@margdarshakedu.com" class="text-slate-600 text-sm hover:underline">info@margdarshakedu.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xl text-center space-y-6">
+            <span class="material-symbols-outlined text-5xl text-[#d9383a]">support_agent</span>
+            <h3 class="font-bold text-xl text-primary">Need Course Guidance?</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">
+              Fill out a quick registration inquiry sheet and our senior academic counselor will call you within 2 hours.
+            </p>
+            <div class="pt-2">
+              <a href="/register" class="block w-full bg-[#d9383a] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#c12f31] transition-all shadow-md">
+                Open Registration Form
+              </a>
+            </div>
+            <div class="text-xs text-slate-400">
+              *Available Monday to Saturday: 9:00 AM - 6:00 PM
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

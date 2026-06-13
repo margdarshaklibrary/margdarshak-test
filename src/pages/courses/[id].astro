@@ -1,0 +1,197 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { courses } from '../../data/courses.js';
+
+export async function getStaticPaths() {
+  return courses.map(course => ({
+    params: { id: course.id },
+    props: { course }
+  }));
+}
+
+const { course } = Astro.props;
+const whatsappLink = `https://wa.me/919229025257?text=Hi,%20I%20have%20questions%20regarding%20the%20${encodeURIComponent(course.name)}%20course.`;
+---
+
+<Layout title={`${course.name} - Margdarshak Shikshan Sansthan`} description={course.shortDescription}>
+  
+  <!-- Breadcrumbs / Hero Header -->
+  <section class="hero-gradient text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 space-y-4">
+      <div class="flex items-center gap-2 text-xs md:text-sm text-slate-300 font-semibold uppercase tracking-wider">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/courses" class="hover:text-white transition-colors">Courses</a>
+        <span>/</span>
+        <span class="text-accent">{course.name}</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-headline font-black text-white">
+        {course.name}
+      </h1>
+      <p class="text-slate-200 text-sm md:text-base max-w-3xl leading-relaxed">
+        {course.shortDescription}
+      </p>
+    </div>
+  </section>
+
+  <!-- Detailed Page Layout -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Main Content (Left Column) -->
+      <div class="lg:col-span-8 space-y-10">
+        
+        <!-- Full Explanation -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
+            Course Overview
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-base md:text-lg">
+            {course.fullDescription}
+          </p>
+        </div>
+
+        <!-- Syllabus / What You Will Learn -->
+        <div class="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+          <h2 class="text-2xl font-headline font-bold text-primary">
+            What Students Will Learn
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            {course.learnItems.map(item => (
+              <div class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-success mt-0.5 font-bold shrink-0">check_circle</span>
+                <span class="text-slate-700 text-sm md:text-base font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Who Can Join -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
+            Who Can Join?
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-base">
+            {course.eligible}
+          </p>
+        </div>
+
+        <!-- Internship Details -->
+        <div class="space-y-4 bg-primary/5 p-6 rounded-2xl border border-primary/10">
+          <h2 class="text-2xl font-headline font-bold text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">work</span> Internship Included
+          </h2>
+          <p class="text-slate-700 text-base leading-relaxed">
+            {course.internshipIncluded}. This program bridges the training duration into practical workspace client files. You will work side-by-side with senior mentors to practice real billing, web coding, or marketing campaigns.
+          </p>
+        </div>
+
+        <!-- Certificate Details -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
+            Certification Details
+          </h2>
+          <div class="flex flex-col sm:flex-row items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-200/60">
+            <span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 0;">workspace_premium</span>
+            <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+              {course.certificateDetails} All certificates come with a unique verification ID which can be authenticated on our portal by employers worldwide.
+            </p>
+          </div>
+        </div>
+
+        <!-- Career Opportunities -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
+            Career Opportunities
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {course.careerOpportunities.map(job => (
+              <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                <span class="material-symbols-outlined text-secondary font-bold">trending_flat</span>
+                <span class="text-slate-700 font-semibold text-sm md:text-base">{job}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar CTAs & Form (Right Column) -->
+      <div class="lg:col-span-4 space-y-8">
+        
+        <!-- Pricing & Refund Details Card -->
+        <div class="bg-primary text-white p-6 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full"></div>
+          <div>
+            <span class="text-xs uppercase tracking-wider text-accent font-bold">Duration: {course.duration}</span>
+            <div class="text-3xl font-black mt-1">{course.fee}</div>
+            <div class="text-xs text-slate-300 mt-0.5">Payable in easy monthly installments</div>
+          </div>
+          
+          <div class="border-t border-white/10 pt-6 space-y-4">
+            <div class="bg-success text-white p-4 rounded-xl flex items-start gap-3 border border-success/30">
+              <span class="material-symbols-outlined text-white text-2xl shrink-0 mt-0.5">verified_user</span>
+              <div class="text-xs space-y-1">
+                <strong class="text-sm font-bold block">100% Refund Opportunity</strong>
+                <p class="opacity-90">{course.refundDetails}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-3 pt-2">
+            <a href="tel:+919229025257" class="flex items-center justify-center gap-2 w-full py-3 bg-white text-primary rounded-xl font-bold hover:bg-slate-100 transition-all text-sm shadow-md">
+              <span class="material-symbols-outlined text-sm font-bold">call</span> Call Center
+            </a>
+            <a href={whatsappLink} target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-success text-white rounded-xl font-bold hover:bg-emerald-600 transition-all text-sm shadow-md">
+              <span class="material-symbols-outlined text-sm">chat</span> WhatsApp Advisory
+            </a>
+          </div>
+        </div>
+
+        <!-- Embedded Registration Form -->
+        <div class="bg-background p-6 rounded-3xl border border-slate-200 shadow-lg space-y-6">
+          <div class="text-center">
+            <h3 class="font-headline font-bold text-primary text-lg">Quick Seat Registration</h3>
+            <p class="text-slate-500 text-xs mt-1">Book your seat for {course.name} instantly</p>
+          </div>
+          
+          <!-- Simple Form that submits to /register Page -->
+          <form action="/register" method="GET" class="space-y-4">
+            <input type="hidden" name="program" value="course" />
+            <input type="hidden" name="course" value={course.id} />
+            
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">Full Name</label>
+              <input type="text" name="name" required placeholder="Enter full name" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">Mobile Number</label>
+              <input type="tel" name="mobile" required placeholder="Mobile number" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">Learning Mode</label>
+              <select name="mode" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-white">
+                <option value="Hybrid">Hybrid (Classroom & Online)</option>
+                <option value="Offline">Offline Center (Darbhanga)</option>
+                <option value="Online">Online Classes</option>
+              </select>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-[#d9383a] text-white font-bold rounded-lg text-xs hover:bg-[#c12f31] transition-all shadow-md">
+              Proceed to Register Now
+            </button>
+          </form>
+
+          <div class="text-[10px] text-slate-400 text-center leading-normal">
+            * Clicking proceed will transfer your input to the final registration details panel.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

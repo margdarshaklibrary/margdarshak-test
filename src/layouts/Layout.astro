@@ -1,0 +1,253 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Premium job-oriented education with 100% fee refund. Learn Web Development, Tally, GST, and more." } = Astro.props;
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Courses", href: "/courses" },
+  { name: "Internships", href: "/internships" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" }
+];
+
+const isActive = (href: string) => {
+  if (href === "/") {
+    return pathname === "/" || pathname === "";
+  }
+  return pathname.startsWith(href);
+};
+---
+
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>{title}</title>
+  <meta content={description} name="description" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="/assets/4ca96ac6da15ce73c525b00446df0f30.css" rel="stylesheet" />
+  <!-- Icons -->
+  <link href="/assets/a39f5c6fcbb87b419667ec984d2e579a.css" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="/assets/03ba5d9f9e95fc3599acebcbe7e5fb9a.js" is:inline></script>
+  <script id="tailwind-config" is:inline>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#002D62",
+            secondary: "#d9383a",
+            accent: "#f59e0b",
+            success: "#10b981",
+            background: "#f8fafc"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "headline": ["Public Sans", "sans-serif"],
+            "display": ["Public Sans", "sans-serif"],
+            "body": ["Inter", "sans-serif"],
+            "label": ["Public Sans", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style is:inline>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #002D62 0%, #001a3a 100%);
+    }
+    .text-glow {
+      text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="font-body text-slate-900 bg-white min-h-screen flex flex-col justify-between">
+  
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300">
+    <nav class="flex justify-between items-center px-6 md:px-8 py-4 max-w-7xl mx-auto">
+      <a href="/" class="flex items-center gap-3 transition-all duration-300 ease-in-out hover:scale-105">
+        <img src="/margdarshak_logo.png" alt="Margdarshak Shikshan Sansthan Logo" class="h-10 md:h-12 w-auto object-contain" />
+        <span class="sr-only">Margdarshak Shikshan Sansthan</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-6 lg:gap-8">
+        {navItems.map(item => (
+          <a 
+            class={`font-headline text-sm lg:text-base font-semibold transition-colors pb-1 border-b-2 ${
+              isActive(item.href) 
+                ? "text-[#d9383a] border-[#d9383a]" 
+                : "text-[#002D62] dark:text-slate-300 border-transparent hover:text-[#d9383a] hover:border-[#d9383a]/40"
+            }`} 
+            href={item.href}
+          >
+            {item.name}
+          </a>
+        ))}
+        <a 
+          href="/register" 
+          class={`px-5 py-2.5 rounded-lg font-bold text-sm transition-all duration-300 hover:scale-105 shadow-md ${
+            isActive("/register")
+              ? "bg-primary text-white border-2 border-primary"
+              : "bg-[#d9383a] text-white hover:bg-[#c12f31]"
+          }`}
+        >
+          Register Now
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="menu-btn" class="md:hidden text-[#002D62] focus:outline-none" aria-label="Toggle Menu">
+        <span class="material-symbols-outlined text-3xl">menu</span>
+      </button>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-6 py-4 shadow-xl space-y-4">
+      {navItems.map(item => (
+        <a 
+          class={`block font-headline text-base font-bold transition-colors py-2 ${
+            isActive(item.href) ? "text-[#d9383a]" : "text-[#002D62] hover:text-[#d9383a]"
+          }`} 
+          href={item.href}
+        >
+          {item.name}
+        </a>
+      ))}
+      <a 
+        href="/register" 
+        class="block text-center bg-[#d9383a] text-white py-3 rounded-lg font-bold transition-all"
+      >
+        Register Now
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Slot -->
+  <main class="flex-grow pt-20">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#002D62] dark:bg-slate-950 text-white border-t border-white/10 w-full rounded-none">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-8 py-16 max-w-7xl mx-auto">
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <img src="/margdarshak_logo.png" alt="Margdarshak Shikshan Sansthan Logo" class="h-12 w-auto object-contain bg-white p-1 rounded" />
+          <span class="sr-only">Margdarshak Shikshan Sansthan</span>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed">Empowering the youth of Bharat with job-ready skills and affordable education. Excellence through dedication.</p>
+        <div class="flex gap-4">
+          <a class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#f59e0b] hover:text-white transition-all hover:scale-105" href="https://wa.me/919229025257" target="_blank" aria-label="WhatsApp">
+            <span class="material-symbols-outlined text-lg">chat</span>
+          </a>
+          <a class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#f59e0b] hover:text-white transition-all hover:scale-105" href="tel:+919229025257" aria-label="Phone Call">
+            <span class="material-symbols-outlined text-lg">call</span>
+          </a>
+          <a class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#f59e0b] hover:text-white transition-all hover:scale-105" href="/contact" aria-label="Location Map">
+            <span class="material-symbols-outlined text-lg">location_on</span>
+          </a>
+          <a class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#f59e0b] hover:text-white transition-all hover:scale-105" href="/register" aria-label="Register Now">
+            <span class="material-symbols-outlined text-lg">app_registration</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-headline font-bold text-white mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+        <ul class="space-y-3 font-body text-sm">
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/">Home</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/courses">Courses</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/internships">Internships</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/about">About Us</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-headline font-bold text-white mb-6 uppercase tracking-wider text-sm">Our Core Programs</h4>
+        <ul class="space-y-3 font-body text-sm">
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/courses/web-development">Web Development</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/courses/tally-advanced-excel">Tally & Advanced Excel</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/courses/gst-return-filing">GST & Return Filing</a></li>
+          <li><a class="text-slate-300 hover:text-white transition-colors" href="/internships/ai-tools">AI Tools Internship</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-headline font-bold text-white mb-6 uppercase tracking-wider text-sm">Newsletter</h4>
+        <p class="text-slate-300 text-sm mb-4">Stay updated with our latest courses and scholarship opportunities.</p>
+        <div class="relative">
+          <input class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-accent text-sm text-white" placeholder="Email Address" type="email" />
+          <button class="absolute right-2 top-2 bg-accent text-slate-900 p-1.5 rounded-lg flex items-center justify-center hover:opacity-90" aria-label="Subscribe">
+            <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10 px-6 md:px-8 py-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="font-body text-sm text-slate-300">© 2026 Margdarshak Shikshan Sansthan. Padhega Bharat, Badhega Bharat.</p>
+      <div class="flex gap-8 text-xs font-medium text-slate-400">
+        <a class="hover:text-white" href="#">Terms of Service</a>
+        <a class="hover:text-white" href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script is:inline>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = menuBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+        }
+      });
+    }
+
+    // Sticky Header Effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 30) {
+        header.classList.add('shadow-md', 'py-1');
+        header.classList.remove('py-4');
+      } else {
+        header.classList.remove('shadow-md', 'py-1');
+        header.classList.add('py-4');
+      }
+    });
+  </script>
+</body>
+</html>
