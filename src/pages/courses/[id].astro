@@ -1,197 +1,789 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { courses } from '../../data/courses.js';
+import { getCourses } from '../../data/db.js';
 
 export async function getStaticPaths() {
-  return courses.map(course => ({
+  const courses = getCourses();
+  return courses.map((course) => ({
     params: { id: course.id },
-    props: { course }
+    props: { course },
   }));
 }
 
 const { course } = Astro.props;
-const whatsappLink = `https://wa.me/919229025257?text=Hi,%20I%20have%20questions%20regarding%20the%20${encodeURIComponent(course.name)}%20course.`;
+const isNotFound = !course || course.status === 'Inactive';
+
+// Fetch related courses
+const allCourses = getCourses();
+const relatedCourses = allCourses
+  .filter(c => c.id !== course?.id && c.status !== 'Inactive')
+  .slice(0, 3);
+
+const whatsappLink = !isNotFound
+  ? `https://wa.me/919229025257?text=Hi,%20I%20have%20questions%20regarding%20the%20${encodeURIComponent(course.name)}%20course.`
+  : '';
+
+// Play store link
+const playStoreLink = "https://play.google.com/store/apps/details?id=co.varys.shacc";
+const institutePhone = "+919229025257";
+const dialPhone = "tel:+919229025257";
+
+// Helper to generate dynamic curriculum timeline based on duration
+function getCourseTimeline(duration) {
+  const steps = [];
+  steps.push({
+    title: "Phase 1: Foundations & Core Concepts",
+    desc: "Understand the fundamental building blocks, set up necessary toolkits, and master core theoretical models."
+  });
+  steps.push({
+    title: "Phase 2: Hands-on Practical Projects",
+    desc: "Implement concepts on industry-standard case studies and build intermediate-level simulations."
+  });
+  steps.push({
+    title: "Phase 3: Advanced Applications",
+    desc: "Master expert workflows, optimization techniques, and advanced system/platform modules."
+  });
+  steps.push({
+    title: "Final Phase: 1-Month Practical Internship",
+    desc: "Apply your skills on live company projects, receive professional feedback, and build a verified portfolio."
+  });
+  steps.push({
+    title: "Graduation & Placement Support",
+    desc: "Get your experience certification stamped, start resume optimization, and secure direct interview references."
+  });
+  return steps;
+}
+
+const timelineSteps = getCourseTimeline(course?.duration);
 ---
 
-<Layout title={`${course.name} - Margdarshak Shikshan Sansthan`} description={course.shortDescription}>
-  
-  <!-- Breadcrumbs / Hero Header -->
-  <section class="hero-gradient text-white py-16">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 space-y-4">
-      <div class="flex items-center gap-2 text-xs md:text-sm text-slate-300 font-semibold uppercase tracking-wider">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
-        <span>/</span>
-        <a href="/courses" class="hover:text-white transition-colors">Courses</a>
-        <span>/</span>
-        <span class="text-accent">{course.name}</span>
+{isNotFound ? (
+  <Layout title="Course Not Found - Margdarshak Shikshan Sansthan">
+    <section class="py-24 text-center bg-slate-50 relative overflow-hidden flex items-center justify-center min-h-[70vh]">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-100 via-transparent to-transparent opacity-60"></div>
+      <div class="max-w-md mx-auto space-y-6 px-6 relative z-10 glass-card-premium p-10 rounded-3xl border border-slate-200 shadow-xl">
+        <span class="material-symbols-outlined text-6xl text-secondary animate-pulse font-bold">error</span>
+        <h1 class="text-3xl font-headline font-black text-primary">Course Not Found</h1>
+        <p class="text-slate-600 text-sm">The course you are looking for does not exist or has been deactivated by our administrator.</p>
+        <a href="/courses" class="inline-block w-full py-3 btn-brand-gradient text-white rounded-xl font-bold text-sm hover:scale-[1.02] transition-all shadow-md">
+          Go back to Courses
+        </a>
       </div>
-      <h1 class="text-3xl md:text-5xl font-headline font-black text-white">
-        {course.name}
-      </h1>
-      <p class="text-slate-200 text-sm md:text-base max-w-3xl leading-relaxed">
-        {course.shortDescription}
-      </p>
-    </div>
-  </section>
+    </section>
+  </Layout>
+) : (
+  <Layout 
+    title={`${course?.name} — Job-Ready Course | Margdarshak Shikshan Sansthan, Darbhanga`} 
+    description={course?.shortDescription}
+    ogImage={course?.image}
+    ogType="website"
+    jsonLd={{
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": course?.name,
+      "description": course?.shortDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Margdarshak Shikshan Sansthan",
+        "sameAs": "https://margdarshak.in"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "1000",
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock",
+        "category": "Job-Oriented Course"
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "blended",
+        "courseWorkload": course?.duration
+      }
+    }}
+  >
+    
+    <!-- 1. Hero Section -->
+    <section class="hero-gradient text-white py-10 md:py-20 relative overflow-hidden">
+      <!-- Glow Blobs -->
+      <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-secondary/15 rounded-full filter blur-[120px] pointer-events-none animate-pulse-glow" aria-hidden="true"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-accent/15 rounded-full filter blur-[100px] pointer-events-none animate-float-slow" aria-hidden="true"></div>
 
-  <!-- Detailed Page Layout -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
-      
-      <!-- Main Content (Left Column) -->
-      <div class="lg:col-span-8 space-y-10">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
         
-        <!-- Full Explanation -->
-        <div class="space-y-4">
-          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
-            Course Overview
-          </h2>
-          <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-            {course.fullDescription}
-          </p>
+        <!-- Breadcrumbs -->
+        <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm text-slate-300 font-bold uppercase tracking-wider mb-6">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span class="text-slate-500">/</span>
+          <a href="/courses" class="hover:text-white transition-colors">Courses</a>
+          <span class="text-slate-500">/</span>
+          <span class="text-accent">{course?.name}</span>
         </div>
 
-        <!-- Syllabus / What You Will Learn -->
-        <div class="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-          <h2 class="text-2xl font-headline font-bold text-primary">
-            What Students Will Learn
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            {course.learnItems.map(item => (
-              <div class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-success mt-0.5 font-bold shrink-0">check_circle</span>
-                <span class="text-slate-700 text-sm md:text-base font-medium">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Who Can Join -->
-        <div class="space-y-4">
-          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
-            Who Can Join?
-          </h2>
-          <p class="text-slate-600 leading-relaxed text-base">
-            {course.eligible}
-          </p>
-        </div>
-
-        <!-- Internship Details -->
-        <div class="space-y-4 bg-primary/5 p-6 rounded-2xl border border-primary/10">
-          <h2 class="text-2xl font-headline font-bold text-primary flex items-center gap-2">
-            <span class="material-symbols-outlined text-secondary">work</span> Internship Included
-          </h2>
-          <p class="text-slate-700 text-base leading-relaxed">
-            {course.internshipIncluded}. This program bridges the training duration into practical workspace client files. You will work side-by-side with senior mentors to practice real billing, web coding, or marketing campaigns.
-          </p>
-        </div>
-
-        <!-- Certificate Details -->
-        <div class="space-y-4">
-          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
-            Certification Details
-          </h2>
-          <div class="flex flex-col sm:flex-row items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-200/60">
-            <span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 0;">workspace_premium</span>
-            <p class="text-slate-600 text-sm md:text-base leading-relaxed">
-              {course.certificateDetails} All certificates come with a unique verification ID which can be authenticated on our portal by employers worldwide.
-            </p>
-          </div>
-        </div>
-
-        <!-- Career Opportunities -->
-        <div class="space-y-4">
-          <h2 class="text-2xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">
-            Career Opportunities
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {course.careerOpportunities.map(job => (
-              <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                <span class="material-symbols-outlined text-secondary font-bold">trending_flat</span>
-                <span class="text-slate-700 font-semibold text-sm md:text-base">{job}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Sidebar CTAs & Form (Right Column) -->
-      <div class="lg:col-span-4 space-y-8">
-        
-        <!-- Pricing & Refund Details Card -->
-        <div class="bg-primary text-white p-6 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
-          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full"></div>
-          <div>
-            <span class="text-xs uppercase tracking-wider text-accent font-bold">Duration: {course.duration}</span>
-            <div class="text-3xl font-black mt-1">{course.fee}</div>
-            <div class="text-xs text-slate-300 mt-0.5">Payable in easy monthly installments</div>
-          </div>
+        <!-- Split Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <div class="border-t border-white/10 pt-6 space-y-4">
-            <div class="bg-success text-white p-4 rounded-xl flex items-start gap-3 border border-success/30">
-              <span class="material-symbols-outlined text-white text-2xl shrink-0 mt-0.5">verified_user</span>
-              <div class="text-xs space-y-1">
-                <strong class="text-sm font-bold block">100% Refund Opportunity</strong>
-                <p class="opacity-90">{course.refundDetails}</p>
-              </div>
+          <!-- Hero Details (Left Column) -->
+          <div class="lg:col-span-7 space-y-6 text-left">
+            <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full backdrop-blur-md">
+              <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-accent font-headline">Professional Job-Ready Program</span>
             </div>
-          </div>
-          
-          <div class="space-y-3 pt-2">
-            <a href="tel:+919229025257" class="flex items-center justify-center gap-2 w-full py-3 bg-white text-primary rounded-xl font-bold hover:bg-slate-100 transition-all text-sm shadow-md">
-              <span class="material-symbols-outlined text-sm font-bold">call</span> Call Center
-            </a>
-            <a href={whatsappLink} target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-success text-white rounded-xl font-bold hover:bg-emerald-600 transition-all text-sm shadow-md">
-              <span class="material-symbols-outlined text-sm">chat</span> WhatsApp Advisory
-            </a>
-          </div>
-        </div>
-
-        <!-- Embedded Registration Form -->
-        <div class="bg-background p-6 rounded-3xl border border-slate-200 shadow-lg space-y-6">
-          <div class="text-center">
-            <h3 class="font-headline font-bold text-primary text-lg">Quick Seat Registration</h3>
-            <p class="text-slate-500 text-xs mt-1">Book your seat for {course.name} instantly</p>
-          </div>
-          
-          <!-- Simple Form that submits to /register Page -->
-          <form action="/register" method="GET" class="space-y-4">
-            <input type="hidden" name="program" value="course" />
-            <input type="hidden" name="course" value={course.id} />
             
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-700 block">Full Name</label>
-              <input type="text" name="name" required placeholder="Enter full name" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" />
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-headline font-black leading-tight">
+              {course?.name}
+            </h1>
+            
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed font-body max-w-2xl">
+              {course?.shortDescription}
+            </p>
+
+            <!-- Hero CTA Trigger -->
+            <div class="flex flex-wrap gap-4 pt-4">
+              <a href={`/register?program=course&course=${course?.id}`} class="px-8 py-4 btn-brand-gradient text-white font-bold rounded-2xl text-sm transition-all shadow-lg hover:scale-105 flex items-center gap-2">
+                Register Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+              <a href="#overview-section" class="px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-2xl text-sm transition-all shadow-md flex items-center justify-center">
+                Explore Curriculum
+              </a>
             </div>
-
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-700 block">Mobile Number</label>
-              <input type="tel" name="mobile" required placeholder="Mobile number" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" />
-            </div>
-
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-700 block">Learning Mode</label>
-              <select name="mode" class="w-full px-3 py-2 text-sm rounded-lg border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-white">
-                <option value="Hybrid">Hybrid (Classroom & Online)</option>
-                <option value="Offline">Offline Center (Darbhanga)</option>
-                <option value="Online">Online Classes</option>
-              </select>
-            </div>
-
-            <button type="submit" class="w-full py-3 bg-[#d9383a] text-white font-bold rounded-lg text-xs hover:bg-[#c12f31] transition-all shadow-md">
-              Proceed to Register Now
-            </button>
-          </form>
-
-          <div class="text-[10px] text-slate-400 text-center leading-normal">
-            * Clicking proceed will transfer your input to the final registration details panel.
           </div>
+
+          <!-- Hero Image visual card (Right Column) -->
+          <div class="lg:col-span-5 relative">
+            <div class="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-secondary to-accent opacity-25 blur-lg animate-float-medium"></div>
+            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-primary/45 backdrop-blur-xl">
+              <img src={course?.image} alt={`${course?.name} course at Margdarshak`} class="w-full h-64 md:h-80 object-cover" loading="eager" fetchpriority="high" decoding="async" width="600" height="320" />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-85"></div>
+              
+              <!-- Absolute Details Overlapping Image -->
+              <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+                <div class="space-y-1">
+                  <span class="text-[10px] text-accent uppercase font-black tracking-wider block">Authorized Course Partner</span>
+                  <h4 class="text-white font-headline font-bold text-sm">Margdarshak Shikshan Sansthan</h4>
+                </div>
+                <div class="bg-secondary text-white text-[10px] font-black px-3 py-1.5 rounded-lg border border-secondary/20 shadow-md">
+                  ISO 9001:2015
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- 2. Quick Course Snapshots -->
+    <section class="bg-slate-100 py-8 border-b border-slate-200/60">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
+              <span class="material-symbols-outlined text-xl">schedule</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Duration</span>
+              <span class="text-xs font-extrabold text-primary">{course?.duration}</span>
+            </div>
+          </div>
 
-</Layout>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+              <span class="material-symbols-outlined text-xl font-bold">layers</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Learning Mode</span>
+              <span class="text-xs font-extrabold text-primary">Hybrid Classes</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+              <span class="material-symbols-outlined text-xl">workspace_premium</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Certificate</span>
+              <span class="text-xs font-extrabold text-primary">ISO Accredited</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+              <span class="material-symbols-outlined text-xl">work</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Internship</span>
+              <span class="text-xs font-extrabold text-primary">1-Month incl.</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
+              <span class="material-symbols-outlined text-xl">terminal</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Projects</span>
+              <span class="text-xs font-extrabold text-primary">Live Clients</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+              <span class="material-symbols-outlined text-xl">savings</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase block">Fee Refund</span>
+              <span class="text-xs font-extrabold text-primary">100% Option</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Layout Section -->
+    <section class="py-16 bg-white" id="overview-section">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Left Column Content (Col-span 8) -->
+          <div class="lg:col-span-8 space-y-16">
+            
+            <!-- 3. Course Overview -->
+            <div class="space-y-4">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Course Overview
+              </h2>
+              <div class="glass-card-premium p-6 md:p-8 rounded-3xl border border-slate-200/60 bg-slate-50/50 shadow-sm">
+                <p class="text-slate-600 leading-relaxed text-base md:text-lg font-body">
+                  {course?.fullDescription}
+                </p>
+                <div class="mt-6 pt-6 border-t border-slate-200/60 text-sm text-slate-500 font-semibold flex flex-col sm:flex-row gap-2 sm:gap-6">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-lg">school</span>
+                    <span><strong>Eligibility:</strong> {course?.eligible}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. What You'll Learn -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                What You'll Learn
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {(course?.learnItems || []).map(item => (
+                  <div class="flex items-start gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:border-secondary/25 transition-all">
+                    <span class="material-symbols-outlined text-emerald-500 mt-0.5 font-bold shrink-0">check_circle</span>
+                    <span class="text-slate-700 text-sm md:text-base font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- 5. Tools & Technologies -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Tools & Technologies Covered
+              </h2>
+              <div class="flex flex-wrap gap-3">
+                {(course?.tags || []).map(tag => (
+                  <span class="px-5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-full font-bold text-xs md:text-sm shadow-sm transition-all hover:bg-secondary hover:text-white hover:border-secondary cursor-default">
+                    {tag}
+                  </span>
+                ))}
+                {/* Standard addition if tags are less */}
+                {(!course?.tags || course.tags.length < 3) && (
+                  <>
+                    <span class="px-5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-full font-bold text-xs md:text-sm shadow-sm">Industry Best Practices</span>
+                    <span class="px-5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-full font-bold text-xs md:text-sm shadow-sm">Real Ledgers</span>
+                    <span class="px-5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-full font-bold text-xs md:text-sm shadow-sm">Live Portals</span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <!-- 6. Learning Journey / Curriculum Timeline -->
+            <div class="space-y-8">
+              <div>
+                <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                  <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                  Learning Journey & Curriculum
+                </h2>
+                <p class="text-xs md:text-sm text-slate-500 font-medium mt-1">Our comprehensive training layout mapped by development milestones:</p>
+              </div>
+
+              <!-- Vertical Timeline -->
+              <div class="relative border-l-2 border-slate-200 pl-8 ml-4 space-y-10">
+                {timelineSteps.map((step, idx) => (
+                  <div class="relative group">
+                    <!-- Dot marker -->
+                    <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-white border-2 border-slate-300 group-hover:border-secondary transition-colors duration-300 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 rounded-full bg-slate-300 group-hover:bg-secondary transition-colors duration-300"></div>
+                    </div>
+                    
+                    <div class="space-y-1.5">
+                      <span class="text-xs font-bold text-secondary font-headline uppercase block">Phase 0{idx + 1}</span>
+                      <h4 class="text-slate-800 font-headline font-black text-base md:text-lg leading-snug group-hover:text-primary transition-colors">{step.title}</h4>
+                      <p class="text-slate-500 text-xs md:text-sm leading-relaxed font-body max-w-2xl">{step.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- 7. Internship Experience -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Integrated Internship Experience
+              </h2>
+              <div class="glass-card-premium p-6 md:p-8 rounded-3xl border border-secondary/15 bg-secondary/[0.01] space-y-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+                    <span class="material-symbols-outlined text-2xl font-bold">work</span>
+                  </div>
+                  <div>
+                    <h3 class="text-lg md:text-xl font-headline font-black text-primary">1-Month Smart Internship Included</h3>
+                    <p class="text-xs text-slate-500 font-medium">Bridges training duration into practical corporate workflows</p>
+                  </div>
+                </div>
+
+                <p class="text-slate-700 text-sm md:text-base leading-relaxed">
+                  {course?.internshipIncluded}. You will work side-by-side with senior mentors to practice real billing, accounts reconciliation, web coding, or digital marketing campaigns. Highlights include:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="flex items-start gap-2 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">terminal</span>
+                    <div class="text-xs">
+                      <strong class="text-slate-800 font-bold block mb-0.5">Live Simulation</strong>
+                      <span class="text-slate-500 leading-normal">Work on actual business invoice logs, web files, or traffic calendars.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">group</span>
+                    <div class="text-xs">
+                      <strong class="text-slate-800 font-bold block mb-0.5">Mentorship</strong>
+                      <span class="text-slate-500 leading-normal">Get weekly reviews, code analysis, or ledger audits from senior specialists.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">badge</span>
+                    <div class="text-xs">
+                      <strong class="text-slate-800 font-bold block mb-0.5">Official Experience Letter</strong>
+                      <span class="text-slate-500 leading-normal">Complete tasks to earn a verified Corporate Internship Certificate.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">photo_library</span>
+                    <div class="text-xs">
+                      <strong class="text-slate-800 font-bold block mb-0.5">Portfolio Building</strong>
+                      <span class="text-slate-500 leading-normal">Assemble all internship assignments into a ready portfolio to present to employers.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. Certification Details -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Official Experience & Course Certification
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-slate-50 p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <!-- Trust Text (Left Side) -->
+                <div class="md:col-span-7 space-y-4">
+                  <div class="inline-block bg-accent/20 text-primary border border-accent/30 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                    ISO 9001:2015 Verified NGO
+                  </div>
+                  <h4 class="text-xl font-headline font-bold text-primary">
+                    Certified Professional Record
+                  </h4>
+                  <p class="text-slate-600 text-sm leading-relaxed font-body">
+                    {course?.certificateDetails} All certificates come with a unique verification ID which can be authenticated on our portal by employers worldwide.
+                  </p>
+                  <ul class="space-y-2 text-xs text-slate-700 font-semibold font-headline">
+                    <li class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-secondary text-base">check_circle</span> Valid for both Public & Private sector roles
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-secondary text-base">check_circle</span> Unique registration database verification ID
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-secondary text-base">check_circle</span> Stamped authorization from Registered NGO
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Styled HTML Mock Certificate Frame (Right Side) -->
+                <div class="md:col-span-5 relative">
+                  <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-accent to-secondary opacity-15 blur-md"></div>
+                  <div class="relative bg-white border-4 border-slate-200 p-4 rounded-2xl shadow-lg space-y-4 text-center select-none overflow-hidden min-h-[220px] flex flex-col justify-between">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-accent/10 rounded-full"></div>
+                    
+                    <div class="space-y-1">
+                      <div class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">Certificate of Completion</div>
+                      <div class="w-6 h-0.5 bg-accent mx-auto"></div>
+                    </div>
+                    
+                    <div class="space-y-1 py-2">
+                      <div class="text-[7px] text-slate-400 uppercase">This is presented to</div>
+                      <div class="text-xs font-headline font-bold text-primary border-b border-dashed border-slate-300 w-3/4 mx-auto pb-0.5">Your Full Name</div>
+                      <div class="text-[6px] text-slate-500 max-w-[90%] mx-auto mt-1 leading-normal font-medium font-body">For successful course completion and practical assignments in {course?.name}.</div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2 border-t border-slate-100 text-[6px] text-slate-400">
+                      <div>
+                        <div class="font-bold text-slate-700">Margdarshak</div>
+                        <div>Authorized Signature</div>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-accent/15 border border-accent/20 flex items-center justify-center font-black text-accent text-[8px]">
+                        SEAL
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 9. Career Opportunities -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Career Opportunities
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {(course?.careerOpportunities || []).map(job => (
+                  <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-secondary/20 transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-secondary font-bold">trending_flat</span>
+                    <span class="text-slate-700 font-semibold text-sm md:text-base">{job}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- 10. Refund Opportunity -->
+            <div class="space-y-6">
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary to-slate-900 border border-white/10 text-white p-8 md:p-10">
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-secondary/10 rounded-full filter blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -top-20 w-60 h-60 bg-accent/5 rounded-full filter blur-3xl pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+                  <div class="md:col-span-8 space-y-5">
+                    <div class="inline-flex items-center gap-2 bg-secondary/25 border border-secondary/35 px-4 py-1 rounded-full">
+                      <span class="material-symbols-outlined text-xs text-secondary animate-bounce font-bold">savings</span>
+                      <span class="text-[10px] font-extrabold uppercase tracking-widest text-white">Guaranteed Refund Opportunity</span>
+                    </div>
+                    <h3 class="text-3xl font-headline font-black leading-tight text-white">
+                      Attend regularly, <br />
+                      <span class="text-gradient-purple-orange">Get 100% Fee Refund</span>
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed font-body font-medium">
+                      We prioritize discipline. The dynamic monthly fee ensures training commitments. Maintain the attendance milestones and submit your assignments to get every single rupee refunded!
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-white/10 pt-4 text-xs font-semibold">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-accent">check_circle</span> 90%+ Attendance Target
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-accent">check_circle</span> Regular Assignment Submissions
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Visual Stamp (Right Side) -->
+                  <div class="md:col-span-4 flex flex-col items-center justify-center text-center space-y-3 bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+                    <div class="text-4xl md:text-5xl font-black text-accent font-headline">100%</div>
+                    <div class="text-xs uppercase tracking-wider font-extrabold text-slate-300 font-headline">Tuition Fee Refund</div>
+                    <div class="w-8 h-0.5 bg-secondary"></div>
+                    <div class="text-[9px] text-slate-400">Policy Details Applied</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 11. Why Choose Margdarshak -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Why Choose Margdarshak
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">payments</span>
+                  <h4 class="font-headline font-bold text-primary text-base">Affordable Learning</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Easy monthly installment options with full refund scholarship policy available.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">devices</span>
+                  <h4 class="font-headline font-bold text-primary text-base">Hybrid Learning</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Classroom center support combined with digital portal access and live classes.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">work</span>
+                  <h4 class="font-headline font-bold text-primary text-base">1-Month Internship</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Integrated internship on actual business ledgers or development modules.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">psychology</span>
+                  <h4 class="font-headline font-bold text-primary text-base">AI-Based Tools</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Learn modern generative workflows to make you 2x faster at practical tasks.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">handshake</span>
+                  <h4 class="font-headline font-bold text-primary text-base">Placement Support</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Direct routing to local enterprises, resume screening, and interview drills.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3 hover:shadow-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-3xl font-bold">supervisor_account</span>
+                  <h4 class="font-headline font-bold text-primary text-base">Expert Mentors</h4>
+                  <p class="text-slate-500 text-xs leading-normal font-body font-medium">Support from professionals with deep industry compliance or code experience.</p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 12. Frequently Asked Questions -->
+            <div class="space-y-6">
+              <h2 class="text-2xl md:text-3xl font-headline font-black text-primary flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-secondary rounded-full"></span>
+                Frequently Asked Questions
+              </h2>
+
+              <div class="space-y-4">
+                
+                <div class="faq-item border border-slate-200 bg-slate-50 rounded-2xl overflow-hidden transition-all duration-300">
+                  <button class="w-full flex justify-between items-center p-5 text-left font-headline font-bold text-primary text-sm md:text-base focus:outline-none">
+                    <span>Who can join this course?</span>
+                    <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="p-5 pt-0 text-slate-500 text-xs md:text-sm font-body font-medium leading-relaxed border-t border-slate-100 bg-white">
+                      {course?.eligible}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item border border-slate-200 bg-slate-50 rounded-2xl overflow-hidden transition-all duration-300">
+                  <button class="w-full flex justify-between items-center p-5 text-left font-headline font-bold text-primary text-sm md:text-base focus:outline-none">
+                    <span>Do I get an internship?</span>
+                    <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="p-5 pt-0 text-slate-500 text-xs md:text-sm font-body font-medium leading-relaxed border-t border-slate-100 bg-white">
+                      Yes! A 1-month practical internship is fully integrated into the course. You will work on real client files, draft compliance reports or frontend pages, and receive an official Experience Certificate.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item border border-slate-200 bg-slate-50 rounded-2xl overflow-hidden transition-all duration-300">
+                  <button class="w-full flex justify-between items-center p-5 text-left font-headline font-bold text-primary text-sm md:text-base focus:outline-none">
+                    <span>How does the 100% Fee Refund Opportunity work?</span>
+                    <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="p-5 pt-0 text-slate-500 text-xs md:text-sm font-body font-medium leading-relaxed border-t border-slate-100 bg-white">
+                      Maintain 90%+ attendance throughout the training lectures, submit your assignments on schedule, and complete the integrated internship module. Upon validation of milestones, Margdarshak Shikshan Sansthan refunds your entire tuition fee!
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item border border-slate-200 bg-slate-50 rounded-2xl overflow-hidden transition-all duration-300">
+                  <button class="w-full flex justify-between items-center p-5 text-left font-headline font-bold text-primary text-sm md:text-base focus:outline-none">
+                    <span>Do I receive a certificate?</span>
+                    <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="p-5 pt-0 text-slate-500 text-xs md:text-sm font-body font-medium leading-relaxed border-t border-slate-100 bg-white">
+                      Yes, you will receive an ISO 9001:2015 certified completion and internship experience certificate from Margdarshak Shikshan Sansthan. Certificates come with a unique registration verification ID.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item border border-slate-200 bg-slate-50 rounded-2xl overflow-hidden transition-all duration-300">
+                  <button class="w-full flex justify-between items-center p-5 text-left font-headline font-bold text-primary text-sm md:text-base focus:outline-none">
+                    <span>Can beginners join this course?</span>
+                    <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="p-5 pt-0 text-slate-500 text-xs md:text-sm font-body font-medium leading-relaxed border-t border-slate-100 bg-white">
+                      Absolutely. All our courses are designed from the ground up, starting from absolute basics to advanced job-ready levels. No prior coding or accounting experience is required.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column Sticky Sidebar Card (Col-span 4) -->
+          <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+            <div class="bg-primary text-white p-6 rounded-3xl space-y-6 shadow-xl relative overflow-hidden border border-white/5">
+              <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full"></div>
+              
+              <div>
+                <span class="text-xs uppercase tracking-wider text-accent font-extrabold block mb-1">Duration: {course?.duration}</span>
+                <h3 class="text-xl font-headline font-black leading-tight text-white mb-2">{course?.name}</h3>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-3xl font-black text-white">{course?.fee}</span>
+                </div>
+                <div class="text-[10px] text-slate-300 mt-1 font-medium">Payable in easy monthly installments</div>
+              </div>
+
+              <!-- Highlights list -->
+              <div class="border-t border-white/10 pt-4 space-y-3">
+                <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-200">
+                  <span class="material-symbols-outlined text-sm text-accent">check_circle</span>
+                  <span>Hybrid Learning Model</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-200">
+                  <span class="material-symbols-outlined text-sm text-accent">check_circle</span>
+                  <span>Certificate Included (ISO Verified)</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-200">
+                  <span class="material-symbols-outlined text-sm text-accent">check_circle</span>
+                  <span>1-Month Integrated Internship</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-200">
+                  <span class="material-symbols-outlined text-sm text-accent">check_circle</span>
+                  <span>100% Fee Refund Opportunity</span>
+                </div>
+              </div>
+
+              <!-- Primary CTA -->
+              <div class="pt-2">
+                <a href={`/register?program=course&course=${course?.id}`} class="w-full py-4 btn-brand-gradient text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:scale-[1.02] transition-all shadow-md font-headline">
+                  Register Now <span class="material-symbols-outlined text-xs font-bold">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- Secondary CTA (Three Action Buttons) -->
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/10">
+                <a href={playStoreLink} target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all hover:scale-105" title="Download Android App">
+                  <span class="material-symbols-outlined text-base">download_for_offline</span>
+                  <span class="text-[8px] font-bold uppercase tracking-wider">App</span>
+                </a>
+                
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all hover:scale-105" title="Chat on WhatsApp">
+                  <span class="material-symbols-outlined text-base text-[#25D366]">chat</span>
+                  <span class="text-[8px] font-bold uppercase tracking-wider">WhatsApp</span>
+                </a>
+
+                <a href={dialPhone} class="flex flex-col items-center justify-center gap-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all hover:scale-105" title="Call Coordinator">
+                  <span class="material-symbols-outlined text-base">call</span>
+                  <span class="text-[8px] font-bold uppercase tracking-wider">Call Now</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Related Courses -->
+    {relatedCourses.length > 0 && (
+      <section class="py-20 bg-slate-50 border-t border-slate-200/50">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-6 space-y-12">
+          
+          <div class="text-center space-y-2">
+            <span class="text-xs font-black uppercase text-secondary tracking-widest block font-headline">Continuous Education</span>
+            <h2 class="text-2xl md:text-3xl font-headline font-black text-primary">Other Professional Courses</h2>
+            <p class="text-slate-500 text-xs md:text-sm max-w-md mx-auto font-body font-medium">Explore related training programs to add to your skills:</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {relatedCourses.map(item => (
+              <div class="group bg-white border border-slate-200/80 rounded-3xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift flex flex-col justify-between">
+                <div>
+                  <div class="h-44 overflow-hidden relative bg-slate-100">
+                    <img alt={item.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={item.image} loading="lazy" decoding="async" width="400" height="176" />
+                    <div class="absolute top-4 right-4 bg-primary text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                      Fee: {item.fee}
+                    </div>
+                  </div>
+                  <div class="p-5 space-y-3">
+                    <div class="flex items-center gap-2 text-secondary font-bold text-xs">
+                      <span class="material-symbols-outlined text-sm">schedule</span> Duration: {item.duration}
+                    </div>
+                    <h3 class="text-lg font-headline font-bold text-primary group-hover:text-secondary transition-colors line-clamp-1">
+                      {item.name}
+                    </h3>
+                    <p class="text-slate-500 text-xs leading-relaxed line-clamp-2 font-body font-medium">
+                      {item.shortDescription}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="p-5 pt-0 space-y-2">
+                  <div class="grid grid-cols-2 gap-2">
+                    <a href={`/courses/${item.id}`} class="py-2.5 rounded-lg border border-slate-200 hover:border-primary text-primary font-bold text-center text-xs hover:bg-slate-50 transition-all font-headline">
+                      View Details
+                    </a>
+                    <a href={`/register?program=course&course=${item.id}`} class="py-2.5 rounded-lg btn-brand-gradient text-white font-bold text-center text-xs hover:scale-105 transition-all shadow-sm font-headline">
+                      Register Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+    )}
+
+    <!-- Dynamic FAQ Accordion Script -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+          const btn = item.querySelector('button');
+          const content = item.querySelector('.faq-content');
+          const icon = item.querySelector('.faq-icon');
+          
+          btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+            
+            // Close all active items
+            faqItems.forEach(otherItem => {
+              otherItem.classList.remove('active', 'shadow-premium', 'bg-white');
+              otherItem.classList.add('bg-slate-50/55');
+              otherItem.querySelector('.faq-content').style.maxHeight = '0px';
+              otherItem.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+              otherItem.classList.remove('border-secondary');
+              otherItem.classList.add('border-slate-200');
+            });
+            
+            if (!isOpen) {
+              item.classList.add('active', 'shadow-premium', 'bg-white');
+              item.classList.remove('bg-slate-50/55', 'border-slate-200');
+              item.classList.add('border-secondary');
+              content.style.maxHeight = content.scrollHeight + 'px';
+              icon.style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      });
+    </script>
+
+  </Layout>
+)}
+

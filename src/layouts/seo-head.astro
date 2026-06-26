@@ -1,0 +1,124 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  ogImage = '/assets/new_hero_illustration.png',
+  ogType = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = 'https://margdarshak.in';
+const canonicalURL = new URL(canonicalPath, siteUrl).href;
+const ogImageURL = new URL(ogImage, siteUrl).href;
+const siteName = 'Margdarshak Shikshan Sansthan';
+
+// Default Organization schema (present on every page)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": siteName,
+  "alternateName": "Margdarshak",
+  "url": siteUrl,
+  "logo": new URL('/logo-navbar.svg', siteUrl).href,
+  "description": "Job-oriented skill development institute in Darbhanga, Bihar. Courses in Web Development, Tally, GST, Digital Marketing with 100% fee refund guarantee.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Near Darbhanga Medical College",
+    "addressLocality": "Darbhanga",
+    "addressRegion": "Bihar",
+    "postalCode": "846003",
+    "addressCountry": "IN"
+  },
+  "telephone": "+919229025257",
+  "sameAs": [
+    "https://wa.me/919229025257",
+    "https://play.google.com/store/apps/details?id=co.varys.shacc"
+  ],
+  "foundingDate": "2020",
+  "areaServed": {
+    "@type": "City",
+    "name": "Darbhanga"
+  }
+};
+
+// WebPage schema
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": canonicalURL,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl
+  },
+  "inLanguage": "en",
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "url": siteUrl
+  }
+};
+
+// Merge all schemas
+const allSchemas = [organizationSchema, webPageSchema];
+if (jsonLd) {
+  if (Array.isArray(jsonLd)) {
+    allSchemas.push(...jsonLd);
+  } else {
+    allSchemas.push(jsonLd);
+  }
+}
+---
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Robots -->
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+)}
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="en_IN" />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Additional SEO -->
+<meta name="theme-color" content="#071426" />
+<meta name="author" content={siteName} />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+
+<!-- Structured Data (JSON-LD) -->
+{allSchemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

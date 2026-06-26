@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Registration Confirmed - Margdarshak Shikshan Sansthan" description="Thank you for registering. Your seat reservation is being processed. Complete your verification to get started." noindex={true}>
+  <div class="relative min-h-[80vh] flex items-center justify-center py-12 px-3 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Glow Blobs -->
+    <div class="glow-blob bg-secondary/10 w-[400px] h-[400px] -top-20 -left-20 animate-pulse-glow"></div>
+    <div class="glow-blob bg-accent/10 w-[500px] h-[500px] -bottom-20 -right-20 animate-pulse-glow"></div>
+
+    <div class="max-w-2xl w-full space-y-8 relative z-10">
+      
+      <!-- Card Container -->
+      <div class="glass-card-premium p-5 sm:p-8 md:p-12 rounded-3xl sm:rounded-4xl border border-slate-200/60 shadow-premium text-center space-y-8 hover-lift">
+        
+        <!-- Animated Checkmark Icon -->
+        <div class="flex justify-center">
+          <div class="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center border-4 border-emerald-500 animate-bounce shadow-lg shadow-emerald-500/10">
+            <svg class="w-12 h-12 text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Success Header -->
+        <div class="space-y-3">
+          <h1 class="text-3xl md:text-4xl font-headline font-black text-primary tracking-tight">
+            Registration <span class="text-gradient-purple-orange">Confirmed!</span>
+          </h1>
+          <p class="text-slate-600 text-sm md:text-base max-w-md mx-auto" id="success-welcome">
+            Thank you for enrolling. Your seat query has been successfully registered in our database.
+          </p>
+        </div>
+
+        <!-- Dynamic Summary Card -->
+        <div class="bg-slate-50/80 border border-slate-200/80 rounded-3xl p-6 text-left space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-200/60 pb-3">
+            <span class="material-symbols-outlined text-secondary font-bold">assignment_turned_in</span>
+            <h3 class="font-headline font-bold text-primary text-base">Seat Reservation Details</h3>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div class="space-y-1">
+              <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Candidate Name</span>
+              <p class="font-semibold text-slate-800" id="summary-name">Loading...</p>
+            </div>
+            <div class="space-y-1">
+              <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Selected Program</span>
+              <p class="font-semibold text-slate-800" id="summary-program">Loading...</p>
+            </div>
+            <div class="space-y-1">
+              <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Learning Mode</span>
+              <p class="font-semibold text-slate-800" id="summary-mode">Loading...</p>
+            </div>
+            <div class="space-y-1">
+              <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Status</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                Awaiting Verification
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance Highlight -->
+        <div class="bg-gradient-to-r from-secondary/5 to-accent/5 border border-secondary/10 p-5 rounded-2xl space-y-2 text-left">
+          <div class="flex items-center gap-2 text-secondary font-bold text-sm">
+            <span class="material-symbols-outlined text-base">verified_user</span>
+            <span>Fee Refund Scheme Activated</span>
+          </div>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Maintain <strong class="text-secondary">90%+ attendance</strong> during your program and complete all weekly tasks to remain eligible for our <strong class="text-slate-800">100% Fee Refund Opportunity</strong>.
+          </p>
+        </div>
+
+        <!-- WhatsApp Call To Action -->
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <h4 class="font-headline font-bold text-slate-800 text-sm md:text-base">What's the next step?</h4>
+            <p class="text-slate-500 text-xs md:text-sm">
+              An enrollment manager will call you within 2 hours. To speed up verification and secure your batch timing immediately, send your name to our WhatsApp Desk.
+            </p>
+          </div>
+          
+          <a 
+            id="whatsapp-cta" 
+            href="https://wa.me/919229025257" 
+            target="_blank" 
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold rounded-2xl shadow-lg hover:scale-[1.03] transition-all duration-300"
+          >
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.588 1.485 5.407 1.486 5.49.003 9.953-4.461 9.956-9.956.002-2.662-1.032-5.164-2.909-7.042C17.225 1.762 14.72 .727 12.008.727c-5.499 0-9.963 4.463-9.967 9.96c-.001 1.958.51 3.868 1.482 5.51L2.551 22.08l6.096-1.602c1.78.97 3.84 1.488 5.92 1.488zM18.02 14.86c-.33-.165-1.95-.963-2.25-1.073-.3-.11-.52-.165-.74.165-.22.33-.85 1.073-1.04 1.293-.19.22-.38.248-.71.083-.33-.165-1.4-.516-2.668-1.648-.986-.88-1.653-1.968-1.846-2.3-.19-.33-.02-.508.145-.672.15-.148.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.05-.413-.025-.578-.075-.165-.74-1.788-1.01-2.45-.27-.648-.54-.56-.74-.57h-.63c-.22 0-.58.083-.88.413-.3.33-1.15 1.128-1.15 2.75s1.18 3.19 1.35 3.41c.17.22 2.33 3.56 5.65 4.99 2.76 1.19 3.75 1.29 5.09 1.09.78-.115 2.33-.95 2.66-1.87.33-.92.33-1.705.23-1.87-.1-.165-.36-.275-.72-.44z"/>
+            </svg>
+            <span>Verify & Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Navigation CTAs -->
+        <div class="border-t border-slate-200/60 pt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="/courses" class="text-xs md:text-sm font-headline font-bold text-primary hover:text-secondary flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-lg">school</span>
+            Explore Our Courses
+          </a>
+          <span class="hidden sm:inline text-slate-300">|</span>
+          <a href="/internships" class="text-xs md:text-sm font-headline font-bold text-primary hover:text-secondary flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-lg">work</span>
+            Explore Internships
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse parameters
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('name') || '';
+      const programName = params.get('programName') || 'Job-Oriented Program';
+      const mode = params.get('mode') || 'Hybrid';
+
+      // Update welcome text if name exists
+      if (name) {
+        document.getElementById('success-welcome').innerHTML = `Thank you <strong>${name}</strong> for enrolling! Your seat query has been successfully registered in our database.`;
+        document.getElementById('summary-name').textContent = name;
+      } else {
+        document.getElementById('summary-name').textContent = 'Student Candidate';
+      }
+
+      // Update program & mode
+      document.getElementById('summary-program').textContent = programName;
+      document.getElementById('summary-mode').textContent = mode;
+
+      // Update WhatsApp link with customized message
+      const whatsappCTA = document.getElementById('whatsapp-cta');
+      if (whatsappCTA) {
+        const textMessage = `Hello Margdarshak Desk, my name is ${name || 'Candidate'}. I have just registered for the ${programName} program in ${mode} learning mode. Please verify my application and confirm my seat!`;
+        whatsappCTA.href = `https://wa.me/919229025257?text=${encodeURIComponent(textMessage)}`;
+      }
+    });
+  </script>
+</Layout>

@@ -1,0 +1,10 @@
+# Robots.txt for Margdarshak Shikshan Sansthan
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://margdarshak.in/sitemap-index.xml

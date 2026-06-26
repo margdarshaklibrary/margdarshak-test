@@ -4,273 +4,1118 @@ import { courses } from '../data/courses.js';
 import { internships } from '../data/internships.js';
 ---
 
-<Layout title="Register Now - Margdarshak Shikshan Sansthan" description="Register for a course or internship program at Margdarshak Shikshan Sansthan. Secure your seat online for Tally, GST, Web Development and more.">
+<Layout 
+  title="Register for Courses & Internships — Margdarshak Shikshan Sansthan, Darbhanga" 
+  description="Register for a course or internship at Margdarshak Shikshan Sansthan. Secure your seat online for Web Development, Tally, GST, Digital Marketing & more for just ₹1,000/month with 100% refund."
+  ogImage="/assets/register_hero.jpg"
+>
   
-  <!-- Page Header -->
-  <section class="hero-gradient text-white py-16">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 text-center space-y-4">
-      <div class="inline-block bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-        Enrollment Desk
+  <!-- Premium SaaS + EdTech Hero Section -->
+  <section class="hero-gradient text-white py-16 md:py-24 relative overflow-hidden">
+    <!-- Background glows -->
+    <div class="glow-blob bg-secondary/15 w-[350px] h-[350px] top-10 left-10 animate-float-slow" aria-hidden="true"></div>
+    <div class="glow-blob bg-accent/15 w-[400px] h-[400px] -bottom-20 right-10 animate-float-medium" aria-hidden="true"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Hero Text Column -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/15 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-accent">
+          <span class="material-symbols-outlined text-sm font-bold animate-ping">radio_button_checked</span>
+          Admissions Open
+        </div>
+        <h1 class="text-4xl md:text-6xl font-headline font-black leading-tight tracking-tight">
+          Admissions Open.<br />
+          Build Practical Skills.<br />
+          <span class="text-gradient-white-orange">Start Your Career.</span>
+        </h1>
+        <p class="text-slate-300 max-w-2xl text-base md:text-lg leading-relaxed font-body">
+          Kickstart your professional journey with our industry-driven programs. Experience hands-on practical learning, integrated internship opportunities, and complete career support—all at an affordable fee of just <span class="text-white font-bold border-b border-accent/30 pb-0.5">₹1,000/month</span>.
+        </p>
+        
+        <!-- Premium Feature Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+          <!-- Hybrid Learning -->
+          <div class="bg-white/5 border border-white/10 hover:border-white/20 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300 shadow-glass group hover:bg-white/10 hover:-translate-y-1">
+            <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary shrink-0 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-base font-bold">check</span>
+            </div>
+            <span class="text-sm font-bold text-white leading-tight font-headline">Hybrid Learning</span>
+          </div>
+          <!-- 100% Fee Refund -->
+          <div class="bg-white/5 border border-white/10 hover:border-white/20 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300 shadow-glass group hover:bg-white/10 hover:-translate-y-1">
+            <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent shrink-0 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-base font-bold">check</span>
+            </div>
+            <span class="text-sm font-bold text-white leading-tight font-headline">100% Fee Refund</span>
+          </div>
+          <!-- Government Registered -->
+          <div class="bg-white/5 border border-white/10 hover:border-white/20 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300 shadow-glass group hover:bg-white/10 hover:-translate-y-1">
+            <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary shrink-0 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-base font-bold">check</span>
+            </div>
+            <span class="text-sm font-bold text-white leading-tight font-headline">Govt. Registered</span>
+          </div>
+        </div>
       </div>
-      <h1 class="text-3xl md:text-5xl font-headline font-black">
-        Program Registration Form
-      </h1>
-      <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg">
-        Secure your seat today. Select your preferred course or internship program and kickstart your career.
-      </p>
+
+      <!-- Hero Visual Column (Displays attached image) -->
+      <div class="lg:col-span-5 flex justify-center items-center">
+        <div class="relative w-full max-w-md lg:max-w-none">
+          <div class="absolute inset-0 bg-gradient-to-tr from-secondary/30 to-accent/30 rounded-3xl blur-2xl opacity-30 animate-pulse-glow"></div>
+          <picture>
+            <img 
+              src="/assets/register_hero.jpg" 
+              alt="Margdarshak Shikshan Sansthan admissions — students registering for courses" 
+              class="w-full h-auto object-cover rounded-3xl shadow-2xl border border-white/10 relative z-10 animate-float-slow hover:scale-[1.02] transition-transform duration-500"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              width="600"
+              height="400"
+            />
+          </picture>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Content Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+  <!-- Registration Section -->
+  <section id="registration-section" class="py-16 md:py-24 bg-slate-50 relative">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       
-      <!-- Left Column: Trust-Building, Refund note, Internship note, Contacts -->
-      <div class="lg:col-span-5 space-y-8">
+      <!-- Left Column: Trust-Building & Social Proof -->
+      <div class="lg:col-span-5 space-y-6">
         
-        <!-- Trust badge section -->
-        <div class="bg-primary/5 border border-primary/10 p-6 rounded-3xl space-y-4">
-          <h3 class="text-xl font-headline font-bold text-primary flex items-center gap-2">
-            <span class="material-symbols-outlined text-secondary font-bold">verified_user</span> Why Register With Us?
-          </h3>
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
-              <span class="text-slate-600 text-sm">
-                <strong>Government Registered:</strong> National validity on MCA (Govt. of India) registered certifications.
-              </span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
-              <span class="text-slate-600 text-sm">
-                <strong>Industry Curriculum:</strong> 100% practical, project-based training on actual live-client ledgers.
-              </span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-outlined text-success mt-0.5 text-sm font-bold">check</span>
-              <span class="text-slate-600 text-sm">
-                <strong>Job Placement Assistance:</strong> Active placement drives, interview prep, and direct resume marketing.
-              </span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Refund and Internship Notes -->
-        <div class="space-y-4">
-          <h3 class="text-xl font-headline font-bold text-primary border-l-4 border-secondary pl-3">Important Notes</h3>
+        <!-- Merged Premium Info Card -->
+        <div class="relative overflow-hidden bg-white border border-slate-100 p-6 sm:p-8 rounded-3xl shadow-premium hover:shadow-premium-hover transition-all duration-300 space-y-6 hover:-translate-y-1">
+          <!-- Background decorative glows for premium feel -->
+          <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-secondary/5 rounded-full blur-[60px] pointer-events-none"></div>
+          <div class="absolute -left-16 -top-16 w-48 h-48 bg-accent/5 rounded-full blur-[60px] pointer-events-none"></div>
           
-          <div class="bg-success/5 border border-success/15 p-5 rounded-2xl space-y-2">
-            <h4 class="font-bold text-success text-sm flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">savings</span> 100% Fee Refund Policy
-            </h4>
-            <p class="text-slate-600 text-xs md:text-sm leading-relaxed">
-              We reward dedication. If you achieve **90%+ attendance** during your program and complete all weekly tasks, you are eligible for a **100% refund** of your entire course/internship fees upon completion.
-            </p>
-          </div>
+          <div class="relative z-10 space-y-6">
+            <!-- Header -->
+            <div class="space-y-2">
+              <span class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-secondary">
+                <span class="material-symbols-outlined text-xs">verified_user</span> Why Join Margdarshak?
+              </span>
+              <h3 class="text-xl sm:text-2xl font-headline font-black text-primary tracking-tight">
+                Empowering Your Career Journey
+              </h3>
+            </div>
 
-          <div class="bg-blue-50 border border-blue-100 p-5 rounded-2xl space-y-2">
-            <h4 class="font-bold text-blue-700 text-sm flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">work</span> Practical Internships
-            </h4>
-            <p class="text-slate-600 text-xs md:text-sm leading-relaxed">
-              All courses include an integrated 1-month practical internship working on live client accounting, coding files, or active advertising campaigns under direct industry supervision.
-            </p>
-          </div>
-        </div>
+            <!-- Features list -->
+            <div class="space-y-5">
+              <!-- Feature 1 -->
+              <div class="flex items-start gap-4">
+                <div class="p-2.5 bg-emerald-50 rounded-2xl text-emerald-600 shrink-0">
+                  <span class="material-symbols-outlined text-xl font-bold">check_circle</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-bold text-primary text-base">Government Recognized Credentials</h4>
+                  <p class="text-slate-500 text-xs mt-1 leading-relaxed font-body">Certifications registered under MCA (Govt. of India), recognized nationwide for employment.</p>
+                </div>
+              </div>
+              
+              <!-- Feature 2 -->
+              <div class="flex items-start gap-4">
+                <div class="p-2.5 bg-emerald-50 rounded-2xl text-emerald-600 shrink-0">
+                  <span class="material-symbols-outlined text-xl font-bold">check_circle</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-bold text-primary text-base">100% Practical Training</h4>
+                  <p class="text-slate-500 text-xs mt-1 leading-relaxed font-body">Learn by filing actual tax forms, building actual websites, and working with live accounting logs.</p>
+                </div>
+              </div>
+              
+              <!-- Feature 3 -->
+              <div class="flex items-start gap-4">
+                <div class="p-2.5 bg-emerald-50 rounded-2xl text-emerald-600 shrink-0">
+                  <span class="material-symbols-outlined text-xl font-bold">check_circle</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-bold text-primary text-base">Active Job Placement Assistance</h4>
+                  <p class="text-slate-500 text-xs mt-1 leading-relaxed font-body">Interview preparation, direct resume routing, and hiring partnership drives.</p>
+                </div>
+              </div>
 
-        <!-- Office Address and CTAs -->
-        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200/80 space-y-6">
-          <div class="space-y-2">
-            <h4 class="font-bold text-primary text-base">Office Address</h4>
-            <p class="text-slate-500 text-sm leading-relaxed">
-              VIP Road, Benta Chowk, Laheriasarai, Darbhanga – 846003 (Bihar)
-            </p>
-          </div>
+              <!-- Divider -->
+              <div class="border-t border-slate-100 my-4"></div>
 
-          <div class="grid grid-cols-2 gap-3 pt-2">
-            <a href="tel:+919229025257" class="flex items-center justify-center gap-2 py-3 bg-white text-primary rounded-xl font-bold border border-slate-200 hover:bg-slate-50 text-xs transition-all shadow-sm">
-              <span class="material-symbols-outlined text-sm font-bold">call</span> Call Desk
-            </a>
-            <a href="https://wa.me/919229025257" target="_blank" class="flex items-center justify-center gap-2 py-3 bg-success text-white rounded-xl font-bold hover:bg-emerald-600 text-xs transition-all shadow-sm">
-              <span class="material-symbols-outlined text-sm">chat</span> WhatsApp Us
-            </a>
+              <!-- Refund Offer Integration -->
+              <div class="bg-gradient-to-br from-[#071426] via-[#0d223e] to-[#071426] border border-slate-800/80 p-5 rounded-2xl text-white shadow-md relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary/15 rounded-full blur-[40px] pointer-events-none"></div>
+                <div class="relative z-10 space-y-3">
+                  <div class="flex justify-between items-start">
+                    <span class="inline-flex items-center gap-1 bg-secondary/20 border border-secondary/30 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-white">
+                      <span class="material-symbols-outlined text-[10px]">savings</span> Scholarship & Refund Policy
+                    </span>
+                  </div>
+                  
+                  <div class="space-y-1">
+                    <h5 class="text-xl font-headline font-black text-white flex items-baseline gap-1.5">
+                      90% <span class="text-accent text-sm font-bold">Attendance</span>
+                    </h5>
+                    <p class="text-lg font-headline font-extrabold text-gradient-white-orange leading-none">
+                      = 100% Fee Refund Opportunity
+                    </p>
+                  </div>
+                  
+                  <p class="text-slate-300 text-xs leading-relaxed font-body">
+                    Attend 90% of classes, submit assignments on schedule, and get your entire program fee refunded upon completion!
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Right Column: Registration Form -->
-      <div class="lg:col-span-7 bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-200/60 shadow-xl space-y-6">
-        <div>
-          <h3 class="text-2xl font-headline font-bold text-primary">Student Registration Form</h3>
-          <p class="text-slate-500 text-sm mt-1">Please provide your valid credentials to proceed with enrollment verification.</p>
+      <!-- Right Column: Premium Multi-Step Form Funnel (Sticky on Desktop) -->
+      <div class="lg:col-span-7 lg:sticky lg:top-24 bg-white p-4 sm:p-6 md:p-10 rounded-3xl sm:rounded-4xl border border-slate-100 shadow-premium relative space-y-6 sm:space-y-8 self-start">
+        
+        <!-- Form Header -->
+        <div class="space-y-1">
+          <h3 class="text-2xl font-headline font-black text-primary">Admission Application</h3>
+          <p class="text-slate-400 text-xs font-body">Please follow the steps to complete your seat reservation.</p>
         </div>
 
-        <form class="space-y-6" id="registration-form">
+        <!-- Funnel Step Progress Indicator -->
+        <div class="relative py-4">
+          <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2 z-0"></div>
+          <div class="absolute top-1/2 left-0 h-0.5 bg-secondary -translate-y-1/2 z-0 transition-all duration-500" id="progress-bar-line" style="width: 0%;"></div>
           
-          <!-- Name -->
-          <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700 block" for="name">Full Name</label>
-            <input id="name" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter your full name" type="text" required />
-          </div>
-
-          <!-- Contact info grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label class="text-sm font-bold text-slate-700 block" for="mobile">Mobile Number</label>
-              <input id="mobile" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter mobile number" type="tel" required />
+          <div class="relative z-10 flex justify-between">
+            <!-- Step 1 Dot -->
+            <div class="flex flex-col items-center gap-2">
+              <div class="w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center transition-all duration-300 ring-4 ring-secondary/20 shadow-md" id="step-dot-1">
+                1
+              </div>
+              <span class="text-[10px] font-bold text-secondary uppercase tracking-wider" id="step-label-1">Personal</span>
             </div>
+            
+            <!-- Step 2 Dot -->
+            <div class="flex flex-col items-center gap-2">
+              <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center transition-all duration-300 ring-4 ring-transparent" id="step-dot-2">
+                2
+              </div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="step-label-2">Program</span>
+            </div>
+            
+            <!-- Step 3 Dot -->
+            <div class="flex flex-col items-center gap-2">
+              <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center transition-all duration-300 ring-4 ring-transparent" id="step-dot-3">
+                3
+              </div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="step-label-3">Review</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="registration-funnel-form" class="space-y-6">
+          
+          <!-- STEP 1: Personal Details -->
+          <div id="form-step-1" class="space-y-6 transition-all duration-300">
+            <h4 class="font-headline font-bold text-slate-800 text-lg border-b border-slate-100 pb-2">Step 1: Contact Details</h4>
+            
+            <!-- Full Name -->
             <div class="space-y-2">
-              <label class="text-sm font-bold text-slate-700 block" for="whatsapp">WhatsApp Number</label>
-              <input id="whatsapp" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="Enter WhatsApp number" type="tel" required />
+              <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block font-headline" for="name">Full Name</label>
+              <div class="relative">
+                <span class="material-symbols-outlined text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 text-lg">person</span>
+                <input 
+                  id="name" 
+                  class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all font-body font-medium" 
+                  placeholder="Enter your full name" 
+                  type="text" 
+                  required 
+                />
+              </div>
+              <p class="text-xs text-rose-500 hidden font-body" id="error-name">Please enter your name</p>
+            </div>
+
+            <!-- Contact Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Mobile -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block font-headline" for="mobile">Mobile Number</label>
+                <div class="relative">
+                  <span class="material-symbols-outlined text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 text-lg">call</span>
+                  <input 
+                    id="mobile" 
+                    class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all font-body font-medium" 
+                    placeholder="10-digit number" 
+                    type="tel" 
+                    pattern="[0-9]{10}"
+                    required 
+                  />
+                </div>
+                <p class="text-xs text-rose-500 hidden font-body" id="error-mobile">Enter a valid 10-digit number</p>
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block font-headline" for="whatsapp">WhatsApp Number</label>
+                  <label class="inline-flex items-center gap-1 cursor-pointer text-[10px] text-secondary font-bold font-headline">
+                    <input type="checkbox" id="sync-whatsapp" class="rounded border-slate-300 text-secondary focus:ring-secondary" checked />
+                    Same as Mobile
+                  </label>
+                </div>
+                <div class="relative">
+                  <span class="material-symbols-outlined text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 text-lg">chat</span>
+                  <input 
+                    id="whatsapp" 
+                    class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all font-body font-medium" 
+                    placeholder="WhatsApp contact" 
+                    type="tel" 
+                    pattern="[0-9]{10}"
+                    required 
+                  />
+                </div>
+                <p class="text-xs text-rose-500 hidden font-body" id="error-whatsapp">Enter a valid WhatsApp number</p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block font-headline" for="email">Email Address</label>
+              <div class="relative">
+                <span class="material-symbols-outlined text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 text-lg">mail</span>
+                <input 
+                  id="email" 
+                  class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all font-body font-medium" 
+                  placeholder="name@example.com" 
+                  type="email" 
+                  required 
+                />
+              </div>
+              <p class="text-xs text-rose-500 hidden font-body" id="error-email">Enter a valid email address</p>
+            </div>
+
+            <!-- Next button -->
+            <div class="pt-4">
+              <button 
+                type="button" 
+                id="next-btn-1" 
+                class="w-full py-4 btn-brand-gradient text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg font-headline"
+              >
+                Continue to Program Selection
+                <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+              </button>
             </div>
           </div>
 
-          <!-- Email -->
-          <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700 block" for="email">Email Address</label>
-            <input id="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm" placeholder="name@example.com" type="email" required />
-          </div>
+          <!-- STEP 2: Program Selection -->
+          <div id="form-step-2" class="space-y-6 hidden transition-all duration-300">
+            <h4 class="font-headline font-bold text-slate-800 text-lg border-b border-slate-100 pb-2">Step 2: Choose Program & Mode</h4>
 
-          <!-- Program selection grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Program Type Tabs -->
             <div class="space-y-2">
-              <label class="text-sm font-bold text-slate-700 block" for="program-type">Select Program Type</label>
-              <select id="program-type" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
-                <option value="course">Job-Oriented Course</option>
-                <option value="internship">1-Month Internship</option>
+              <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block font-headline">Program Type</label>
+              <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-2xl">
+                <button 
+                  type="button" 
+                  id="tab-course" 
+                  class="py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all bg-white text-primary shadow-sm"
+                >
+                  Job-Oriented Course
+                </button>
+                <button 
+                  type="button" 
+                  id="tab-internship" 
+                  class="py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all text-slate-500 hover:text-slate-700"
+                >
+                  1-Month Internship
+                </button>
+              </div>
+            </div>
+
+            <!-- Selection Cards Container -->
+            <div class="space-y-3">
+              <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block font-headline">Select Your Specific Track</label>
+              
+              <!-- Courses Card Grid -->
+              <div id="grid-courses" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto pr-1">
+                {courses.map(course => (
+                  <div 
+                    class="program-card border border-slate-200 bg-white p-4 rounded-2xl cursor-pointer hover:border-secondary hover:shadow-md transition-all relative flex flex-col justify-between gap-3"
+                    data-id={course.id}
+                    data-type="course"
+                    data-name={course.name}
+                    data-duration={course.duration}
+                    data-fee={course.fee}
+                    data-category={course.tags[0] || 'Job Training'}
+                  >
+                    <!-- Select indicator dot -->
+                    <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center select-dot bg-white">
+                      <span class="material-symbols-outlined text-xs text-white font-bold select-icon hidden">check</span>
+                    </div>
+
+                    <div class="space-y-1 pr-6">
+                      <span class="inline-block bg-primary/5 text-primary text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide font-headline">
+                        {course.tags[0] || 'Job Training'}
+                      </span>
+                      <h5 class="font-headline font-bold text-primary text-sm line-clamp-1">{course.name}</h5>
+                    </div>
+
+                    <div class="flex justify-between items-center text-xs border-t border-slate-100 pt-2 text-slate-500 font-body">
+                      <div class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">schedule</span>
+                        <span>{course.duration}</span>
+                      </div>
+                      <div class="font-bold text-primary">
+                        {course.fee}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Internships Card Grid -->
+              <div id="grid-internships" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto pr-1 hidden">
+                {internships.map(internship => (
+                  <div 
+                    class="program-card border border-slate-200 bg-white p-4 rounded-2xl cursor-pointer hover:border-secondary hover:shadow-md transition-all relative flex flex-col justify-between gap-3"
+                    data-id={internship.id}
+                    data-type="internship"
+                    data-name={internship.name}
+                    data-duration={internship.duration}
+                    data-fee={internship.fee}
+                    data-category={internship.tags[0] || 'Internship'}
+                  >
+                    <!-- Select indicator dot -->
+                    <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center select-dot bg-white">
+                      <span class="material-symbols-outlined text-xs text-white font-bold select-icon hidden">check</span>
+                    </div>
+
+                    <div class="space-y-1 pr-6">
+                      <span class="inline-block bg-secondary/5 text-secondary text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide font-headline">
+                        {internship.tags[0] || 'Internship'}
+                      </span>
+                      <h5 class="font-headline font-bold text-primary text-sm line-clamp-1">{internship.name}</h5>
+                    </div>
+
+                    <div class="flex justify-between items-center text-xs border-t border-slate-100 pt-2 text-slate-500 font-body">
+                      <div class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">schedule</span>
+                        <span>{internship.duration}</span>
+                      </div>
+                      <div class="font-bold text-primary">
+                        {internship.fee}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p class="text-xs text-rose-500 hidden font-body" id="error-program">Please select a program track to continue</p>
+            </div>
+
+            <!-- Learning Mode Selection -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block font-headline" for="learning-mode">Learning Mode</label>
+              <select id="learning-mode" class="w-full px-4 py-4 rounded-xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all font-body font-medium">
+                <option value="Hybrid">Hybrid (Classroom & Live Online)</option>
+                <option value="Offline">Offline Center (Darbhanga Labs)</option>
+                <option value="Online">Online Classes</option>
               </select>
             </div>
-            <div class="space-y-2">
-              <label class="text-sm font-bold text-slate-700 block" for="program-select">Select Course or Internship</label>
-              <select id="program-select" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
-                <!-- Javascript will dynamically inject options here -->
-              </select>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-4">
+              <button 
+                type="button" 
+                id="back-btn-2" 
+                class="w-full sm:w-1/3 py-4 border border-slate-200 text-slate-500 font-bold rounded-2xl hover:bg-slate-50 hover:text-slate-700 active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 text-xs md:text-sm font-headline"
+              >
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back
+              </button>
+              
+              <button 
+                type="button" 
+                id="next-btn-2" 
+                class="w-full sm:w-2/3 py-4 btn-brand-gradient text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg text-xs md:text-sm font-headline"
+              >
+                Proceed to Confirmation
+                <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+              </button>
             </div>
           </div>
 
-          <!-- Learning mode -->
-          <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700 block" for="learning-mode">Learning Mode</label>
-            <select id="learning-mode" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm">
-              <option value="Hybrid">Hybrid (Classroom & Live Online)</option>
-              <option value="Offline">Offline Center (Darbhanga Labs)</option>
-              <option value="Online">Online Classes</option>
-            </select>
+          <!-- STEP 3: Review & Submit -->
+          <div id="form-step-3" class="space-y-6 hidden transition-all duration-300">
+            <h4 class="font-headline font-bold text-slate-800 text-lg border-b border-slate-100 pb-2">Step 3: Review Details & Submit</h4>
+            
+            <div class="bg-slate-50 border border-slate-200/60 rounded-3xl p-6 space-y-4">
+              <div class="flex justify-between items-start border-b border-slate-200/50 pb-3">
+                <h5 class="font-headline font-bold text-primary text-sm flex items-center gap-2">
+                  <span class="material-symbols-outlined text-slate-500 text-base">person</span>
+                  Applicant
+                </h5>
+                <button type="button" class="text-xs text-secondary font-bold hover:underline edit-step-1 font-headline">Edit</button>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-xs font-body">
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Full Name</span>
+                  <p class="font-semibold text-slate-800" id="review-name">-</p>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Email Address</span>
+                  <p class="font-semibold text-slate-800 truncate" id="review-email">-</p>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Mobile</span>
+                  <p class="font-semibold text-slate-800" id="review-mobile">-</p>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">WhatsApp</span>
+                  <p class="font-semibold text-slate-800" id="review-whatsapp">-</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200/60 rounded-3xl p-6 space-y-4">
+              <div class="flex justify-between items-start border-b border-slate-200/50 pb-3">
+                <h5 class="font-headline font-bold text-primary text-sm flex items-center gap-2">
+                  <span class="material-symbols-outlined text-slate-500 text-base">school</span>
+                  Selected Track
+                </h5>
+                <button type="button" class="text-xs text-secondary font-bold hover:underline edit-step-2 font-headline">Edit</button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Program Name</span>
+                  <p class="font-semibold text-slate-800" id="review-program">-</p>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Duration & Fee</span>
+                  <p class="font-semibold text-slate-800" id="review-program-cost">-</p>
+                </div>
+                <div class="space-y-0.5 col-span-1 sm:col-span-2">
+                  <span class="text-slate-400 font-bold uppercase text-[9px] tracking-wider font-headline">Learning Mode</span>
+                  <p class="font-semibold text-slate-800" id="review-mode">-</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional message -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block font-headline" for="message">Message / Background (Optional)</label>
+              <textarea 
+                id="message" 
+                class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/5 focus:outline-none text-sm transition-all h-24 font-body font-medium" 
+                placeholder="Tell us about your learning goals or custom queries..."
+              ></textarea>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-4">
+              <button 
+                type="button" 
+                id="back-btn-3" 
+                class="w-full sm:w-1/3 py-4 border border-slate-200 text-slate-500 font-bold rounded-2xl hover:bg-slate-50 hover:text-slate-700 active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 text-xs md:text-sm font-headline"
+              >
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back
+              </button>
+              
+              <button 
+                type="submit" 
+                id="submit-btn" 
+                class="w-full sm:w-2/3 py-4 btn-brand-gradient text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg text-xs md:text-sm font-headline"
+              >
+                <span class="material-symbols-outlined text-sm font-bold">how_to_reg</span>
+                Register & Book Seat
+              </button>
+            </div>
           </div>
 
-          <!-- Message -->
-          <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700 block" for="message">Message (Optional)</label>
-            <textarea id="message" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm h-28" placeholder="Tell us about your learning goals or background..."></textarea>
-          </div>
-
-          <!-- Submit -->
-          <button class="w-full py-4 bg-[#d9383a] text-white font-bold rounded-xl hover:bg-[#c12f31] transition-all shadow-lg hover:shadow-secondary/20 flex items-center justify-center gap-2" type="submit">
-            <span class="material-symbols-outlined text-sm font-bold">how_to_reg</span> Register and Book Seat
-          </button>
         </form>
 
-        <!-- Form Feedback Message -->
-        <div id="register-feedback" class="hidden bg-success/10 text-success p-6 rounded-2xl border border-success/30 text-center space-y-4 shadow-sm">
-          <span class="material-symbols-outlined text-5xl text-success" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-          <h4 class="text-xl font-bold">Registration Successful!</h4>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Your seat query has been registered. An enrollment manager from Margdarshak Shikshan Sansthan will call you on your provided mobile number within 2 hours.
-          </p>
-          <div class="pt-2">
-            <a href="https://wa.me/919229025257" target="_blank" class="inline-flex items-center gap-2 px-6 py-2.5 bg-success text-white rounded-lg font-bold text-xs hover:bg-emerald-600 transition-all">
-              <span class="material-symbols-outlined text-sm">chat</span> Instant Chat on WhatsApp
-            </a>
-          </div>
-        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Client-side Dynamic Form Handling & URL Params Parsing -->
+  <!-- What Happens After Registration Section -->
+  <section class="py-16 bg-white relative overflow-hidden border-t border-slate-100">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10 text-center space-y-12">
+      <div class="space-y-3 max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-secondary">
+          <span class="material-symbols-outlined text-sm font-bold">trending_flat</span>
+          Next Steps
+        </div>
+        <h2 class="text-3xl md:text-4xl font-headline font-black text-primary leading-tight">
+          What Happens After Registration?
+        </h2>
+        <p class="text-slate-500 font-body text-sm">
+          Here is a quick overview of our seamless admission process from application to your first class.
+        </p>
+      </div>
+
+      <!-- Timeline Wrapper -->
+      <div class="relative max-w-5xl mx-auto pt-6">
+        <!-- Desktop Connection Line -->
+        <div class="absolute top-[48px] left-[10%] right-[10%] h-0.5 bg-slate-100 hidden md:block z-0">
+          <div class="h-full bg-gradient-to-r from-secondary via-brandOrange to-accent w-[33%] animate-pulse"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+          
+          <!-- Step 1 -->
+          <div class="space-y-4 flex flex-col items-center group">
+            <div class="w-16 h-16 rounded-3xl bg-secondary/10 text-secondary border border-secondary/20 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all duration-300 relative">
+              <span class="material-symbols-outlined text-2xl font-bold">how_to_reg</span>
+              <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center border border-white">1</div>
+            </div>
+            <div class="text-center space-y-1 px-4">
+              <h4 class="font-headline font-bold text-primary text-base">Submit Registration</h4>
+              <p class="text-slate-500 text-xs leading-relaxed font-body">Fill and submit your enrollment application online in minutes.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="space-y-4 flex flex-col items-center group">
+            <div class="w-16 h-16 rounded-3xl bg-brandOrange/10 text-brandOrange border border-brandOrange/20 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-brandOrange group-hover:text-white transition-all duration-300 relative">
+              <span class="material-symbols-outlined text-2xl font-bold">phone_in_talk</span>
+              <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center border border-white">2</div>
+            </div>
+            <div class="text-center space-y-1 px-4">
+              <h4 class="font-headline font-bold text-primary text-base">Confirmation Call</h4>
+              <p class="text-slate-500 text-xs leading-relaxed font-body">Our team will call you to verify details and discuss your career goals.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="space-y-4 flex flex-col items-center group">
+            <div class="w-16 h-16 rounded-3xl bg-accent/10 text-amber-600 border border-accent/20 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 relative">
+              <span class="material-symbols-outlined text-2xl font-bold">groups</span>
+              <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center border border-white">3</div>
+            </div>
+            <div class="text-center space-y-1 px-4">
+              <h4 class="font-headline font-bold text-primary text-base">Batch & Guidance</h4>
+              <p class="text-slate-500 text-xs leading-relaxed font-body">Receive your batch schedule, learning portal credentials, and study kits.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="space-y-4 flex flex-col items-center group">
+            <div class="w-16 h-16 rounded-3xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 relative">
+              <span class="material-symbols-outlined text-2xl font-bold">school</span>
+              <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center border border-white">4</div>
+            </div>
+            <div class="text-center space-y-1 px-4">
+              <h4 class="font-headline font-bold text-primary text-base">Start Learning</h4>
+              <p class="text-slate-500 text-xs leading-relaxed font-body">Attend live classrooms or online classes, complete tasks, and build skills.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents Required Section -->
+  <section class="py-16 bg-slate-50 border-t border-b border-slate-100 relative overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10 text-center space-y-10">
+      <div class="space-y-3 max-w-2xl mx-auto">
+        <h2 class="text-3xl font-headline font-black text-primary leading-tight">
+          Documents Required
+        </h2>
+        <p class="text-slate-500 font-body text-sm">
+          Please keep these standard documents ready to complete your classroom onboarding.
+        </p>
+      </div>
+
+      <!-- 4 Cards Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        
+        <!-- Aadhaar Card -->
+        <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col items-center gap-3 text-center group">
+          <div class="w-12 h-12 rounded-full bg-secondary/10 text-secondary border border-secondary/25 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-xl">badge</span>
+          </div>
+          <span class="font-headline font-bold text-slate-800 text-sm">Aadhaar Card</span>
+        </div>
+
+        <!-- Passport Size Photo -->
+        <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col items-center gap-3 text-center group">
+          <div class="w-12 h-12 rounded-full bg-brandOrange/10 text-brandOrange border border-brandOrange/25 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-xl">photo_camera</span>
+          </div>
+          <span class="font-headline font-bold text-slate-800 text-sm">Passport Size Photo</span>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col items-center gap-3 text-center group">
+          <div class="w-12 h-12 rounded-full bg-accent/10 text-amber-600 border border-accent/25 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-xl">phone_iphone</span>
+          </div>
+          <span class="font-headline font-bold text-slate-800 text-sm">Mobile Number</span>
+        </div>
+
+        <!-- Email Address -->
+        <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col items-center gap-3 text-center group">
+          <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-xl">mail</span>
+          </div>
+          <span class="font-headline font-bold text-slate-800 text-sm">Email Address</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-20 relative overflow-hidden bg-primary text-white border-t border-slate-900">
+    <!-- Glow effects -->
+    <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-secondary/15 rounded-full filter blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-accent/15 rounded-full filter blur-[120px] pointer-events-none"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10 text-center space-y-8 max-w-3xl">
+      <h2 class="text-3xl md:text-5xl font-headline font-black text-white leading-tight">
+        Ready to Start Your Career?
+      </h2>
+      <p class="text-slate-300 font-body text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+        Join Margdarshak today and begin your practical learning journey with expert mentors, practical training, and industry-focused courses.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+        <!-- Scroll back to form -->
+        <a 
+          href="#registration-section" 
+          class="btn-brand-gradient text-white px-8 h-14 rounded-2xl font-headline font-bold text-base flex items-center justify-center gap-2 w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-premium hover:shadow-secondary/20"
+        >
+          Register Now
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+        
+        <!-- App link -->
+        <a 
+          href="https://play.google.com/store/apps/details?id=co.varys.shacc" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 text-white px-8 h-14 rounded-2xl font-headline font-bold text-base transition-all duration-300 w-full sm:w-auto hover:scale-105 shadow-glass"
+        >
+          <svg class="w-5 h-5 shrink-0 fill-current" viewBox="0 0 16 16">
+            <path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96 2.694-1.586Zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055l7.294-4.295ZM1 13.396V2.603L6.847 8 1 13.396ZM1.03 1.27C1.984.716 3.143 1.297 3.344 2.326L7.583 7.32 10.627 5.5l-3.044 2.82L1.03 1.27Z"/>
+          </svg>
+          Download Our App
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client-side Dynamic Multi-Step Form Wizard Handling -->
   <script is:inline define:vars={{ courses, internships }}>
-    // Select options datasets
-    const coursesData = courses;
-    const internshipsData = internships;
-
-    const programTypeEl = document.getElementById('program-type');
-    const programSelectEl = document.getElementById('program-select');
-    const regForm = document.getElementById('registration-form');
-    const feedbackEl = document.getElementById('register-feedback');
-
-    // Function to rebuild selector options
-    function updateOptions(type, selectedValue = null) {
-      if (!programSelectEl) return;
-      programSelectEl.innerHTML = '';
-      
-      const list = type === 'internship' ? internshipsData : coursesData;
-      
-      list.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item.id;
-        option.textContent = item.name;
-        if (selectedValue && item.id === selectedValue) {
-          option.selected = true;
-        }
-        programSelectEl.appendChild(option);
-      });
-    }
-
-    // Event listener for program type change
-    if (programTypeEl) {
-      programTypeEl.addEventListener('change', (e) => {
-        updateOptions(e.target.value);
-      });
-    }
-
-    // Parse URL Search Parameters for prefilling
     document.addEventListener('DOMContentLoaded', () => {
+      // Data variables
+      const coursesData = courses;
+      const internshipsData = internships;
+
+      // DOM Elements
+      const step1El = document.getElementById('form-step-1');
+      const step2El = document.getElementById('form-step-2');
+      const step3El = document.getElementById('form-step-3');
+
+      // Buttons
+      const nextBtn1 = document.getElementById('next-btn-1');
+      const nextBtn2 = document.getElementById('next-btn-2');
+      const backBtn2 = document.getElementById('back-btn-2');
+      const backBtn3 = document.getElementById('back-btn-3');
+      const submitBtn = document.getElementById('submit-btn');
+
+      // Progress bars
+      const progressBarLine = document.getElementById('progress-bar-line');
+      const stepDot1 = document.getElementById('step-dot-1');
+      const stepDot2 = document.getElementById('step-dot-2');
+      const stepDot3 = document.getElementById('step-dot-3');
+      const stepLabel1 = document.getElementById('step-label-1');
+      const stepLabel2 = document.getElementById('step-label-2');
+      const stepLabel3 = document.getElementById('step-label-3');
+
+      // Inputs
+      const nameInput = document.getElementById('name');
+      const mobileInput = document.getElementById('mobile');
+      const whatsappInput = document.getElementById('whatsapp');
+      const emailInput = document.getElementById('email');
+      const syncWhatsappCheck = document.getElementById('sync-whatsapp');
+      const learningModeInput = document.getElementById('learning-mode');
+      const messageInput = document.getElementById('message');
+
+      // Error messages
+      const errorName = document.getElementById('error-name');
+      const errorMobile = document.getElementById('error-mobile');
+      const errorWhatsapp = document.getElementById('error-whatsapp');
+      const errorEmail = document.getElementById('error-email');
+      const errorProgram = document.getElementById('error-program');
+
+      // Tabs & Selection Cards
+      const tabCourse = document.getElementById('tab-course');
+      const tabInternship = document.getElementById('tab-internship');
+      const gridCourses = document.getElementById('grid-courses');
+      const gridInternships = document.getElementById('grid-internships');
+      const programCards = document.querySelectorAll('.program-card');
+
+      // Selected values variables
+      let selectedProgramId = '';
+      let selectedProgramType = 'course'; // default
+      let selectedProgramName = '';
+      let selectedProgramDuration = '';
+      let selectedProgramFee = '';
+
+      // Review Fields
+      const reviewName = document.getElementById('review-name');
+      const reviewEmail = document.getElementById('review-email');
+      const reviewMobile = document.getElementById('review-mobile');
+      const reviewWhatsapp = document.getElementById('review-whatsapp');
+      const reviewProgram = document.getElementById('review-program');
+      const reviewProgramCost = document.getElementById('review-program-cost');
+      const reviewMode = document.getElementById('review-mode');
+
+      // -------------------------------
+      // Sync WhatsApp with Mobile
+      // -------------------------------
+      function handleSyncWhatsapp() {
+        if (syncWhatsappCheck && syncWhatsappCheck.checked) {
+          whatsappInput.value = mobileInput.value;
+          whatsappInput.setAttribute('disabled', 'true');
+        } else {
+          whatsappInput.removeAttribute('disabled');
+        }
+      }
+
+      if (syncWhatsappCheck && mobileInput && whatsappInput) {
+        mobileInput.addEventListener('input', () => {
+          if (syncWhatsappCheck.checked) {
+            whatsappInput.value = mobileInput.value;
+          }
+        });
+        syncWhatsappCheck.addEventListener('change', handleSyncWhatsapp);
+        handleSyncWhatsapp(); // Initial run
+      }
+
+      // -------------------------------
+      // Step Wizard Navigation logic
+      // -------------------------------
+      function setProgress(step) {
+        if (step === 1) {
+          progressBarLine.style.width = '0%';
+          
+          stepDot1.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/20 shadow-md transition-all duration-300';
+          stepDot2.className = 'w-9 h-9 rounded-full bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center ring-4 ring-transparent transition-all duration-300';
+          stepDot3.className = 'w-9 h-9 rounded-full bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center ring-4 ring-transparent transition-all duration-300';
+          
+          stepLabel1.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+          stepLabel2.className = 'text-[10px] font-bold text-slate-400 uppercase tracking-wider';
+          stepLabel3.className = 'text-[10px] font-bold text-slate-400 uppercase tracking-wider';
+        } else if (step === 2) {
+          progressBarLine.style.width = '50%';
+          
+          stepDot1.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/10 shadow-md transition-all duration-300';
+          stepDot2.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/20 shadow-md transition-all duration-300';
+          stepDot3.className = 'w-9 h-9 rounded-full bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center ring-4 ring-transparent transition-all duration-300';
+          
+          stepLabel1.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+          stepLabel2.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+          stepLabel3.className = 'text-[10px] font-bold text-slate-400 uppercase tracking-wider';
+        } else if (step === 3) {
+          progressBarLine.style.width = '100%';
+          
+          stepDot1.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/10 shadow-md transition-all duration-300';
+          stepDot2.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/10 shadow-md transition-all duration-300';
+          stepDot3.className = 'w-9 h-9 rounded-full bg-secondary text-white font-bold text-xs flex items-center justify-center ring-4 ring-secondary/20 shadow-md transition-all duration-300';
+          
+          stepLabel1.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+          stepLabel2.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+          stepLabel3.className = 'text-[10px] font-bold text-secondary uppercase tracking-wider';
+        }
+      }
+
+      function showStep(step) {
+        setProgress(step);
+        if (step === 1) {
+          step1El.classList.remove('hidden');
+          step1El.classList.add('step-active-fade');
+          step2El.classList.add('hidden');
+          step2El.classList.remove('step-active-fade');
+          step3El.classList.add('hidden');
+          step3El.classList.remove('step-active-fade');
+        } else if (step === 2) {
+          step1El.classList.add('hidden');
+          step1El.classList.remove('step-active-fade');
+          step2El.classList.remove('hidden');
+          step2El.classList.add('step-active-fade');
+          step3El.classList.add('hidden');
+          step3El.classList.remove('step-active-fade');
+        } else if (step === 3) {
+          step1El.classList.add('hidden');
+          step1El.classList.remove('step-active-fade');
+          step2El.classList.add('hidden');
+          step2El.classList.remove('step-active-fade');
+          step3El.classList.remove('hidden');
+          step3El.classList.add('step-active-fade');
+          updateReviewSection();
+        }
+        window.scrollTo({
+          top: document.getElementById('registration-funnel-form').offsetTop - 150,
+          behavior: 'smooth'
+        });
+      }
+
+      // Step 1 Validation
+      function validateStep1() {
+        let isValid = true;
+        
+        if (!nameInput.value.trim()) {
+          errorName.classList.remove('hidden');
+          isValid = false;
+        } else {
+          errorName.classList.add('hidden');
+        }
+
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(mobileInput.value)) {
+          errorMobile.classList.remove('hidden');
+          isValid = false;
+        } else {
+          errorMobile.classList.add('hidden');
+        }
+
+        if (!syncWhatsappCheck.checked && !phoneRegex.test(whatsappInput.value)) {
+          errorWhatsapp.classList.remove('hidden');
+          isValid = false;
+        } else {
+          errorWhatsapp.classList.add('hidden');
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+          errorEmail.classList.remove('hidden');
+          isValid = false;
+        } else {
+          errorEmail.classList.add('hidden');
+        }
+
+        return isValid;
+      }
+
+      nextBtn1.addEventListener('click', () => {
+        if (validateStep1()) {
+          showStep(2);
+        }
+      });
+
+      // Step 2 Validation
+      function validateStep2() {
+        if (!selectedProgramId) {
+          errorProgram.classList.remove('hidden');
+          return false;
+        }
+        errorProgram.classList.add('hidden');
+        return true;
+      }
+
+      nextBtn2.addEventListener('click', () => {
+        if (validateStep2()) {
+          showStep(3);
+        }
+      });
+
+      backBtn2.addEventListener('click', () => showStep(1));
+      backBtn3.addEventListener('click', () => showStep(2));
+
+      // Edit buttons on step 3
+      document.querySelectorAll('.edit-step-1').forEach(b => b.addEventListener('click', () => showStep(1)));
+      document.querySelectorAll('.edit-step-2').forEach(b => b.addEventListener('click', () => showStep(2)));
+
+      // -------------------------------
+      // Tabs and Card Selection logic
+      // -------------------------------
+      function selectProgramTab(type) {
+        selectedProgramType = type;
+        if (type === 'course') {
+          tabCourse.className = 'py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all bg-white text-primary shadow-sm';
+          tabInternship.className = 'py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all text-slate-500 hover:text-slate-700';
+          gridCourses.classList.remove('hidden');
+          gridInternships.classList.add('hidden');
+        } else {
+          tabInternship.className = 'py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all bg-white text-primary shadow-sm';
+          tabCourse.className = 'py-3 px-4 rounded-xl font-bold font-headline text-xs md:text-sm text-center transition-all text-slate-500 hover:text-slate-700';
+          gridInternships.classList.remove('hidden');
+          gridCourses.classList.add('hidden');
+        }
+      }
+
+      tabCourse.addEventListener('click', () => selectProgramTab('course'));
+      tabInternship.addEventListener('click', () => selectProgramTab('internship'));
+
+      // Highlight program selection card
+      function selectCard(cardEl) {
+        // Remove active state from all cards
+        programCards.forEach(card => {
+          card.classList.remove('border-accent', 'bg-accent/5', 'ring-2', 'ring-accent');
+          const dot = card.querySelector('.select-dot');
+          const icon = card.querySelector('.select-icon');
+          if (dot) dot.className = 'absolute top-3 right-3 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center select-dot bg-white';
+          if (icon) icon.classList.add('hidden');
+        });
+
+        // Set active state on target card
+        cardEl.classList.add('border-accent', 'bg-accent/5', 'ring-2', 'ring-accent');
+        const dot = cardEl.querySelector('.select-dot');
+        const icon = cardEl.querySelector('.select-icon');
+        if (dot) dot.className = 'absolute top-3 right-3 w-5 h-5 rounded-full border border-accent bg-accent flex items-center justify-center select-dot shadow-md shadow-accent/10';
+        if (icon) icon.classList.remove('hidden');
+
+        // Store selected properties
+        selectedProgramId = cardEl.getAttribute('data-id');
+        selectedProgramType = cardEl.getAttribute('data-type');
+        selectedProgramName = cardEl.getAttribute('data-name');
+        selectedProgramDuration = cardEl.getAttribute('data-duration');
+        selectedProgramFee = cardEl.getAttribute('data-fee');
+
+        errorProgram.classList.add('hidden');
+      }
+
+      programCards.forEach(card => {
+        card.addEventListener('click', () => {
+          selectCard(card);
+        });
+      });
+
+      // -------------------------------
+      // Populate review step data
+      // -------------------------------
+      function updateReviewSection() {
+        reviewName.textContent = nameInput.value.trim();
+        reviewEmail.textContent = emailInput.value.trim();
+        reviewMobile.textContent = mobileInput.value.trim();
+        reviewWhatsapp.textContent = syncWhatsappCheck.checked ? mobileInput.value.trim() : whatsappInput.value.trim();
+        reviewProgram.textContent = selectedProgramName;
+        reviewProgramCost.textContent = `${selectedProgramDuration} (${selectedProgramFee})`;
+        
+        const modeText = learningModeInput.options[learningModeInput.selectedIndex].textContent;
+        reviewMode.textContent = modeText;
+      }
+
+      // -------------------------------
+      // URL Params prefill parser
+      // -------------------------------
       const params = new URLSearchParams(window.location.search);
       const paramProgram = params.get('program'); // 'course' or 'internship'
       const paramName = params.get('name');
       const paramMobile = params.get('mobile');
       const paramMode = params.get('mode');
-      
-      // Prefill fields
-      if (paramName && document.getElementById('name')) {
-        document.getElementById('name').value = paramName;
-      }
-      if (paramMobile && document.getElementById('mobile')) {
-        document.getElementById('mobile').value = paramMobile;
-        document.getElementById('whatsapp').value = paramMobile; // default whatsapp same as mobile
-      }
-      if (paramMode && document.getElementById('learning-mode')) {
-        document.getElementById('learning-mode').value = paramMode;
-      }
 
-      if (paramProgram) {
-        if (programTypeEl) {
-          programTypeEl.value = paramProgram;
+      if (paramName) nameInput.value = paramName;
+      if (paramMobile) {
+        mobileInput.value = paramMobile;
+        whatsappInput.value = paramMobile;
+      }
+      if (paramMode) learningModeInput.value = paramMode;
+
+      // Handle URL pre-selection
+      if (paramProgram === 'internship') {
+        selectProgramTab('internship');
+        const internshipId = params.get('internship');
+        if (internshipId) {
+          const targetCard = document.querySelector(`.program-card[data-type="internship"][data-id="${internshipId}"]`);
+          if (targetCard) selectCard(targetCard);
         }
-        
-        // Select specific course or internship
-        const specificId = params.get(paramProgram); // e.g. 'web-development'
-        updateOptions(paramProgram, specificId);
       } else {
-        // Default values
-        updateOptions('course');
+        selectProgramTab('course');
+        const courseId = params.get('course') || params.get('programId');
+        if (courseId) {
+          const targetCard = document.querySelector(`.program-card[data-type="course"][data-id="${courseId}"]`);
+          if (targetCard) selectCard(targetCard);
+        } else {
+          // Select first course as default
+          const defaultCard = document.querySelector('.program-card[data-type="course"]');
+          if (defaultCard) selectCard(defaultCard);
+        }
       }
-    });
 
-    // Form submission
-    if (regForm && feedbackEl) {
-      regForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        regForm.classList.add('hidden');
-        feedbackEl.classList.remove('hidden');
-        window.scrollTo({
-          top: feedbackEl.offsetTop - 150,
-          behavior: 'smooth'
+      // -------------------------------
+      // Form submission handling
+      // -------------------------------
+      const funnelForm = document.getElementById('registration-funnel-form');
+      if (funnelForm) {
+        funnelForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const origBtnText = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span> Submitting...';
+
+          const name = nameInput.value.trim();
+          const mobile = mobileInput.value.trim();
+          const whatsapp = syncWhatsappCheck.checked ? mobile : whatsappInput.value.trim();
+          const email = emailInput.value.trim();
+          const programType = selectedProgramType;
+          const programId = selectedProgramId;
+          const programName = selectedProgramName;
+          const learningMode = learningModeInput.value;
+          const message = messageInput.value.trim();
+
+          try {
+            const res = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name,
+                mobile,
+                whatsapp,
+                email,
+                programType,
+                programId,
+                programName,
+                learningMode,
+                message
+              })
+            });
+
+            const data = await res.json();
+            if (res.ok && data.success) {
+              // Redirect to success page
+              const redirectUrl = `/register/success?name=${encodeURIComponent(name)}&programName=${encodeURIComponent(programName)}&mode=${encodeURIComponent(learningMode)}`;
+              window.location.href = redirectUrl;
+            } else {
+              alert(data.error || 'Failed to submit registration. Please verify details.');
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = origBtnText;
+            }
+          } catch (err) {
+            console.error(err);
+            alert('A connection error occurred. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = origBtnText;
+          }
         });
-      });
-    }
+      }
+
+    });
   </script>
+
+  <style is:inline>
+    .step-active-fade {
+      animation: stepFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes stepFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 
 </Layout>

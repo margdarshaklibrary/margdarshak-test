@@ -25,7 +25,7 @@ export const courses = [
       "MIS Executive",
       "Customer Support Representative"
     ],
-    image: "/assets/e6c2c523cf14cdb179cc2a47f74fa092.png",
+    image: "/assets/course_dca_adca.png",
     tags: ["Office", "IT Basics", "DCA", "ADCA"]
   },
   {
@@ -53,7 +53,7 @@ export const courses = [
       "Freelance Web Developer",
       "Junior Web Support Engineer"
     ],
-    image: "/assets/a856bc10c078cf92712c1e4d43bc304c.png",
+    image: "/assets/course_web_dev.png",
     tags: ["Frontend", "JavaScript", "React", "HTML/CSS"]
   },
   {
@@ -82,7 +82,7 @@ export const courses = [
       "Digital Marketing Analyst",
       "Content Marketer / Copywriter"
     ],
-    image: "/assets/c7e044c22517bdf2d06eeb2d27d2c1ee.png",
+    image: "/assets/course_digital_marketing.png",
     tags: ["SEO", "Google Ads", "Social Media", "Analytics"]
   },
   {
@@ -111,7 +111,7 @@ export const courses = [
       "GST Billing Specialist",
       "Independent Tax Practice Practitioner"
     ],
-    image: "/assets/07b7633f773219d217e000740803f56a.png",
+    image: "/assets/course_gst_filing.png",
     tags: ["Taxation", "GST Portal", "Returns", "Compliance"]
   },
   {
@@ -140,7 +140,7 @@ export const courses = [
       "Accounts Professional",
       "Independent Tax Advisor"
     ],
-    image: "/assets/91378d2d90d7532d0ef120f202d34452.png",
+    image: "/assets/course_income_tax.png",
     tags: ["ITR", "Income Tax", "TDS", "Deductions"]
   },
   {
@@ -169,7 +169,7 @@ export const courses = [
       "Financial Analyst Assistant",
       "Back Office Operations Executive"
     ],
-    image: "/assets/59b6631ca52fa337e072d1e3b5635dd8.png",
+    image: "/assets/course_tally_excel.png",
     tags: ["Accounting", "TallyPrime", "Excel", "MIS"]
   }
 ];

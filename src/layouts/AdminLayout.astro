@@ -1,0 +1,581 @@
+---
+interface Props {
+  title?: string;
+  activeTab?: string;
+}
+
+const { title = "Margdarshak Admin Panel", activeTab = "dashboard" } = Astro.props;
+
+const menuItems = [
+  { id: "dashboard", name: "Dashboard", href: "/admin/dashboard", icon: "dashboard" },
+  { id: "courses", name: "Courses", href: "/admin/courses", icon: "menu_book" },
+  { id: "internships", name: "Internships", href: "/admin/internships", icon: "work" },
+  { id: "students", name: "Students", href: "/admin/students", icon: "group" },
+  { id: "settings", name: "Settings", href: "/admin/settings", icon: "settings" }
+];
+---
+
+<!DOCTYPE html>
+<html class="h-full bg-[#f8fafc]" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>{title}</title>
+  <!-- Fonts & Favicon -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&amp;family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Icons -->
+  <link href="/assets/a39f5c6fcbb87b419667ec984d2e579a.css" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="/assets/03ba5d9f9e95fc3599acebcbe7e5fb9a.js" is:inline></script>
+  <script id="tailwind-config" is:inline>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#071426",      // Deep Navy
+            secondary: "#E53935",    // Brand Red
+            accent: "#FFB300",       // Brand Golden Yellow
+            brandOrange: "#FF7043",  // Brand Orange
+            success: "#10b981",      // Success Green
+            background: "#f8fafc"
+          },
+          fontFamily: {
+            "headline": ["Outfit", "sans-serif"],
+            "display": ["Outfit", "sans-serif"],
+            "body": ["Plus Jakarta Sans", "sans-serif"],
+            "label": ["Outfit", "sans-serif"]
+          },
+          boxShadow: {
+            "premium": "0 10px 30px -10px rgba(7, 20, 38, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01)",
+            "premium-hover": "0 20px 40px -10px rgba(7, 20, 38, 0.12), 0 2px 5px rgba(0, 0, 0, 0.02)",
+            "glass": "inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 8px 32px 0 rgba(7, 20, 38, 0.04)"
+          }
+        }
+      }
+    }
+  </script>
+  <style is:inline>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    /* Modern Premium Glassmorphism */
+    .glass-sidebar {
+      background: rgba(7, 20, 38, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-premium {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 10px 30px -10px rgba(7, 20, 38, 0.04);
+    }
+    .btn-brand-gradient {
+      background: linear-gradient(135deg, #E53935 0%, #FF7043 50%, #FFB300 100%);
+      background-size: 200% 100%;
+      background-position: left center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-brand-gradient:hover {
+      background-position: right center;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
+    }
+    .btn-brand-gradient:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Page transitions */
+    body {
+      opacity: 0;
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(4px);
+    }
+    body.page-loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    body.page-exit {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    /* Standardized Card Hover Lift & Border Glowing Transitions */
+    .hover-lift {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, box-shadow;
+    }
+    .hover-lift:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(229, 57, 53, 0.25);
+      box-shadow: 0 20px 40px -10px rgba(7, 20, 38, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Button transitions & active states */
+    button, a.px-4, select {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    button:active, a.px-4:active {
+      transform: scale(0.97);
+    }
+
+    /* Input Focus Glows */
+    input:focus, select:focus, textarea:focus {
+      box-shadow: 0 0 15px rgba(229, 57, 53, 0.15) !important;
+      border-color: #E53935 !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Ripple Effect */
+    .btn-ripple-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(0);
+      animation: ripple-animation 0.5s linear;
+      pointer-events: none;
+    }
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Premium Modal Keyframes & Classes */
+    @keyframes overlayFadeIn {
+      from { opacity: 0; backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); }
+      to   { opacity: 1; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+    }
+    @keyframes overlayFadeOut {
+      from { opacity: 1; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+      to   { opacity: 0; backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); }
+    }
+    @keyframes modalScaleIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes modalScaleOut {
+      from { opacity: 1; transform: scale(1) translateY(0); }
+      to   { opacity: 0; transform: scale(0.95) translateY(10px); }
+    }
+
+    .modal-open-animate {
+      display: flex !important;
+      animation: overlayFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .modal-open-animate > div {
+      animation: modalScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .modal-close-animate {
+      display: flex !important;
+      animation: overlayFadeOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .modal-close-animate > div {
+      animation: modalScaleOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(7, 20, 38, 0.1);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(229, 57, 53, 0.3);
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+      .modal-open-animate, .modal-close-animate, .modal-open-animate > div, .modal-close-animate > div {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="h-full font-body antialiased text-slate-800 bg-[#f8fafc] overflow-x-hidden">
+
+  <!-- Main Layout Wrapper -->
+  <div class="flex h-screen overflow-hidden">
+    
+    <!-- Sidebar for Desktop -->
+    <aside class="hidden md:flex md:flex-col md:w-64 glass-sidebar text-white flex-shrink-0 relative z-20">
+      <!-- Sidebar Header -->
+      <div class="flex items-center gap-3 px-6 py-6 border-b border-white/10 bg-slate-950/40">
+        <a href="/" class="flex items-center gap-3 transition-transform hover:scale-105">
+          <img src="/favicon.svg" alt="Margdarshak Logo" class="h-8 w-auto object-contain bg-white rounded-lg p-1" />
+          <div>
+            <h1 class="font-headline font-bold text-sm leading-tight tracking-wide text-white">Margdarshak</h1>
+            <span class="text-[9px] text-[#FFB300] uppercase tracking-widest font-extrabold block">Admin Console</span>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Navigation Links -->
+      <nav class="flex-grow px-4 py-6 space-y-1.5 overflow-y-auto">
+        {menuItems.map(item => {
+          const isTabActive = activeTab === item.id;
+          return (
+            <a 
+              href={item.href}
+              class={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-headline font-semibold text-sm transition-all duration-200 group relative ${
+                isTabActive 
+                  ? "bg-gradient-to-r from-[#E53935] to-[#FF7043] text-white shadow-lg shadow-[#E53935]/20" 
+                  : "text-slate-400 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              <span class={`material-symbols-outlined text-lg ${
+                isTabActive ? "text-white" : "text-slate-400 group-hover:text-white transition-colors"
+              }`}>{item.icon}</span>
+              {item.name}
+              {isTabActive && (
+                <span class="absolute right-3 w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              )}
+            </a>
+          );
+        })}
+      </nav>
+      
+      <!-- Sidebar Footer -->
+      <div class="p-4 border-t border-white/10 bg-slate-950/30">
+        <button 
+          id="desktop-logout-btn"
+          class="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl font-headline font-semibold text-sm text-slate-400 hover:bg-[#E53935]/10 hover:text-[#E53935] transition-all duration-200 group"
+        >
+          <span class="material-symbols-outlined text-lg text-slate-400 group-hover:text-[#E53935] transition-colors">logout</span>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile Drawer Sidebar (Initially Hidden) -->
+    <div id="mobile-sidebar" class="fixed inset-0 z-50 md:hidden hidden" role="dialog" aria-modal="true">
+      <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-[#071426]/60 backdrop-blur-sm transition-opacity"></div>
+      
+      <div class="relative flex flex-col w-full max-w-xs bg-[#071426] text-white h-full shadow-2xl transition-transform duration-300 ease-in-out -translate-x-full z-10" id="mobile-sidebar-menu">
+        <!-- Close Button -->
+        <div class="absolute top-4 right-4">
+          <button id="close-mobile-btn" class="p-3 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Close Sidebar">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 px-6 py-6 border-b border-white/10 bg-slate-950/40">
+          <img src="/favicon.svg" alt="Margdarshak Logo" class="h-8 w-auto object-contain bg-white rounded-lg p-1" />
+          <div>
+            <h1 class="font-headline font-bold text-sm leading-tight tracking-wide text-white">Margdarshak</h1>
+            <span class="text-[9px] text-[#FFB300] uppercase tracking-widest font-extrabold block">Admin Console</span>
+          </div>
+        </div>
+
+        <nav class="flex-grow px-4 py-6 space-y-1.5 overflow-y-auto">
+          {menuItems.map(item => {
+            const isTabActive = activeTab === item.id;
+            return (
+              <a 
+                href={item.href}
+                class={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-headline font-semibold text-sm transition-all duration-200 relative ${
+                  isTabActive 
+                    ? "bg-gradient-to-r from-[#E53935] to-[#FF7043] text-white shadow-lg" 
+                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                <span class="material-symbols-outlined text-lg">{item.icon}</span>
+                {item.name}
+              </a>
+            );
+          })}
+        </nav>
+
+        <div class="p-4 border-t border-white/10 bg-slate-950/30">
+          <button 
+            id="mobile-logout-btn"
+            class="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl font-headline font-semibold text-sm text-slate-400 hover:bg-[#E53935]/10 hover:text-[#E53935] transition-all duration-200 min-h-[44px]"
+          >
+            <span class="material-symbols-outlined text-lg text-slate-400">logout</span>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col flex-1 h-screen overflow-hidden">
+      
+      <!-- Top Navigation Header -->
+      <header class="flex items-center justify-between h-16 px-6 bg-white border-b border-slate-200/80 shadow-sm z-10 shrink-0">
+        <div class="flex items-center gap-4">
+          <!-- Hamburger Button for Mobile -->
+          <button id="open-mobile-btn" class="p-3 text-slate-500 hover:text-[#E53935] rounded-xl hover:bg-slate-100 md:hidden focus:outline-none transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Open Sidebar">
+            <span class="material-symbols-outlined text-xl">menu</span>
+          </button>
+          
+          <div class="flex items-center gap-2">
+            <h2 class="text-base font-headline font-bold text-[#071426] capitalize">
+              {menuItems.find(item => item.id === activeTab)?.name || "Admin Panel"}
+            </h2>
+            <span class="text-slate-300 hidden sm:inline">/</span>
+            <span class="text-xs font-semibold text-slate-400 hidden sm:inline capitalize">Overview & Operations</span>
+          </div>
+        </div>
+
+        <!-- Right Header Items: Search, Notifications, Profile -->
+        <div class="flex items-center gap-4 sm:gap-6">
+          
+          <!-- Mock Search Input -->
+          <div class="relative hidden lg:block w-64">
+            <span class="material-symbols-outlined text-slate-400 text-base absolute left-3 top-2.5">search</span>
+            <input 
+              type="text" 
+              placeholder="Search console..." 
+              class="w-full pl-9 pr-4 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:border-[#E53935] focus:bg-white transition-all font-medium"
+            />
+          </div>
+
+          <!-- Notifications Mock Trigger -->
+          <div class="relative">
+            <button class="p-2 text-slate-400 hover:text-[#071426] rounded-xl hover:bg-slate-50 transition-colors flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-xl">notifications</span>
+              <!-- Red dot badge -->
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#E53935] border border-white"></span>
+            </button>
+          </div>
+
+          <!-- Vertical separator -->
+          <span class="w-px h-5 bg-slate-200"></span>
+
+          <!-- Profile Info -->
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#071426] to-[#E53935] rounded-xl flex items-center justify-center text-white font-headline font-bold text-xs shadow-md">
+              AD
+            </div>
+            <div class="hidden sm:block text-left">
+              <p class="text-xs font-headline font-bold text-[#071426] leading-tight">Admin Portal</p>
+              <span class="text-[9px] text-[#FF7043] font-bold uppercase tracking-wider block">Superuser</span>
+            </div>
+          </div>
+          
+        </div>
+      </header>
+
+      <!-- Page Content Content Area -->
+      <main class="flex-1 overflow-y-auto bg-[#f8fafc] p-6 md:p-8 relative">
+        <!-- background glow blobs -->
+        <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#FF7043]/5 blur-[80px] pointer-events-none -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[#FFB300]/5 blur-[80px] pointer-events-none -z-10"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto">
+          <slot />
+        </div>
+      </main>
+      
+    </div>
+  </div>
+
+  <!-- Shared Toast Alerts -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+  <!-- Shared Logout Confirmation Script -->
+  <script is:inline>
+    // Mobile Drawer Toggle
+    // Mobile Drawer Toggle
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const mobileSidebarMenu = document.getElementById('mobile-sidebar-menu');
+    const openMobileBtn = document.getElementById('open-mobile-btn');
+    const closeMobileBtn = document.getElementById('close-mobile-btn');
+    const mobileOverlay = document.getElementById('mobile-sidebar-overlay');
+
+    if (openMobileBtn && mobileSidebar && mobileSidebarMenu) {
+      openMobileBtn.addEventListener('click', () => {
+        mobileSidebar.classList.remove('hidden');
+        mobileSidebar.classList.add('flex');
+        setTimeout(() => {
+          mobileSidebarMenu.classList.remove('-translate-x-full');
+        }, 10);
+      });
+    }
+
+    function closeSidebar() {
+      if (mobileSidebar && mobileSidebarMenu) {
+        mobileSidebarMenu.classList.add('-translate-x-full');
+        setTimeout(() => {
+          mobileSidebar.classList.remove('flex');
+          mobileSidebar.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeSidebar);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeSidebar);
+
+    // Logout Functionality
+    async function logout() {
+      if (confirm('Are you sure you want to log out of the admin panel?')) {
+        try {
+          const res = await fetch('/api/logout', { method: 'POST' });
+          if (res.ok) {
+            window.location.href = '/admin/login';
+          } else {
+            alert('Logout failed. Please try again.');
+          }
+        } catch (err) {
+          console.error('Logout error:', err);
+          alert('Network error while logging out.');
+        }
+      }
+    }
+
+    const dLogout = document.getElementById('desktop-logout-btn');
+    const mLogout = document.getElementById('mobile-logout-btn');
+    if (dLogout) dLogout.addEventListener('click', logout);
+    if (mLogout) mLogout.addEventListener('click', logout);
+
+    // Global Toast alert system
+    window.showToast = function(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `flex items-center gap-3 px-4 py-3.5 rounded-xl border shadow-lg max-w-sm text-sm transition-all duration-300 translate-y-4 opacity-0`;
+      
+      let icon = 'check_circle';
+      let colors = 'bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-300';
+      
+      if (type === 'error') {
+        icon = 'error';
+        colors = 'bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-950 dark:border-rose-800 dark:text-rose-300';
+      } else if (type === 'warning') {
+        icon = 'warning';
+        colors = 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950 dark:border-amber-800 dark:text-amber-300';
+      }
+
+      toast.className += ` ${colors}`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-lg shrink-0">${icon}</span>
+        <div class="font-medium">${message}</div>
+      `;
+
+      container.appendChild(toast);
+      
+      // Animate entry
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 50);
+
+      // Animate leave and remove
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3500);
+    }
+
+    // --- NEW MOTION DESIGN AND PAGE TRANSITIONS ENHANCEMENTS ---
+
+    // 1. Page Fade-In on Load
+    document.body.classList.add('page-loaded');
+
+    // 2. Page Fade-Out on Local Navigation Link Clicks
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      
+      const href = link.getAttribute('href');
+      const target = link.getAttribute('target');
+      
+      if (!href || 
+          href.startsWith('#') || 
+          href.startsWith('mailto:') || 
+          href.startsWith('tel:') || 
+          target === '_blank' || 
+          e.metaKey || 
+          e.ctrlKey || 
+          e.shiftKey || 
+          e.altKey) {
+        return;
+      }
+      
+      const isSameSite = link.hostname === window.location.hostname;
+      if (!isSameSite) return;
+
+      e.preventDefault();
+      document.body.classList.remove('page-loaded');
+      document.body.classList.add('page-exit');
+      
+      setTimeout(() => {
+        window.location.href = href;
+      }, 220);
+    });
+
+    // 3. Handle Browser Back/Forward Cache Restorations
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        document.body.classList.remove('page-exit');
+        document.body.classList.add('page-loaded');
+      }
+    });
+
+    // 4. Global Button Click Ripple Wave Effect
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('button, .btn-brand-gradient, .social-icon, .filter-pill');
+      if (!target || target.disabled) return;
+      
+      target.classList.add('btn-ripple-container');
+      
+      const rect = target.getBoundingClientRect();
+      const diameter = Math.max(target.clientWidth, target.clientHeight);
+      const radius = diameter / 2;
+      
+      const circle = document.createElement('span');
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${e.clientX - rect.left - radius}px`;
+      circle.style.top = `${e.clientY - rect.top - radius}px`;
+      circle.classList.add('ripple');
+      
+      const isLightBg = target.classList.contains('bg-white') || 
+                        target.classList.contains('bg-slate-100') || 
+                        target.classList.contains('bg-slate-50') ||
+                        (target.tagName === 'BUTTON' && !target.className.includes('bg-') && !target.className.includes('btn-brand-gradient'));
+      
+      if (isLightBg) {
+        circle.style.backgroundColor = 'rgba(7, 20, 38, 0.12)';
+      }
+      
+      const oldRipple = target.querySelector('.ripple');
+      if (oldRipple) {
+        oldRipple.remove();
+      }
+      
+      target.appendChild(circle);
+    });
+  </script>
+</body>
+</html>
+

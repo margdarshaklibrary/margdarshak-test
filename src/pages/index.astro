@@ -10,107 +10,351 @@ const popularInternships = internships.filter(item =>
 );
 ---
 
-<Layout title="Margdarshak Shikshan Sansthan - Padhega Bharat, Badhega Bharat">
+<Layout 
+  title="Margdarshak Shikshan Sansthan — Job-Ready Courses & Internships in Darbhanga | 100% Fee Refund" 
+  description="Margdarshak Shikshan Sansthan offers affordable, job-oriented courses in Web Development, Tally, GST, Digital Marketing & more in Darbhanga, Bihar. 100% fee refund with 90%+ attendance. Enroll for just ₹1,000/month."
+  ogImage="/assets/new_hero_illustration.png"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Popular Courses at Margdarshak",
+    "itemListElement": popularCourses.map((course, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "Course",
+        "name": course.name,
+        "description": course.shortDescription,
+        "provider": {
+          "@type": "Organization",
+          "name": "Margdarshak Shikshan Sansthan"
+        }
+      }
+    }))
+  }}
+>
   
   <!-- Hero Section -->
-  <section class="relative hero-gradient min-h-[700px] flex items-center overflow-hidden text-white py-16 md:py-24">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 w-full">
-      <div class="space-y-6 md:space-y-8">
-        <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
-          <span class="text-accent font-bold text-sm tracking-wider uppercase">Padhega Bharat, Badhega Bharat</span>
+  <section class="relative hero-gradient pt-6 pb-10 md:pt-14 md:pb-20 lg:pt-16 lg:pb-24 overflow-hidden text-white flex items-center">
+    <!-- Glowing background decorative blobs - limited to brand red and soft orange/gold -->
+    <div class="glow-blob bg-secondary w-96 h-96 -top-20 -left-20 opacity-25 animate-pulse-glow" style="filter: blur(130px);" aria-hidden="true"></div>
+    <div class="glow-blob bg-accent w-96 h-96 bottom-10 right-10 opacity-20 animate-pulse-glow" style="filter: blur(130px); animation-delay: 2.5s;" aria-hidden="true"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 lg:gap-16 items-center relative z-10 w-full">
+      
+      <!-- Hero Left Text Content (45% Visual Weight) -->
+      <div class="space-y-5 lg:space-y-6 lg:max-w-xl reveal reveal-slide-up">
+        <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md shadow-glass animate-float-slow">
+          <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+          <span class="text-accent font-headline font-bold text-xs tracking-wider uppercase">LEARN • INTERN • GROW</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-headline font-black leading-tight">
-          Learn Skills. <br />
-          <span class="text-accent">Build Experience.</span> <br />
-          Get Rewarded.
+        
+        <h1 class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-display font-black leading-[1.15] tracking-tight">
+          Padhega Bharat, <br />
+          <span class="text-gradient-purple-orange">Badhega Bharat</span>
         </h1>
-        <p class="text-lg md:text-xl text-slate-200 max-w-xl">
-          Industry-ready certification programs with a unique <span class="font-bold text-success">100% Fee Refund guarantee</span>. Join India's most student-friendly learning ecosystem in Darbhanga.
+        
+        <p class="text-base text-slate-300 leading-relaxed font-light max-w-lg">
+          Industry-ready certification programs with a unique <span class="font-semibold text-secondary dark:text-purpleglow border-b border-secondary/30 pb-0.5">100% Fee Refund guarantee</span>. Join India's most student-friendly learning ecosystem in Darbhanga.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 pt-2">
-          <div class="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10">
-            <span class="material-symbols-outlined text-accent text-2xl" style="font-variation-settings: 'FILL' 1;">payments</span>
-            <span class="font-semibold text-sm">₹1,000/month fee</span>
+        
+        <!-- Key Perks cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div class="flex items-center gap-3 bg-white/5 py-2.5 px-3.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 shadow-glass group">
+            <span class="material-symbols-outlined text-accent text-2xl shrink-0 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">payments</span>
+            <div>
+              <p class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Affordable Fee</p>
+              <span class="font-bold text-white text-xs md:text-sm">₹1,000/month fee</span>
+            </div>
           </div>
-          <div class="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10">
-            <span class="material-symbols-outlined text-success text-2xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-            <span class="font-semibold text-sm">90%+ Attendance = 100% Refund</span>
+          <div class="flex items-center gap-3 bg-white/5 py-2.5 px-3.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 shadow-glass group">
+            <span class="material-symbols-outlined text-secondary text-2xl shrink-0 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+            <div>
+              <p class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Refund Trust</p>
+              <span class="font-bold text-white text-xs md:text-sm">90%+ Attendance = 100% Refund</span>
+            </div>
           </div>
         </div>
-        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-          <a class="bg-primary text-white border-2 border-primary hover:bg-white hover:text-primary px-8 py-4 rounded-lg font-bold text-base text-center transition-all duration-300 shadow-xl" href="/courses">
+        
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 pt-3">
+          <a class="btn-brand-gradient text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-premium" href="/courses">
             Explore Courses
+            <span class="material-symbols-outlined text-lg">arrow_forward</span>
           </a>
-          <a class="bg-transparent border-2 border-white hover:bg-white hover:text-[#002D62] text-white px-8 py-4 rounded-lg font-bold text-base text-center transition-all duration-300" href="/internships">
+          <a class="bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-glass" href="/internships">
             Apply for Internship
           </a>
-          <a class="flex items-center justify-center gap-2 bg-success text-white px-8 py-4 rounded-lg font-bold text-base hover:bg-emerald-600 transition-all shadow-lg" href="https://wa.me/919229025257" target="_blank">
-            <span class="material-symbols-outlined">chat</span>
-            WhatsApp Us
+          <a class="flex items-center justify-center gap-2 bg-[#071426] hover:bg-[#0c1c38] border border-accent/20 hover:border-accent/40 text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center transition-all duration-300 w-full sm:w-auto hover:scale-105 hover:shadow-glow-orange whitespace-nowrap" href="https://play.google.com/store/apps/details?id=co.varys.shacc" target="_blank" rel="noopener noreferrer" aria-label="Download App on Google Play Store">
+            <!-- Google Play Icon (Bootstrap SVG) -->
+            <svg class="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96 2.694-1.586Zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055l7.294-4.295ZM1 13.396V2.603L6.847 8 1 13.396ZM1.03 1.27C1.984.716 3.143 1.297 3.344 2.326L7.583 7.32 10.627 5.5l-3.044 2.82L1.03 1.27Z"/>
+            </svg>
+            Download App
           </a>
         </div>
       </div>
-      <div class="hidden lg:block relative">
-        <div class="animate-float relative z-10 rounded-2xl overflow-hidden border-8 border-white/10 shadow-2xl">
-          <img alt="Students Collaborating" class="w-full h-[480px] object-cover" src="/assets/ef416198aade12024c457f8fe0004783.png" />
+      
+      <!-- Hero Right Image Section with Integrated composition (55% Visual Weight) -->
+      <div class="relative mt-8 lg:mt-0 flex justify-center items-center w-full">
+        <!-- Soft, subtle premium glow backing (blend colors Red, Orange, Golden Yellow) -->
+        <div class="absolute w-[85%] h-[85%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-secondary/15 via-brandOrange/10 to-accent/15 rounded-full opacity-30 blur-[80px] lg:blur-[120px] pointer-events-none z-0"></div>
+        
+        <!-- Main Image Wrapper (No borders, transparent presentation, auto height, landscape) -->
+        <div class="relative z-10 w-full max-w-[500px] md:max-w-[600px] lg:max-w-none animate-float-slow reveal reveal-scale" style="transition-delay: 150ms">
+          <picture>
+            <source srcset="/assets/new_hero_illustration.webp" type="image/webp" />
+            <img 
+              alt="Margdarshak Learning Ecosystem — students in classroom with laptop" 
+              class="w-full h-auto object-contain select-none" 
+              src="/assets/new_hero_illustration.png" 
+              loading="eager" 
+              fetchpriority="high" 
+              decoding="async"
+              width="800"
+              height="600"
+            />
+          </picture>
         </div>
-        <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 blur-3xl rounded-full" />
-        <div class="absolute -top-10 -left-10 w-64 h-64 bg-secondary/20 blur-3xl rounded-full" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Floating Achievement Bar (Fulfilling Issue 6: Redesigned statistics section integrated) -->
+  <div class="relative z-20 max-w-[1440px] mx-auto px-4 md:px-6 mt-8 md:mt-16 mb-8 animate-on-scroll">
+    <div class="bg-[#071426] border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-premium grid grid-cols-2 md:flex md:flex-row justify-around items-center gap-3 sm:gap-4">
+      
+      <!-- Students Trained -->
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
+        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">groups</span>
+        </div>
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-baseline text-white">
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="5000">0</span>
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">+</span>
+          </div>
+          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Students Trained</span>
+        </div>
+      </div>
+      
+      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
+
+      <!-- Courses -->
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
+        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">book</span>
+        </div>
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-baseline text-white">
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="25">0</span>
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">+</span>
+          </div>
+          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Job-Oriented Courses</span>
+        </div>
+      </div>
+
+      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
+
+      <!-- Internships -->
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
+        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">work</span>
+        </div>
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-baseline text-white">
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="100">0</span>
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">%</span>
+          </div>
+          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Refund Integrity</span>
+        </div>
+      </div>
+
+      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
+
+      <!-- Career Support -->
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
+        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">handshake</span>
+        </div>
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-baseline text-white">
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="100">0</span>
+            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">%</span>
+          </div>
+          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Placement Support</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 8 – TRUST BADGES STRIP -->
+  <div class="relative z-10 max-w-[1440px] mx-auto px-4 md:px-6 mt-12 mb-6 animate-on-scroll">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
+        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">psychology</span>
+        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Practical Training</span>
+      </div>
+      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
+        <span class="material-symbols-outlined text-accent font-bold text-base sm:text-lg">laptop_mac</span>
+        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Hybrid Learning</span>
+      </div>
+      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
+        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">handshake</span>
+        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Career Support</span>
+      </div>
+      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
+        <span class="material-symbols-outlined text-accent font-bold text-base sm:text-lg">work</span>
+        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Internship Programs</span>
+      </div>
+      <div class="glass-card-premium col-span-2 md:col-span-1 px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
+        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">workspace_premium</span>
+        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Skill Development</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Institute Introduction & Bento Grid Section -->
+  <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-1/4 -right-20 opacity-15" style="filter: blur(120px);"></div>
+    <div class="glow-blob bg-accent/5 w-96 h-96 bottom-10 -left-20 opacity-15" style="filter: blur(120px);"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        
+        <!-- Text intro side -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+            About Margdarshak
+          </div>
+          <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+            Empowering Bharat Through Skilled Education
+          </h2>
+          <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-base font-light">
+            <p>
+              Margdarshak Shikshan Sansthan is Darbhanga’s premier educational institute dedicated to bridging the gap between theoretical knowledge and real-world employment. With a curriculum engineered by industry experts, we provide students with hands-on practice in computerized accounting, programming, tax filings, and digital marketing.
+            </p>
+            <p>
+              Our unique hybrid learning infrastructure allows students to study in our state-of-the-art offline computer labs or attend live online classes, backed by our core mission: providing premium education accessible to everyone.
+            </p>
+          </div>
+          <div class="pt-4">
+            <a href="/about" class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300">
+              Learn More About Our Mission 
+              <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bento Grid Side (Issue 4: Same rounded-2xl and shadow-premium) -->
+        <div class="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-6">
+          
+          <!-- Card 1: Govt. Registered -->
+          <div class="glass-card-premium p-3.5 xs:p-4 sm:p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between min-h-[160px] xs:min-h-[185px] sm:min-h-[220px] reveal reveal-slide-up" style="transition-delay: 50ms">
+            <div class="w-9 h-9 sm:w-12 sm:h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-sm">
+              <span class="material-symbols-outlined text-lg sm:text-2xl font-bold">workspace_premium</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-xs xs:text-sm sm:text-xl text-primary dark:text-white mb-1 sm:mb-2 tracking-tight">Government Registered</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-[10px] xs:text-[11px] sm:text-sm leading-relaxed font-light">Certificates registered under the Ministry of Corporate Affairs, Govt. of India, recognized nationwide.</p>
+            </div>
+          </div>
+          
+          <!-- Card 2: Expert Mentorship -->
+          <div class="glass-card-premium p-3.5 xs:p-4 sm:p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between min-h-[160px] xs:min-h-[185px] sm:min-h-[220px] reveal reveal-slide-up" style="transition-delay: 150ms">
+            <div class="w-9 h-9 sm:w-12 sm:h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-sm">
+              <span class="material-symbols-outlined text-lg sm:text-2xl font-bold">diversity_3</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-xs xs:text-sm sm:text-xl text-primary dark:text-white mb-1 sm:mb-2 tracking-tight">Expert Mentorship</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-[10px] xs:text-[11px] sm:text-sm leading-relaxed font-light">Learn from experienced tax advisors, certified accountants, and software developers.</p>
+            </div>
+          </div>
+          
+          <!-- Card 3: Practical Focus -->
+          <div class="glass-card-premium p-3.5 xs:p-4 sm:p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between min-h-[160px] xs:min-h-[185px] sm:min-h-[220px] reveal reveal-slide-up" style="transition-delay: 250ms">
+            <div class="w-9 h-9 sm:w-12 sm:h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-sm">
+              <span class="material-symbols-outlined text-lg sm:text-2xl font-bold">handshake</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-xs xs:text-sm sm:text-xl text-primary dark:text-white mb-1 sm:mb-2 tracking-tight">Practical-First Focus</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-[10px] xs:text-[11px] sm:text-sm leading-relaxed font-light">Every program includes mandatory live-project training and client interaction modules.</p>
+            </div>
+          </div>
+          
+          <!-- Card 4: Refund Integrity -->
+          <div class="glass-card-premium p-3.5 xs:p-4 sm:p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between min-h-[160px] xs:min-h-[185px] sm:min-h-[220px] reveal reveal-slide-up" style="transition-delay: 350ms">
+            <div class="w-9 h-9 sm:w-12 sm:h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-sm">
+              <span class="material-symbols-outlined text-lg sm:text-2xl font-bold">assignment_turned_in</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-xs xs:text-sm sm:text-xl text-primary dark:text-white mb-1 sm:mb-2 tracking-tight">100% Refund Integrity</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-[10px] xs:text-[11px] sm:text-sm leading-relaxed font-light">Our trust policy: stay dedicated, keep 90% attendance, and study for free.</p>
+            </div>
+          </div>
+          
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Institute Introduction Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-5 space-y-6">
-          <div class="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">
-            About Margdarshak
+  <!-- SECTION 5 – CERTIFICATIONS & RECOGNITION -->
+  <section class="py-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-white/5 relative overflow-hidden animate-on-scroll">
+    <div class="glow-blob bg-secondary/5 w-80 h-80 top-10 left-10 opacity-10" style="filter: blur(100px);"></div>
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          Official Accreditation
+        </div>
+        <h2 class="text-3xl md:text-4xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          Certifications & Recognition
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm font-light">
+          Margdarshak Shikshan Sansthan is fully authorized, recognized, and certified under national regulatory guidelines.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 50ms">
+          <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-2xl font-bold">domain</span>
           </div>
-          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">
-            Empowering Bharat Through Skilled Education
-          </h2>
-          <p class="text-slate-600 leading-relaxed text-base">
-            Margdarshak Shikshan Sansthan is Darbhanga’s premier educational institute dedicated to bridging the gap between theoretical knowledge and real-world employment. With a curriculum engineered by industry experts, we provide students with hands-on practice in computerized accounting, programming, tax filings, and digital marketing.
-          </p>
-          <p class="text-slate-600 leading-relaxed text-base">
-            Our unique hybrid learning infrastructure allows students to study in our state-of-the-art offline computer labs or attend live online classes, backed by our core mission: providing premium education accessible to everyone.
-          </p>
-          <div class="pt-2">
-            <a href="/about" class="text-secondary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
-              Learn More About Our Mission <span class="material-symbols-outlined">arrow_forward</span>
-            </a>
+          <div>
+            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">Govt. of India Registered</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Incorporated & registered under the Ministry of Corporate Affairs, Govt. of India. Reg No: U85300BR2022NPL056729.</p>
           </div>
         </div>
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
-              <span class="material-symbols-outlined text-2xl font-bold">workspace_premium</span>
-            </div>
-            <h3 class="font-bold text-lg text-primary mb-2">Government Registered</h3>
-            <p class="text-slate-500 text-sm">Certificates registered under the Ministry of Corporate Affairs, Govt. of India, recognized nationwide.</p>
+        <!-- Card 2 -->
+        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 150ms">
+          <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-2xl font-bold">workspace_premium</span>
           </div>
-          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
-              <span class="material-symbols-outlined text-2xl font-bold">diversity_3</span>
-            </div>
-            <h3 class="font-bold text-lg text-primary mb-2">Expert Mentorship</h3>
-            <p class="text-slate-500 text-sm">Learn from experienced tax advisors, certified accountants, and software developers.</p>
+          <div>
+            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">ISO 9001:2015 Certified</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Internationally recognized standard for quality management systems in educational and training services.</p>
           </div>
-          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
-              <span class="material-symbols-outlined text-2xl font-bold">handshake</span>
-            </div>
-            <h3 class="font-bold text-lg text-primary mb-2">Practical-First Focus</h3>
-            <p class="text-slate-500 text-sm">Every program includes mandatory live-project training and client interaction modules.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 250ms">
+          <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-2xl font-bold">verified</span>
           </div>
-          <div class="bg-background p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-success/10 text-success rounded-xl flex items-center justify-center mb-4">
-              <span class="material-symbols-outlined text-2xl font-bold">assignment_turned_in</span>
-            </div>
-            <h3 class="font-bold text-lg text-primary mb-2">100% Refund Integrity</h3>
-            <p class="text-slate-500 text-sm">Our trust policy: stay dedicated, keep 90% attendance, and study for free.</p>
+          <div>
+            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">GST Practitioner Approved</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Practical training curriculum structured around direct tax filings and active GST portal administration systems.</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 350ms">
+          <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-2xl font-bold">account_balance</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">Ministry of MSME</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Registered under Ministry of Micro, Small & Medium Enterprises, supporting local skill growth and job readiness.</p>
           </div>
         </div>
       </div>
@@ -118,105 +362,142 @@ const popularInternships = internships.filter(item =>
   </section>
 
   <!-- Highlighted 100% Fee Refund Section -->
-  <section class="py-12 bg-background">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="bg-success rounded-3xl p-8 md:p-12 text-white relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
-        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-2xl"></div>
+  <section class="py-12 bg-white dark:bg-slate-900/40 relative overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+      
+      <!-- Gradient Mesh Core Container -->
+      <div class="relative bg-gradient-to-tr from-primary to-slate-950 rounded-2xl p-8 md:p-16 text-white overflow-hidden shadow-premium border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-12">
+        <!-- Accent Glow Blobs -->
+        <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-secondary/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -top-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Left narrative info -->
         <div class="relative z-10 max-w-2xl space-y-6">
-          <div class="inline-block bg-white/20 text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+          <div class="inline-block bg-white/10 text-accent font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider border border-white/15">
             Unique Learning Opportunity
           </div>
           <h2 class="text-3xl md:text-5xl font-headline font-black leading-tight">
             Education is FREE if you are DEDICATED!
           </h2>
-          <p class="text-lg opacity-90 leading-relaxed">
-            At Margdarshak Shikshan Sansthan, we reward sincerity. Maintain a minimum of **90% attendance** during your course and successfully complete the **1-month internship** program to receive a **100% refund** of your entire tuition fees. No catches, no hidden conditions.
+          <p class="text-slate-300 text-base md:text-lg leading-relaxed font-light">
+            At Margdarshak Shikshan Sansthan, we reward sincerity. Maintain a minimum of <strong class="text-white font-bold">90% attendance</strong> during your course and successfully complete the <strong class="text-white font-bold">1-month internship</strong> program to receive a <strong class="text-white font-bold">100% refund</strong> of your entire tuition fees. No catches, no hidden conditions.
           </p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
-              <span class="material-symbols-outlined text-white">check_circle</span>
-              <span class="text-sm font-semibold">90%+ Attendance</span>
+          
+          <!-- Steps block -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl shadow-glass">
+              <span class="material-symbols-outlined text-secondary font-bold" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              <span class="text-sm font-semibold text-slate-200">90%+ Attendance</span>
             </div>
-            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
-              <span class="material-symbols-outlined text-white">check_circle</span>
-              <span class="text-sm font-semibold">Project Submission</span>
+            <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl shadow-glass">
+              <span class="material-symbols-outlined text-secondary font-bold" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              <span class="text-sm font-semibold text-slate-200">Project Submission</span>
             </div>
-            <div class="flex items-center gap-2 bg-white/10 p-3 rounded-lg">
-              <span class="material-symbols-outlined text-white">check_circle</span>
-              <span class="text-sm font-semibold">Internship Completion</span>
+            <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl shadow-glass">
+              <span class="material-symbols-outlined text-secondary font-bold" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              <span class="text-sm font-semibold text-slate-200">Internship Completion</span>
             </div>
           </div>
         </div>
-        <div class="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-2xl text-center w-full lg:w-80 shrink-0">
-          <span class="material-symbols-outlined text-5xl text-white mb-3">currency_exchange</span>
-          <div class="text-4xl font-black mb-1">100%</div>
-          <div class="text-lg font-bold opacity-90 mb-4">Refund Opportunity</div>
-          <div class="border-t border-white/20 pt-4 mb-4 text-xs opacity-75">
+        
+        <!-- Right Action Card overlay -->
+        <div class="relative z-10 glass-card-premium bg-white/5 backdrop-blur-2xl border border-white/15 p-8 rounded-2xl text-center w-full lg:w-80 shrink-0 shadow-glass flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-4xl text-white" style="font-variation-settings: 'FILL' 1;">currency_exchange</span>
+          </div>
+          <div class="text-5xl font-black text-white mb-2 leading-none">100%</div>
+          <div class="text-lg font-bold text-slate-200 mb-4 tracking-tight">Refund Opportunity</div>
+          <div class="w-full border-t border-white/10 pt-4 mb-6 text-[10px] text-slate-400 font-bold tracking-wide uppercase">
             Available on all Courses & Internships
           </div>
-          <a href="/register" class="block w-full bg-white text-success py-3 rounded-xl font-bold text-sm hover:bg-slate-100 transition-all text-center">
+          <a href="/register" class="block w-full bg-white hover:bg-slate-100 text-primary hover:scale-[1.03] transition-all py-3.5 rounded-xl font-bold text-sm text-center shadow-premium">
             Register & Apply Now
           </a>
         </div>
       </div>
+      
     </div>
   </section>
 
   <!-- Popular Courses Preview Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+  <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+    <div class="glow-blob bg-secondary/5 w-[500px] h-[500px] top-10 left-10 opacity-20" style="filter: blur(120px);"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+      
+      <!-- Course Section Title -->
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 relative z-10">
         <div>
-          <div class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+          <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15 mb-3">
             Industry Hotspots
           </div>
-          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">Job-Oriented Courses</h2>
-          <p class="text-slate-600 mt-2">Acquire hands-on expertise with Darbhanga’s most in-demand curriculum.</p>
+          <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-none tracking-tight">Job-Oriented Courses</h2>
+          <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-light">Acquire hands-on expertise with Darbhanga’s most in-demand curriculum.</p>
         </div>
-        <a class="text-secondary font-bold flex items-center gap-2 hover:gap-3 transition-all shrink-0" href="/courses">
-          View All Courses <span class="material-symbols-outlined">arrow_forward</span>
+        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/courses">
+          View All Courses 
+          <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {popularCourses.map(course => (
-          <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+      <!-- Course Cards Grid (Issue 5: Modern SaaS card layout, zoom image, better typography & spacing) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+        {popularCourses.map((course, idx) => (
+          <div 
+            class="group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex flex-col justify-between reveal reveal-slide-up"
+            style={`transition-delay: ${(idx % 3) * 100}ms`}
+          >
             <div>
-              <div class="h-48 overflow-hidden relative bg-slate-100">
-                <img alt={course.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={course.image} />
-                <div class="absolute top-4 right-4 bg-[#d9383a] text-white text-xs font-bold px-3 py-1 rounded-full">
+              <!-- Card Image & Price Badge -->
+              <div class="h-56 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-85 z-10 pointer-events-none"></div>
+                <img alt={course.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src={course.image} loading="lazy" decoding="async" width="400" height="224" />
+                
+                <!-- Price Badge -->
+                <div class="absolute top-4 right-4 z-20 bg-secondary text-white text-xs font-black px-4 py-2 rounded-full shadow-premium tracking-wide">
                   ₹1,000/Month
                 </div>
               </div>
+              
+              <!-- Card Body Content -->
               <div class="p-6 space-y-4">
-                <div class="flex items-center gap-2 text-secondary font-bold text-sm">
-                  <span class="material-symbols-outlined text-sm">schedule</span> {course.duration}
+                <!-- Duration Badge -->
+                <div class="inline-flex items-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-xs font-bold px-3 py-1.5 rounded-lg">
+                  <span class="material-symbols-outlined text-sm font-bold">schedule</span> 
+                  {course.duration}
                 </div>
-                <h3 class="text-xl font-bold text-primary group-hover:text-secondary transition-colors">
+                
+                <h3 class="text-xl font-bold text-primary dark:text-white group-hover:text-secondary transition-colors duration-300 tracking-tight leading-snug">
                   {course.name}
                 </h3>
-                <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light line-clamp-3">
                   {course.shortDescription}
                 </p>
-                <div class="bg-success/5 border border-success/15 p-3 rounded-lg flex items-start gap-2.5">
-                  <span class="material-symbols-outlined text-success text-lg shrink-0 mt-0.5">verified_user</span>
-                  <span class="text-xs text-slate-700 leading-normal">
+                
+                <!-- Refund Policy Block inside card -->
+                <div class="bg-secondary/5 border border-secondary/15 p-4 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span class="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-300 leading-normal font-medium">
                     <strong>Refund Policy:</strong> 90%+ attendance unlocks a 100% fee refund opportunity.
                   </span>
                 </div>
               </div>
             </div>
+            
+            <!-- Card Footer Action Buttons -->
             <div class="p-6 pt-0 space-y-3">
-              <div class="grid grid-cols-2 gap-2">
-                <a href={`/courses/${course.id}`} class="py-2.5 rounded-lg border-2 border-primary text-primary font-bold text-center text-xs hover:bg-primary hover:text-white transition-all">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a href={`/courses/${course.id}`} class="py-3 rounded-xl border border-primary/20 dark:border-white/10 text-primary dark:text-white font-bold text-center text-xs hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300 hover:scale-[1.02]">
                   View Details
                 </a>
-                <a href="/register" class="py-2.5 rounded-lg bg-[#d9383a] text-white font-bold text-center text-xs hover:bg-[#c12f31] transition-all">
+                <a href="/register" class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs">
                   Register Now
                 </a>
               </div>
-              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Course:%20" target="_blank" class="block w-full py-2 bg-success text-white rounded-lg text-center font-bold text-xs hover:bg-emerald-600 transition-all flex items-center justify-center gap-1">
-                <span class="material-symbols-outlined text-sm">chat</span> Explore in App / WhatsApp
+              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Course:%20" target="_blank" class="w-full py-3 bg-[#071426] border border-[#25D366]/20 hover:border-[#25D366]/40 hover:bg-[#0c1c38] text-white rounded-xl text-center font-bold text-xs transition-all duration-300 flex items-center justify-center gap-1.5 hover:scale-[1.01]">
+                <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">chat</span> 
+                Explore in App / WhatsApp
               </a>
             </div>
           </div>
@@ -226,60 +507,83 @@ const popularInternships = internships.filter(item =>
   </section>
 
   <!-- Internship Preview Section -->
-  <section class="py-20 bg-background">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+  <section class="py-24 bg-white dark:bg-slate-900/20 relative overflow-hidden">
+    <div class="glow-blob bg-secondary/5 w-[500px] h-[500px] bottom-10 right-10 opacity-20" style="filter: blur(120px);"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6">
+      
+      <!-- Section Title -->
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 relative z-10">
         <div>
-          <div class="inline-block bg-secondary/10 text-secondary px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+          <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15 mb-3">
             Real Experience
           </div>
-          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">1-Month Internship Programs</h2>
-          <p class="text-slate-600 mt-2">Work on live client tasks, build a portfolio, and boost your resume.</p>
+          <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-none tracking-tight">1-Month Internship Programs</h2>
+          <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-light">Work on live client tasks, build a portfolio, and boost your resume.</p>
         </div>
-        <a class="text-secondary font-bold flex items-center gap-2 hover:gap-3 transition-all shrink-0" href="/internships">
-          View All Internships <span class="material-symbols-outlined">arrow_forward</span>
+        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/internships">
+          View All Internships 
+          <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {popularInternships.map(internship => (
-          <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+      <!-- Internship Cards Grid (Issue 5: Modern SaaS card layout, zoom image, better typography & spacing) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+        {popularInternships.map((internship, idx) => (
+          <div 
+            class="group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex flex-col justify-between reveal reveal-slide-up"
+            style={`transition-delay: ${(idx % 3) * 100}ms`}
+          >
             <div>
-              <div class="h-48 overflow-hidden relative bg-slate-100">
-                <img alt={internship.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={internship.image} />
-                <div class="absolute top-4 right-4 bg-[#d9383a] text-white text-xs font-bold px-3 py-1 rounded-full">
+              <!-- Image container -->
+              <div class="h-56 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-85 z-10 pointer-events-none"></div>
+                <img alt={internship.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src={internship.image} loading="lazy" decoding="async" width="400" height="224" />
+                
+                <!-- Registration Fee tag -->
+                <div class="absolute top-4 right-4 z-20 bg-secondary text-white text-xs font-black px-4 py-2 rounded-full shadow-premium tracking-wide">
                   Fee: ₹1,000 (Refundable)
                 </div>
               </div>
+              
+              <!-- Info contents -->
               <div class="p-6 space-y-4">
-                <div class="flex items-center gap-2 text-secondary font-bold text-sm">
-                  <span class="material-symbols-outlined text-sm">schedule</span> {internship.duration}
+                <div class="inline-flex items-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-xs font-bold px-3 py-1.5 rounded-lg">
+                  <span class="material-symbols-outlined text-sm font-bold">schedule</span> 
+                  {internship.duration}
                 </div>
-                <h3 class="text-xl font-bold text-primary group-hover:text-secondary transition-colors">
+                
+                <h3 class="text-xl font-bold text-primary dark:text-white group-hover:text-secondary transition-colors duration-300 tracking-tight leading-snug">
                   {internship.name}
                 </h3>
-                <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light line-clamp-3">
                   {internship.shortDescription}
                 </p>
-                <div class="bg-success/5 border border-success/15 p-3 rounded-lg flex items-start gap-2.5">
-                  <span class="material-symbols-outlined text-success text-lg shrink-0 mt-0.5">verified_user</span>
-                  <span class="text-xs text-slate-700 leading-normal">
+                
+                <!-- Trust policy block -->
+                <div class="bg-secondary/5 border border-secondary/15 p-4 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span class="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-300 leading-normal font-medium">
                     <strong>100% Refund:</strong> 90%+ attendance & task submissions = full registration refund.
                   </span>
                 </div>
               </div>
             </div>
+            
+            <!-- CTAs -->
             <div class="p-6 pt-0 space-y-3">
-              <div class="grid grid-cols-2 gap-2">
-                <a href={`/internships/${internship.id}`} class="py-2.5 rounded-lg border-2 border-primary text-primary font-bold text-center text-xs hover:bg-primary hover:text-white transition-all">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a href={`/internships/${internship.id}`} class="py-3 rounded-xl border border-primary/20 dark:border-white/10 text-primary dark:text-white font-bold text-center text-xs hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300 hover:scale-[1.02] flex items-center justify-center min-h-[44px]">
                   View Details
                 </a>
-                <a href="/register" class="py-2.5 rounded-lg bg-[#d9383a] text-white font-bold text-center text-xs hover:bg-[#c12f31] transition-all">
+                <a href="/register" class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs flex items-center justify-center min-h-[44px]">
                   Register Now
                 </a>
               </div>
-              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Internship:%20" target="_blank" class="block w-full py-2 bg-success text-white rounded-lg text-center font-bold text-xs hover:bg-emerald-600 transition-all flex items-center justify-center gap-1">
-                <span class="material-symbols-outlined text-sm">chat</span> Explore in App / WhatsApp
+              <a href="https://wa.me/919229025257?text=Hi,%20I'm%20interested%20in%20the%20Internship:%20" target="_blank" class="w-full py-3 bg-[#071426] border border-[#25D366]/20 hover:border-[#25D366]/40 hover:bg-[#0c1c38] text-white rounded-xl text-center font-bold text-xs transition-all duration-300 flex items-center justify-center gap-1.5 hover:scale-[1.01] min-h-[44px]">
+                <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">chat</span> 
+                Explore in App / WhatsApp
               </a>
             </div>
           </div>
@@ -288,188 +592,472 @@ const popularInternships = internships.filter(item =>
     </div>
   </section>
 
-  <!-- Hybrid Learning Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col lg:flex-row items-center gap-16">
+  
+
+  <!-- Lightbox Modal Markup (Section 3 Lightbox Preview) -->
+  <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-primary/95 backdrop-blur-md hidden items-center justify-center p-4">
+    <!-- Close Button -->
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/80 hover:text-white hover:scale-110 transition-all cursor-pointer" aria-label="Close Gallery">
+      <span class="material-symbols-outlined text-4xl">close</span>
+    </button>
+    <!-- Previous Button -->
+    <button id="lightbox-prev" class="absolute left-6 text-white/80 hover:text-white hover:scale-110 transition-all p-2 bg-white/5 rounded-xl border border-white/10 cursor-pointer" aria-label="Previous Image">
+      <span class="material-symbols-outlined text-3xl">chevron_left</span>
+    </button>
+    <!-- Image Content -->
+    <div class="max-w-5xl max-h-[80vh] flex flex-col items-center justify-center space-y-4">
+      <img id="lightbox-img" src="" alt="Gallery Image" class="max-w-full max-h-[70vh] object-contain rounded-xl border border-white/10 shadow-2xl" />
+      <div class="text-center">
+        <span id="lightbox-tag" class="bg-secondary text-white font-bold text-[9px] px-2 py-0.5 rounded uppercase tracking-wider"></span>
+        <h4 id="lightbox-title" class="text-white font-bold text-lg mt-2 font-headline"></h4>
+      </div>
+    </div>
+    <!-- Next Button -->
+    <button id="lightbox-next" class="absolute right-6 text-white/80 hover:text-white hover:scale-110 transition-all p-2 bg-white/5 rounded-xl border border-white/10 cursor-pointer" aria-label="Next Image">
+      <span class="material-symbols-outlined text-3xl">chevron_right</span>
+    </button>
+  </div>
+
+  <!-- Hybrid Learning Split Section -->
+  <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden border-t border-slate-100 dark:border-white/5">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-10 left-10 opacity-15" style="filter: blur(120px);"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 flex flex-col lg:flex-row items-center gap-16 relative z-10">
+      
+      <!-- Text Narrative Side -->
       <div class="lg:w-1/2 space-y-8">
-        <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary leading-tight">
+        <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
           Learn Your Way: <br />
           <span class="text-secondary">Offline Center or Online Classes.</span>
         </h2>
-        <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+        <p class="text-slate-500 dark:text-slate-300 text-base md:text-lg leading-relaxed font-light">
           We understand that students require flexibility. Whether you prefer a highly guided, physically mentored laboratory setup in Darbhanga, or the comfort of attending live interactive modules from your home, our hybrid training platform serves both choices seamlessly.
         </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bg-slate-50 p-6 rounded-xl border border-slate-200/60 shadow-sm">
-            <span class="material-symbols-outlined text-primary text-4xl mb-3">location_on</span>
-            <h4 class="font-bold text-lg text-primary mb-1">In-Person Training</h4>
-            <p class="text-slate-500 text-sm">State-of-the-art computers and offline lab mentoring in Laheriasarai, Darbhanga.</p>
+        
+        <!-- Interactive Split Highlights -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+          <div class="glass-card-premium p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">location_on</span>
+            </div>
+            <h4 class="font-bold text-lg text-primary dark:text-white mb-2">In-Person Training</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light">State-of-the-art computers and offline lab mentoring in Laheriasarai, Darbhanga.</p>
           </div>
-          <div class="bg-slate-50 p-6 rounded-xl border border-slate-200/60 shadow-sm">
-            <span class="material-symbols-outlined text-primary text-4xl mb-3">laptop_mac</span>
-            <h4 class="font-bold text-lg text-primary mb-1">Live Online Classes</h4>
-            <p class="text-slate-500 text-sm">Interactive digital portals, recorded video libraries, and remote workspace tools.</p>
+          <div class="glass-card-premium p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-2xl font-bold">laptop_mac</span>
+            </div>
+            <h4 class="font-bold text-lg text-primary dark:text-white mb-2">Live Online Classes</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light">Interactive digital portals, recorded video libraries, and remote workspace tools.</p>
           </div>
         </div>
       </div>
-      <div class="lg:w-1/2 w-full">
-        <div class="relative group">
-          <div class="absolute -inset-4 bg-primary/10 rounded-2xl blur-xl group-hover:bg-primary/20 transition-all"></div>
-          <img alt="Hybrid Learning Environment" class="relative z-10 rounded-2xl shadow-xl w-full h-[400px] object-cover" src="/assets/91a8b75afe4c1c96eaa3ce3e270a27fc.png" />
+      
+      <!-- Visual Side -->
+      <div class="lg:w-1/2 w-full relative">
+        <div class="absolute -inset-4 bg-gradient-to-r from-secondary to-accent rounded-3xl opacity-15 blur-2xl pointer-events-none"></div>
+        
+        <div class="relative z-10 rounded-2xl overflow-hidden shadow-premium border border-slate-200/40 dark:border-white/10 hover-lift animate-float-slow aspect-[4/3]">
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary/45 via-transparent to-transparent opacity-75 z-20 pointer-events-none"></div>
+          <img alt="Hybrid Learning Environment at Margdarshak" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="/assets/hybrid_learning.png" loading="lazy" decoding="async" width="600" height="450" />
+          
+          <!-- Overlaid Info card -->
+          <div class="absolute bottom-6 right-6 left-6 z-30 glass-card-premium p-5 rounded-2xl border-white/10 flex items-center gap-3.5">
+            <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Flexible Schedule</p>
+              <h5 class="text-sm font-bold text-white leading-tight">Switch between Lab & Online anytime</h5>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Student Journey (timeline) -->
-  <section class="py-20 bg-slate-900 text-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 relative">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <div class="inline-block bg-accent/25 text-accent px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider mb-3">
+  <!-- Student Journey (Timeline) -->
+  <section class="py-24 bg-primary text-white overflow-hidden relative">
+    <!-- Glow Background Blobs -->
+    <div class="glow-blob bg-secondary w-96 h-96 top-1/4 -left-20 opacity-20" style="filter: blur(120px);"></div>
+    <div class="glow-blob bg-accent w-96 h-96 bottom-10 -right-20 opacity-15" style="filter: blur(120px);"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <!-- Section header -->
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <div class="inline-block bg-white/10 text-accent px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-white/15">
           Roadmap to Success
         </div>
-        <h2 class="text-3xl md:text-4xl font-headline font-bold mb-3">Your Journey at Margdarshak</h2>
-        <p class="text-slate-400 text-sm md:text-base">We follow a transparent, structured pathway to transform dedicated beginners into job-ready professionals.</p>
+        <h2 class="text-3xl md:text-5xl font-headline font-black tracking-tight leading-tight">Your Journey at Margdarshak</h2>
+        <p class="text-slate-300 text-base md:text-lg font-light leading-relaxed">We follow a transparent, structured pathway to transform dedicated beginners into job-ready professionals.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-        <!-- Connecting line for desktop -->
-        <div class="hidden md:block absolute top-10 left-[12%] right-[12%] h-0.5 bg-white/15 -z-0"></div>
+      <!-- Roadmap Timeline grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
+        <!-- Connecting path line (Desktop) -->
+        <div class="hidden md:block absolute top-[52px] left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-secondary to-accent opacity-30 z-0"></div>
 
-        <!-- Step 1 -->
-        <div class="relative z-10 text-center md:text-left space-y-4 group">
-          <div class="w-16 h-16 bg-primary border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
-            <span class="material-symbols-outlined text-2xl font-bold">assignment_ind</span>
+        <!-- Step 1: Register -->
+        <div class="relative z-10 text-center md:text-left space-y-6 group hover-lift">
+          <div class="w-[104px] h-[104px] bg-primary border-4 border-slate-800 rounded-2xl flex items-center justify-center mx-auto md:mx-0 group-hover:scale-105 group-hover:border-secondary transition-all duration-300 shadow-premium relative">
+            <!-- Step Badge -->
+            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-secondary text-white font-black text-sm flex items-center justify-center shadow-premium">1</div>
+            <span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">assignment_ind</span>
           </div>
-          <h3 class="text-xl font-bold text-white">1. Register</h3>
-          <p class="text-slate-400 text-sm">Select your program, fill in your credentials, and activate your seat with just ₹1,000.</p>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">1. Register</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">Select your program, fill in your credentials, and activate your seat with just ₹1,000.</p>
+          </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="relative z-10 text-center md:text-left space-y-4 group">
-          <div class="w-16 h-16 bg-secondary border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
-            <span class="material-symbols-outlined text-2xl font-bold">school</span>
+        <!-- Step 2: Attend & Learn -->
+        <div class="relative z-10 text-center md:text-left space-y-6 group hover-lift" style="transition-delay: 0.1s;">
+          <div class="w-[104px] h-[104px] bg-primary border-4 border-slate-800 rounded-2xl flex items-center justify-center mx-auto md:mx-0 group-hover:scale-105 group-hover:border-accent transition-all duration-300 shadow-premium relative">
+            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-accent text-primary font-black text-sm flex items-center justify-center shadow-premium">2</div>
+            <span class="material-symbols-outlined text-4xl text-accent" style="font-variation-settings: 'FILL' 1;">school</span>
           </div>
-          <h3 class="text-xl font-bold text-white">2. Attend & Learn</h3>
-          <p class="text-slate-400 text-sm">Engage in classes with 90%+ attendance and build essential practical skills.</p>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">2. Attend & Learn</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">Engage in classes with 90%+ attendance and build essential practical skills.</p>
+          </div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="relative z-10 text-center md:text-left space-y-4 group">
-          <div class="w-16 h-16 bg-accent border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
-            <span class="material-symbols-outlined text-2xl font-bold">work</span>
+        <!-- Step 3: Live Internship -->
+        <div class="relative z-10 text-center md:text-left space-y-6 group hover-lift" style="transition-delay: 0.2s;">
+          <div class="w-[104px] h-[104px] bg-primary border-4 border-slate-800 rounded-2xl flex items-center justify-center mx-auto md:mx-0 group-hover:scale-105 group-hover:border-secondary transition-all duration-300 shadow-premium relative">
+            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-secondary text-white font-black text-sm flex items-center justify-center shadow-premium">3</div>
+            <span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">work</span>
           </div>
-          <h3 class="text-xl font-bold text-white">3. Live Internship</h3>
-          <p class="text-slate-400 text-sm">Complete a 1-month practical internship working on live commercial/taxation tasks.</p>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">3. Live Internship</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">Complete a 1-month practical internship working on live commercial/taxation tasks.</p>
+          </div>
         </div>
 
-        <!-- Step 4 -->
-        <div class="relative z-10 text-center md:text-left space-y-4 group">
-          <div class="w-16 h-16 bg-success border-4 border-slate-800 rounded-full flex items-center justify-center mx-auto md:mx-0 group-hover:scale-110 transition-all shadow-lg text-white">
-            <span class="material-symbols-outlined text-2xl font-bold">verified</span>
+        <!-- Step 4: Certificate & Refund -->
+        <div class="relative z-10 text-center md:text-left space-y-6 group hover-lift" style="transition-delay: 0.3s;">
+          <div class="w-[104px] h-[104px] bg-primary border-4 border-slate-800 rounded-2xl flex items-center justify-center mx-auto md:mx-0 group-hover:scale-105 group-hover:border-success transition-all duration-300 shadow-premium relative">
+            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-success text-white font-black text-sm flex items-center justify-center shadow-premium">4</div>
+            <span class="material-symbols-outlined text-4xl text-success" style="font-variation-settings: 'FILL' 1;">verified</span>
           </div>
-          <h3 class="text-xl font-bold text-white">4. Certificate & Refund</h3>
-          <p class="text-slate-400 text-sm">Get certified, claim your 100% attendance fee refund, and kickstart your job hunt.</p>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">4. Certificate & Refund</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">Get certified, claim your 100% attendance fee refund, and kickstart your job hunt.</p>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- App Download Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="bg-primary rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 overflow-hidden text-white relative">
+
+
+  <!-- App Download / SaaS dashboard Section -->
+  <section class="py-24 bg-white dark:bg-slate-950 relative overflow-hidden">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-10 right-10 opacity-20" style="filter: blur(120px);"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <div class="relative bg-gradient-to-tr from-primary to-slate-950 rounded-2xl px-8 py-8 md:px-16 md:py-0 text-white overflow-hidden shadow-premium border border-white/10 flex flex-col md:flex-row items-center gap-12">
         <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="md:w-3/5 space-y-6">
-          <div class="inline-block bg-accent text-primary font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider">
+        
+        <!-- Left Side Text copy -->
+        <div class="w-full md:w-[55%] py-0 md:py-16 space-y-6">
+          <div class="inline-block bg-accent text-primary font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider">
             Mobile-First Classroom
           </div>
-          <h2 class="text-3xl md:text-4xl font-headline font-bold">Your Learning Partner in Your Pocket</h2>
-          <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+          <h2 class="text-3xl md:text-5xl font-headline font-black tracking-tight leading-tight">Your Learning Partner in Your Pocket</h2>
+          <p class="text-slate-300 text-base md:text-lg font-light leading-relaxed">
             Download our mobile app to access online course modules, verify your daily attendance record, log interactive practical tasks, submit projects, and coordinate with internship directors on the go.
           </p>
-          <div class="flex flex-wrap gap-4 pt-2">
-            <a class="inline-block transition-transform hover:scale-105" href="#">
-              <img alt="Get it on Google Play" class="h-14 object-contain" src="/assets/bb6f546f30af445716ee8eb80e5b4643.png" />
+          <div class="flex flex-col sm:flex-row gap-4 pt-2 w-full">
+            <a 
+              href="https://play.google.com/store/apps/details?id=co.varys.shacc" 
+              target="_blank" 
+              class="inline-flex items-center justify-center sm:justify-start gap-3 px-6 py-3.5 bg-gradient-to-r from-[#E9313E] via-[#FF6A00] to-[#FFAA00] text-white rounded-xl font-bold text-sm shadow-premium transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-orange-500/25 active:scale-[0.98] w-full sm:w-auto shrink-0 group"
+            >
+              <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5,3.0001C4.69,3.0001 4.38,3.0901 4.12,3.2701L13.56,12.7101L16.97,9.3001L5.88,3.3201C5.61,3.1201 5.31,3.0001 5,3.0001ZM3.27,4.1201C3.1,4.3801 3,4.6901 3,5.0001V19.0001C3,19.3101 3.1,19.6201 3.27,19.8801L12.85,10.3001L3.27,4.1201ZM13.56,12.7101L4.12,22.1501C4.38,22.3301 4.69,22.4201 5,22.4201C5.31,22.4201 5.61,22.3001 5.88,22.1001L16.97,16.1201L13.56,12.7101ZM17.68,10.0101L21.41,12.0101C21.78,12.2101 21.78,12.7901 21.41,12.9901L17.68,14.9901L14.27,11.5801L17.68,10.0101Z"/>
+              </svg>
+              <div class="text-left leading-none">
+                <span class="block text-[10px] font-medium text-white/80 uppercase tracking-wider">Download for</span>
+                <span class="block text-sm font-black mt-1">Android</span>
+              </div>
+            </a>
+            <a 
+              href="https://apps.apple.com/app/id1472483563" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="Download Margdarshak App on the App Store"
+              class="inline-flex items-center justify-center sm:justify-start gap-3 px-6 py-3.5 bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-white rounded-xl font-bold text-sm shadow-premium transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] w-full sm:w-auto shrink-0 group"
+            >
+              <svg class="w-5 h-5 fill-current text-white shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.85-1.01 2.96 1.12.09 2.27-.58 2.94-1.39z"/>
+              </svg>
+              <div class="text-left leading-none">
+                <span class="block text-[10px] font-medium text-white/80 uppercase tracking-wider">Download for</span>
+                <span class="block text-sm font-black mt-1">iPhone</span>
+              </div>
             </a>
           </div>
         </div>
-        <div class="md:w-2/5 flex justify-center">
-          <div class="relative w-64 h-64 md:w-80 md:h-80 bg-accent/10 rounded-full flex items-center justify-center border border-white/10">
-            <span class="material-symbols-outlined text-white text-9xl animate-float">phone_iphone</span>
+        
+        <!-- Right side mockup illustration -->
+        <div class="w-full md:w-[45%] py-4 md:py-2 flex justify-center items-center relative">
+          <div class="absolute -inset-4 bg-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+          <img 
+            src="/assets/mobile_app_preview.png" 
+            alt="Margdarshak mobile app mockup showing course dashboard" 
+            class="relative z-10 w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] h-auto object-contain max-h-[280px] md:max-h-[450px] filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.35)] animate-float-slow"
+            loading="lazy"
+            decoding="async"
+            width="480"
+            height="450"
+          />
+        </div>
+      </div>
+
+      
+    </div>
+  </section>
+
+  <!-- Contact CTA Section (Issue 8: Redesigned with Purple + Orange gradient, glass overlay, typography) -->
+  <section class="py-24 bg-slate-50 dark:bg-slate-900/10 border-t border-slate-100 dark:border-slate-900 relative overflow-hidden">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-1/3 left-10 opacity-20" style="filter: blur(120px);"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        
+        <!-- Contact Links Details Side -->
+        <div class="lg:col-span-7 space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white tracking-tight leading-tight">Have Questions? Let's Talk</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-base md:text-lg font-light leading-relaxed">
+              Unsure which course is right for your goals? Want to clarify the terms of the 100% attendance fee refund? Reach out to our career counselors today and get clear guidance.
+            </p>
+          </div>
+          
+          <!-- Detailed list of contact blocks -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            
+            <!-- Phone support -->
+            <div class="glass-card-premium p-5 rounded-2xl border-slate-200/50 dark:border-slate-800 flex items-center gap-4 hover-lift transition-all duration-300">
+              <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl font-bold">call</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Phone Support</h4>
+                <a href="tel:+919229025257" class="text-primary dark:text-white font-bold text-base hover:text-secondary hover:underline transition-colors duration-300">+91 92290 25257</a>
+              </div>
+            </div>
+            
+            <!-- WhatsApp Helpdesk -->
+            <div class="glass-card-premium p-5 rounded-2xl border-slate-200/50 dark:border-slate-800 flex items-center gap-4 hover-lift transition-all duration-300">
+              <div class="w-12 h-12 bg-[#25D366]/10 text-[#25D366] rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl font-bold">chat</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-400 uppercase tracking-wider">WhatsApp Helpdesk</h4>
+                <a href="https://wa.me/919229025257" target="_blank" class="text-[#25D366] font-bold text-base hover:underline transition-colors duration-300">92290 25257</a>
+              </div>
+            </div>
+            
+            <!-- Visit Center -->
+            <div class="glass-card-premium p-5 rounded-2xl border-slate-200/50 dark:border-slate-800 flex items-center gap-4 hover-lift transition-all duration-300">
+              <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl font-bold">location_on</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Visit Center</h4>
+                <span class="text-primary dark:text-white font-bold text-sm leading-snug">VIP Road, Benta Chowk, Laheriasarai, Darbhanga</span>
+              </div>
+            </div>
+            
+            <!-- Email address -->
+            <div class="glass-card-premium p-5 rounded-2xl border-slate-200/50 dark:border-slate-800 flex items-center gap-4 hover-lift transition-all duration-300">
+              <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl font-bold">mail</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Email Address</h4>
+                <a href="mailto:info@margdarshakedu.com" class="text-primary dark:text-white font-bold text-sm hover:text-secondary hover:underline transition-colors duration-300">info@margdarshakedu.com</a>
+              </div>
+            </div>
+            
           </div>
         </div>
+        
+        <!-- Registration Counselor Card Side (SaaS card styling with purple-orange gradient) -->
+        <div class="lg:col-span-5">
+          <div class="relative bg-gradient-to-br from-secondary via-brandOrange to-accent p-[1px] rounded-2xl shadow-premium">
+            <div class="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-2xl space-y-6 relative overflow-hidden">
+              <!-- decorative ring inside card -->
+              <div class="absolute -right-10 -top-10 w-32 h-32 bg-secondary/5 rounded-full border border-secondary/10 pointer-events-none"></div>
+              
+              <div class="w-16 h-16 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto shadow-sm">
+                <span class="material-symbols-outlined text-3xl font-bold">support_agent</span>
+              </div>
+              
+              <div class="space-y-2">
+                <h3 class="font-bold text-2xl text-primary dark:text-white tracking-tight">Need Course Guidance?</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light">
+                  Fill out a quick registration inquiry sheet and our senior academic counselor will call you within 2 hours.
+                </p>
+              </div>
+              
+              <div class="pt-2">
+                <a href="/register" class="block w-full btn-brand-gradient text-white py-4 rounded-xl font-bold text-sm text-center shadow-premium">
+                  Open Registration Form
+                </a>
+              </div>
+              
+              <div class="text-xs text-slate-400 font-medium text-center">
+                *Available Monday to Saturday: 9:00 AM - 6:00 PM
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   </section>
 
-  <!-- Contact CTA Section -->
-  <section class="py-20 bg-slate-50 border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-7 space-y-6">
-          <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">Have Questions? Let's Talk</h2>
-          <p class="text-slate-600 text-base md:text-lg leading-relaxed">
-            Unsure which course is right for your goals? Want to clarify the terms of the 100% attendance fee refund? Reach out to our career counselors today and get clear guidance.
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-xl">call</span>
-              </div>
-              <div>
-                <h4 class="font-bold text-sm text-slate-800">Phone Support</h4>
-                <a href="tel:+919229025257" class="text-primary font-bold text-sm hover:underline">+91 92290 25257</a>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-success/10 text-success rounded-full flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-xl">chat</span>
-              </div>
-              <div>
-                <h4 class="font-bold text-sm text-slate-800">WhatsApp Helpdesk</h4>
-                <a href="https://wa.me/919229025257" target="_blank" class="text-success font-bold text-sm hover:underline">92290 25257</a>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-xl">location_on</span>
-              </div>
-              <div>
-                <h4 class="font-bold text-sm text-slate-800">Visit Center</h4>
-                <span class="text-slate-500 text-xs font-semibold">VIP Road, Benta Chowk, Laheriasarai, Darbhanga</span>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-accent/10 text-slate-900 rounded-full flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-xl">mail</span>
-              </div>
-              <div>
-                <h4 class="font-bold text-sm text-slate-800">Email Address</h4>
-                <a href="mailto:info@margdarshakedu.com" class="text-slate-600 text-sm hover:underline">info@margdarshakedu.com</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="lg:col-span-5">
-          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xl text-center space-y-6">
-            <span class="material-symbols-outlined text-5xl text-[#d9383a]">support_agent</span>
-            <h3 class="font-bold text-xl text-primary">Need Course Guidance?</h3>
-            <p class="text-slate-500 text-sm leading-relaxed">
-              Fill out a quick registration inquiry sheet and our senior academic counselor will call you within 2 hours.
-            </p>
-            <div class="pt-2">
-              <a href="/register" class="block w-full bg-[#d9383a] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#c12f31] transition-all shadow-md">
-                Open Registration Form
-              </a>
-            </div>
-            <div class="text-xs text-slate-400">
-              *Available Monday to Saturday: 9:00 AM - 6:00 PM
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- CSS & JS for Testimonials, Gallery Lightbox, Counters & Scroll Reveal -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- 2. STATS ANIMATED COUNTERS ---
+      const statsCounters = document.querySelectorAll('.stats-counter');
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            const targetVal = parseInt(counter.getAttribute('data-target'), 10);
+            let currentVal = 0;
+            const duration = 1500; // ms
+            const stepTime = Math.max(Math.floor(duration / targetVal), 10);
+            const increment = Math.ceil(targetVal / (duration / stepTime));
+            
+            const timer = setInterval(() => {
+              currentVal += increment;
+              if (currentVal >= targetVal) {
+                counter.textContent = targetVal.toLocaleString('en-IN');
+                clearInterval(timer);
+              } else {
+                counter.textContent = currentVal.toLocaleString('en-IN');
+              }
+            }, stepTime);
+            
+            observer.unobserve(counter);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      statsCounters.forEach(counter => counterObserver.observe(counter));
+
+      // --- 3. PHOTO GALLERY FILTERING & LIGHTBOX ---
+      const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('gallery-lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTag = document.getElementById('lightbox-tag');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxPrev = document.getElementById('lightbox-prev');
+      const lightboxNext = document.getElementById('lightbox-next');
+      
+      let activeGalleryItems = Array.from(galleryItems);
+      let activeImageIndex = 0;
+
+      // Gallery Filtering
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active styles from other buttons
+          filterBtns.forEach(b => {
+            b.classList.remove('active', 'bg-secondary', 'text-white');
+            b.classList.add('bg-slate-100', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300');
+          });
+          // Add active style to clicked button
+          btn.classList.add('active', 'bg-secondary', 'text-white');
+          btn.classList.remove('bg-slate-100', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300');
+
+          const filter = btn.getAttribute('data-filter');
+          activeGalleryItems = [];
+
+          galleryItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              item.style.display = 'block';
+              activeGalleryItems.push(item);
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Lightbox open
+      galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+          activeImageIndex = activeGalleryItems.indexOf(item);
+          updateLightboxContent();
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+          document.body.style.overflow = 'hidden'; // Lock background scroll
+        });
+      });
+
+      function updateLightboxContent() {
+        if (activeGalleryItems.length === 0) return;
+        const currentItem = activeGalleryItems[activeImageIndex];
+        const img = currentItem.querySelector('img');
+        const title = currentItem.querySelector('h4');
+        const tag = currentItem.querySelector('span');
+
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxTitle.textContent = title.textContent;
+        lightboxTag.textContent = tag.textContent;
+      }
+
+      // Close Lightbox
+      function closeLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = ''; // Restore scroll
+      }
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Next / Prev Lightbox Image
+      lightboxNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activeImageIndex = (activeImageIndex + 1) % activeGalleryItems.length;
+        updateLightboxContent();
+      });
+
+      lightboxPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activeImageIndex = (activeImageIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
+        updateLightboxContent();
+      });
+
+      // Keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') {
+          activeImageIndex = (activeImageIndex + 1) % activeGalleryItems.length;
+          updateLightboxContent();
+        }
+        if (e.key === 'ArrowLeft') {
+          activeImageIndex = (activeImageIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
+          updateLightboxContent();
+        }
+      });
+
+    });
+  </script>
 
 </Layout>

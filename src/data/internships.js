@@ -27,7 +27,7 @@ export const internships = [
       "Official Internship Certificate and recommendation letter eligibility",
       "Preparedness for Office Administrator and Executive Assistant positions"
     ],
-    image: "/assets/e6c2c523cf14cdb179cc2a47f74fa092.png",
+    image: "/assets/course_dca_adca.png",
     tags: ["Office Tech", "Basic IT", "Internship"]
   },
   {
@@ -58,7 +58,7 @@ export const internships = [
       "Verified internship experience with a registered institute",
       "Improved chances of securing entry-level SEO and social media jobs"
     ],
-    image: "/assets/c7e044c22517bdf2d06eeb2d27d2c1ee.png",
+    image: "/assets/course_digital_marketing.png",
     tags: ["SEO", "SMM", "Marketing", "Internship"]
   },
   {
@@ -89,7 +89,7 @@ export const internships = [
       "Experience with team collaboration workflows in GitHub",
       "Technical experience letter confirming frontend coding competency"
     ],
-    image: "/assets/a856bc10c078cf92712c1e4d43bc304c.png",
+    image: "/assets/course_web_dev.png",
     tags: ["Frontend", "Git", "Coding", "Internship"]
   },
   {
@@ -120,7 +120,7 @@ export const internships = [
       "Practical accounting expertise valued by local businesses",
       "Internship completion certificate to build your financial career"
     ],
-    image: "/assets/59b6631ca52fa337e072d1e3b5635dd8.png",
+    image: "/assets/course_tally_excel.png",
     tags: ["Tally", "Finance", "Excel", "Internship"]
   },
   {
@@ -151,7 +151,7 @@ export const internships = [
       "Direct exposure to Indian tax filing standards",
       "Credibility to start an independent taxation advising practice"
     ],
-    image: "/assets/07b7633f773219d217e000740803f56a.png",
+    image: "/assets/course_gst_filing.png",
     tags: ["GST", "Reconciliation", "Tax", "Internship"]
   },
   {
@@ -182,7 +182,7 @@ export const internships = [
       "Resume enhancement with specialized tax compliance skills",
       "Internship certificate and performance-based recommendation letter"
     ],
-    image: "/assets/91378d2d90d7532d0ef120f202d34452.png",
+    image: "/assets/course_income_tax.png",
     tags: ["Income Tax", "ITR", "Filing", "Internship"]
   },
   {
@@ -213,7 +213,7 @@ export const internships = [
       "Showcase project portfolio of AI integrations",
       "Official certificate proving competency in modern AI tools"
     ],
-    image: "/assets/ai_tools_internship.png",
+    image: "/assets/course_ai_tools.png",
     tags: ["AI Tools", "ChatGPT", "Automation", "Internship"]
   }
 ];

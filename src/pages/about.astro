@@ -2,152 +2,609 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="About Us - Margdarshak Shikshan Sansthan" description="Learn about Margdarshak Shikshan Sansthan's mission, vision, learning approach, and how we deliver pocket-friendly education with a 100% refund policy.">
+<Layout 
+  title="About Margdarshak Shikshan Sansthan — Our Mission, Mentors & Story | Darbhanga" 
+  description="Learn about Margdarshak Shikshan Sansthan, Darbhanga’s premier skill-development institute. Discover our mission, expert mentors from IIT & IIIT, practical training approach, and 100% fee refund policy."
+  ogImage="/assets/about_hero_illustration.png"
+  ogType="website"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Margdarshak Shikshan Sansthan",
+    "description": "Discover the story, mission, and expert mentors of Margdarshak Shikshan Sansthan in Darbhanga.",
+    "mainEntity": {
+      "@type": "EducationalOrganization",
+      "name": "Margdarshak Shikshan Sansthan",
+      "foundingDate": "2020",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Darbhanga",
+        "addressRegion": "Bihar",
+        "addressCountry": "IN"
+      }
+    }
+  }}
+>
   
-  <!-- Page Header -->
-  <section class="hero-gradient text-white py-16">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 text-center space-y-4">
-      <div class="inline-block bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-        Our Foundations
+  <!-- SECTION 1: PREMIUM HERO SECTION -->
+  <section class="relative hero-gradient text-white py-20 md:py-28 overflow-hidden flex items-center">
+    <!-- Glowing background decorative blobs -->
+    <div class="glow-blob bg-secondary w-96 h-96 -top-20 -left-20 opacity-20 animate-pulse-glow" style="filter: blur(130px);" aria-hidden="true"></div>
+    <div class="glow-blob bg-accent w-96 h-96 bottom-10 right-10 opacity-15 animate-pulse-glow" style="filter: blur(130px); animation-delay: 2.5s;" aria-hidden="true"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 w-full">
+      
+      <!-- Hero Left Text Content -->
+      <div class="space-y-6 lg:max-w-xl reveal reveal-slide-up">
+        <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md shadow-glass animate-float-slow">
+          <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+          <span class="text-accent font-headline font-bold text-xs tracking-wider uppercase">ABOUT MARGDARSHAK</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-[1.1] tracking-tight">
+          Guiding Students <br />
+          <span class="text-gradient-purple-orange">Toward Practical Careers</span>
+        </h1>
+        
+        <p class="text-base md:text-lg text-slate-300 leading-relaxed font-light">
+          Margdarshak Shikshan Sansthan helps students build real skills through affordable courses, internships, hybrid learning, certification, and career support.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <a href="/courses" class="btn-brand-gradient text-white px-8 py-4 rounded-xl font-bold text-sm text-center shadow-premium transition-all duration-300 hover:scale-105">
+            Explore Courses
+          </a>
+          <a href="/internships" class="bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 text-white px-8 py-4 rounded-xl font-bold text-sm text-center transition-all duration-300 shadow-glass hover:scale-105">
+            Apply for Internship
+          </a>
+        </div>
       </div>
-      <h1 class="text-3xl md:text-5xl font-headline font-black">
-        About Our Institute
-      </h1>
-      <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg">
-        Providing pocket-friendly, job-oriented education to empower the youth of Bharat.
-      </p>
+      
+      <!-- Hero Right Image Section with Glowing Composition -->
+      <div class="relative mt-8 lg:mt-0 flex justify-center items-center w-full">
+        <!-- Soft subtle premium glow backing -->
+        <div class="absolute w-[85%] h-[85%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-secondary/15 via-brandOrange/10 to-accent/15 rounded-full opacity-35 blur-[80px] lg:blur-[120px] pointer-events-none z-0"></div>
+        
+        <!-- Main Image Wrapper -->
+        <div class="relative z-10 w-full max-w-[500px] lg:max-w-none animate-float-slow reveal reveal-scale" style="transition-delay: 150ms">
+          <img 
+            alt="Margdarshak students collaborating on practical projects" 
+            class="w-full h-auto object-contain select-none" 
+            src="/assets/about_hero_illustration.png" 
+            loading="eager" 
+            fetchpriority="high"
+            decoding="async"
+            width="800"
+            height="600"
+          />
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Institute Intro Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-6 space-y-6">
-          <h2 class="text-3xl font-headline font-bold text-primary">
-            Darbhanga's Premier Practical Training Center
+  <!-- SECTION 2: BRAND STORY / WHO WE ARE -->
+  <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden border-t border-slate-100 dark:border-white/5">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Text details -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+            Who We Are
+          </div>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+            Built for Students Who Want Real Skills
           </h2>
-          <p class="text-slate-600 leading-relaxed text-base">
-            Margdarshak Shikshan Sansthan was founded with a singular, powerful objective: **to make high-quality professional training accessible to every single student in Bharat, regardless of their financial background**. 
-          </p>
-          <p class="text-slate-600 leading-relaxed text-base">
-            Located in Benta Chowk, Darbhanga, we are specialized in delivering skill-driven courses in computerized accounting (TallyPrime), tax systems (GST and Income Tax), frontend web coding, and office administration. By emphasizing real client files, practical projects, and a unique 100% attendance fee refund model, we ensure that dedicated learners get certified and employed.
-          </p>
-          <div class="border-t border-slate-100 pt-6">
-            <div class="flex gap-4 items-center">
-              <span class="material-symbols-outlined text-4xl text-[#d9383a]">volunteer_activism</span>
-              <p class="text-slate-500 text-sm italic">
-                "We believe that education is not a business. Sincerity and hard work should be the only requirements for a student to succeed."
-              </p>
+          <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm md:text-base font-light">
+            <p>
+              Based in the historic city of <strong class="text-primary dark:text-white font-semibold">Darbhanga, Bihar</strong>, Margdarshak Shikshan Sansthan is committed to delivering practical, job-oriented education. We understand that standard degrees often leave a gap between textbooks and employment, which is why we build real skill-based pathways.
+            </p>
+            <p>
+              Our institute focuses on modern, in-demand industries. We offer pocket-friendly vocational courses, hands-on internship programs, highly flexible hybrid learning models, government-registered certifications, and complete career placement support.
+            </p>
+            <p>
+              To support sincere and dedicated learners, we offer a unique, industry-first opportunity: <strong class="text-secondary dark:text-purpleglow font-semibold">90% attendance = 100% fee refund</strong>. We believe that dedication and consistency should be rewarded, making education virtually free for our most focused students.
+            </p>
+          </div>
+        </div>
+
+        <!-- Premium Quote Card -->
+        <div class="lg:col-span-5 w-full relative">
+          <div class="absolute -inset-4 bg-gradient-to-tr from-secondary/10 to-accent/10 rounded-3xl blur-xl"></div>
+          
+          <div class="relative glass-card-premium p-8 rounded-3xl border-slate-200/60 dark:border-slate-800 shadow-premium flex flex-col justify-between min-h-[300px] reveal reveal-slide-up" style="transition-delay: 100ms">
+            <span class="material-symbols-outlined text-5xl text-gradient-purple-orange mb-6">format_quote</span>
+            
+            <p class="text-lg md:text-xl font-display font-medium italic text-slate-700 dark:text-slate-200 leading-relaxed">
+              "Education should reward sincerity, discipline, and hard work — not financial background."
+            </p>
+
+            <div class="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+                <span class="material-symbols-outlined font-bold text-lg">verified</span>
+              </div>
+              <div>
+                <span class="block text-sm font-bold text-primary dark:text-white">Our Founding Pledge</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Margdarshak Shikshan Sansthan</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="lg:col-span-6 w-full">
-          <div class="relative">
-            <div class="absolute -inset-4 bg-primary/10 rounded-2xl blur-xl"></div>
-            <img alt="Students collaborating" class="relative z-10 rounded-2xl shadow-xl w-full h-[360px] object-cover" src="/assets/ef416198aade12024c457f8fe0004783.png" />
-          </div>
-        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Mission & Vision Section -->
-  <section class="py-20 bg-background border-y border-slate-200/50">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+  <!-- SECTION 3: MISSION, VISION & VALUES -->
+  <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
       
-      <!-- Mission Card -->
-      <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-lg space-y-6 flex flex-col justify-between">
-        <div class="space-y-4">
-          <div class="w-14 h-14 bg-secondary/10 text-secondary rounded-2xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-3xl font-bold">rocket</span>
-          </div>
-          <h3 class="text-2xl font-headline font-bold text-primary">Our Mission</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Our mission is to establish a transparent, job-ready ecosystem of technical and vocational learning that matches international standards but remains completely affordable. We aim to equip 10,000+ local students in Bihar with verified modern skills, ensuring that every house has a certified professional capable of driving digital and financial operations.
-          </p>
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          Our Foundation
         </div>
-        <div class="text-xs font-semibold text-secondary tracking-widest uppercase">
-          Empowering Bharat
-        </div>
-      </div>
-
-      <!-- Vision Card -->
-      <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-lg space-y-6 flex flex-col justify-between">
-        <div class="space-y-4">
-          <div class="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-3xl font-bold">visibility</span>
-          </div>
-          <h3 class="text-2xl font-headline font-bold text-primary">Our Vision</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            We envision an educational landscape where financial constraints never stand in the way of learning. By expanding our digital portals and modern offline laboratories, we seek to become India’s most trusted student-first institute, establishing a benchmark where professional certification programs are fully subsidized for sincere and hardworking students.
-          </p>
-        </div>
-        <div class="text-xs font-semibold text-primary tracking-widest uppercase">
-          Building the Future
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Learning Approach & Why Choose Us -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 space-y-16">
-      <div class="text-center max-w-2xl mx-auto space-y-3">
-        <span class="bg-accent/20 text-[#002D62] px-3.5 py-1 rounded-full font-bold text-xs uppercase tracking-wider">
-          Our Framework
-        </span>
-        <h2 class="text-3xl md:text-4xl font-headline font-bold text-primary">
-          Our Modern Learning Approach
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          Mission, Vision & Values
         </h2>
-        <p class="text-slate-500 text-sm md:text-base">
-          How we ensure that our students stand out in interviews and client projects.
+        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base font-light">
+          The core principles driving our mission to revolutionize vocational training.
         </p>
       </div>
 
+      <!-- Bento Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <!-- Hybrid Learning -->
-        <div class="space-y-4 p-6 rounded-2xl hover:bg-slate-50 transition-colors">
-          <span class="material-symbols-outlined text-4xl text-[#d9383a]">devices</span>
-          <h4 class="font-bold text-xl text-primary">Hybrid Learning Flexibility</h4>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Attend live interactive online lectures or step into our high-speed offline labs at Benta Chowk. We offer complete freedom to switch formats based on your schedule.
-          </p>
+        <!-- Mission Card -->
+        <div class="glass-card-premium p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between min-h-[280px] group reveal reveal-slide-up" style="transition-delay: 50ms">
+          <div class="space-y-4">
+            <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <span class="material-symbols-outlined text-2xl font-bold">rocket</span>
+            </div>
+            <h3 class="text-xl font-headline font-bold text-primary dark:text-white">Our Mission</h3>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm font-light">
+              To make practical, job-oriented education affordable and accessible for sincere students.
+            </p>
+          </div>
+          <div class="text-[10px] font-bold text-secondary tracking-widest uppercase mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
+            Subsidized Skill Training
+          </div>
         </div>
 
-        <!-- Practical Training -->
-        <div class="space-y-4 p-6 rounded-2xl hover:bg-slate-50 transition-colors">
-          <span class="material-symbols-outlined text-4xl text-[#d9383a]">psychology</span>
-          <h4 class="font-bold text-xl text-primary">Practical-First Training</h4>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            We bypass outdated text files. Our students practice on live databases, write actual web pages, draft official tax documents, and manage commercial ledgers.
-          </p>
+        <!-- Vision Card -->
+        <div class="glass-card-premium p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between min-h-[280px] group reveal reveal-slide-up" style="transition-delay: 150ms">
+          <div class="space-y-4">
+            <div class="w-12 h-12 bg-brandOrange/10 text-brandOrange rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <span class="material-symbols-outlined text-2xl font-bold">visibility</span>
+            </div>
+            <h3 class="text-xl font-headline font-bold text-primary dark:text-white">Our Vision</h3>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm font-light">
+              To become a trusted skill-development platform for students across Bihar and India.
+            </p>
+          </div>
+          <div class="text-[10px] font-bold text-brandOrange tracking-widest uppercase mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
+            Empowering the Nation
+          </div>
         </div>
 
-        <!-- Certification & Career support -->
-        <div class="space-y-4 p-6 rounded-2xl hover:bg-slate-50 transition-colors">
-          <span class="material-symbols-outlined text-4xl text-[#d9383a]">verified_user</span>
-          <h4 class="font-bold text-xl text-primary">Certification & Job Portals</h4>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Upon successful project approvals, earn a government-recognized certificate. We provide placement assistance and share resumes directly with regional corporations.
-          </p>
+        <!-- Values Card -->
+        <div class="glass-card-premium p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between min-h-[280px] group reveal reveal-slide-up" style="transition-delay: 250ms">
+          <div class="space-y-4">
+            <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <span class="material-symbols-outlined text-2xl font-bold">volunteer_activism</span>
+            </div>
+            <h3 class="text-xl font-headline font-bold text-primary dark:text-white">Our Values</h3>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm font-light">
+              Sincerity, practical learning, accessibility, discipline, and career growth.
+            </p>
+          </div>
+          <div class="text-[10px] font-bold text-accent tracking-widest uppercase mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
+            Core Beliefs in Action
+          </div>
         </div>
 
       </div>
+    </div>
+  </section>
 
-      <!-- Why Choose Us Banner CTA -->
-      <div class="bg-primary rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-3">
-          <h3 class="text-2xl md:text-3xl font-headline font-bold">Ready to Start Your Professional Journey?</h3>
-          <p class="text-slate-300 text-sm max-w-xl">
-            Choose from our job-oriented courses. Maintain 90% attendance to study for free!
+  <!-- SECTION 4: OUR MENTORS -->
+  <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden border-t border-slate-100 dark:border-white/5">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-1/4 -right-20 opacity-15" style="filter: blur(120px);"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          OUR LEADERSHIP TEAM
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          Meet Our Mentors & Visionaries
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base font-light">
+          Experienced professionals committed to guiding students with practical knowledge, industry exposure, and career-focused learning.
+        </p>
+      </div>
+
+      <!-- Mentor Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Mentor 1: Anivesh Panjiyar -->
+        <div class="glass-card-premium p-8 rounded-[28px] border-slate-200/60 dark:border-slate-800 shadow-premium transition-all duration-300 hover:shadow-premium-hover flex flex-col justify-between text-center group h-full hover-lift reveal reveal-slide-up" style="transition-delay: 50ms">
+          <div>
+            <div class="relative w-28 h-28 rounded-full mx-auto mb-6 bg-white dark:bg-slate-800 p-1 shadow-md border-2 border-white/80 dark:border-slate-700/80 overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-[1.03] animate-float-medium">
+              <img 
+                alt="Anivesh Panjiyar — Software Development Engineer, IIIT Gwalior" 
+                class="w-full h-full object-cover rounded-full" 
+                src="/assets/mentor_anivesh.png"
+                loading="lazy"
+                decoding="async"
+                width="112"
+                height="112"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl text-primary dark:text-white mb-2">Anivesh Panjiyar</h3>
+            
+            <div class="flex flex-col items-center gap-1.5 mb-4">
+              <span class="bg-secondary text-white text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full inline-flex items-center justify-center min-h-[24px]">
+                Software Development Engineer
+              </span>
+              <span class="bg-secondary text-white text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full inline-flex items-center justify-center min-h-[24px]">
+                IIIT Gwalior
+              </span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-100 dark:border-white/5">
+            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm font-light leading-relaxed italic">
+              "A visionary technocrat from IIIT Gwalior committed to revolutionizing the educational landscape of Bihar through cutting-edge technology and AI integration."
+            </p>
+          </div>
+        </div>
+
+        <!-- Mentor 2: Abhishek -->
+        <div class="glass-card-premium p-8 rounded-[28px] border-slate-200/60 dark:border-slate-800 shadow-premium transition-all duration-300 hover:shadow-premium-hover flex flex-col justify-between text-center group h-full hover-lift reveal reveal-slide-up" style="transition-delay: 150ms">
+          <div>
+            <div class="relative w-28 h-28 rounded-full mx-auto mb-6 bg-white dark:bg-slate-800 p-1 shadow-md border-2 border-white/80 dark:border-slate-700/80 overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-[1.03] animate-float-slow">
+              <img 
+                alt="Abhishek — AI/ML Engineer, IIT Delhi" 
+                class="w-full h-full object-cover rounded-full" 
+                src="/assets/mentor_abhishek.png"
+                loading="lazy"
+                decoding="async"
+                width="112"
+                height="112"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl text-primary dark:text-white mb-2">Abhishek</h3>
+            
+            <div class="flex flex-col items-center gap-1.5 mb-4">
+              <span class="bg-secondary text-white text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full inline-flex items-center justify-center min-h-[24px]">
+                AI/ML Engineer
+              </span>
+              <span class="bg-secondary text-white text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full inline-flex items-center justify-center min-h-[24px]">
+                IIT Delhi
+              </span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-100 dark:border-white/5">
+            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm font-light leading-relaxed italic">
+              "An IIT Delhi expert focused on bridging the gap between academic learning and sustainable career trajectories through advanced AI/ML solutions."
+            </p>
+          </div>
+        </div>
+
+        <!-- Mentor 3: Nishant -->
+        <div class="glass-card-premium p-8 rounded-[28px] border-slate-200/60 dark:border-slate-800 shadow-premium transition-all duration-300 hover:shadow-premium-hover flex flex-col justify-between text-center group h-full hover-lift reveal reveal-slide-up" style="transition-delay: 250ms">
+          <div>
+            <div class="relative w-28 h-28 rounded-full mx-auto mb-6 bg-white dark:bg-slate-800 p-1 shadow-md border-2 border-white/80 dark:border-slate-700/80 overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-[1.03] animate-float-medium">
+              <img 
+                alt="Nishant — Chartered Accountant" 
+                class="w-full h-full object-cover rounded-full" 
+                src="/assets/mentor_nishant.png"
+                loading="lazy"
+                decoding="async"
+                width="112"
+                height="112"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl text-primary dark:text-white mb-2">Nishant</h3>
+            
+            <div class="flex flex-col items-center gap-1.5 mb-4">
+              <span class="bg-secondary text-white text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full inline-flex items-center justify-center min-h-[24px]">
+                Chartered Accountant (CA)
+              </span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-100 dark:border-white/5">
+            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm font-light leading-relaxed italic">
+              "A finance expert dedicated to equipping students with essential financial literacy, accounting skills, taxation knowledge, and career readiness for the modern economy."
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: WHAT MAKES MARGDARSHAK DIFFERENT -->
+  <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5">
+    <div class="glow-blob bg-accent/5 w-96 h-96 bottom-1/4 right-0 opacity-15" style="filter: blur(120px);"></div>
+    
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          Key Differentiators
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          What Makes Margdarshak Different
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base font-light">
+          We go beyond traditional educational frameworks to secure real professional skill growth.
+        </p>
+      </div>
+
+      <!-- Bento Grid Feature Layout -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- 1. Practical Training -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 50ms">
+          <div>
+            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">psychology</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Practical Training</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Skip dry textbooks. Students practice on real billing systems, commercial tax databases, and live web apps using actual case files.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Affordable Fees -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 100ms">
+          <div>
+            <div class="w-10 h-10 bg-brandOrange/10 text-brandOrange rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">payments</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Affordable Fees</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Pocket-friendly fees starting at just ₹1,000/month, ensuring high-quality training is accessible to everyone in Bihar.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. Hybrid Learning -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 150ms">
+          <div>
+            <div class="w-10 h-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">devices</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Hybrid Learning</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Attend live online interactive lectures or join physical training tracks inside our fully-equipped lab in Darbhanga.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4. Internship Opportunity -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 200ms">
+          <div>
+            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">work</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Internship Opportunity</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Every course integrates a 1-month practical internship module to build portfolios and gain genuine workspace experience.
+            </p>
+          </div>
+        </div>
+
+        <!-- 5. Certification Support -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 250ms">
+          <div>
+            <div class="w-10 h-10 bg-brandOrange/10 text-brandOrange rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">workspace_premium</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Certification Support</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Receive government-registered, MCA-approved certificates that are highly valued and industry-recognized across regions.
+            </p>
+          </div>
+        </div>
+
+        <!-- 6. Career Guidance -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 300ms">
+          <div>
+            <div class="w-10 h-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">handshake</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Career Guidance</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Placement support, professional resume building, mock interviews, and direct networking paths to corporate partners.
+            </p>
+          </div>
+        </div>
+
+        <!-- 7. Attendance Refund Opportunity -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 350ms">
+          <div>
+            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">verified_user</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">Attendance Refund</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Maintain 90% attendance, complete tasks regularly, and get 100% of your course fees back as a refund. Sincerity pays off.
+            </p>
+          </div>
+        </div>
+
+        <!-- 8. App-Based Learning -->
+        <div class="glass-card-premium p-5 sm:p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift transition-all duration-300 flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 400ms">
+          <div>
+            <div class="w-10 h-10 bg-brandOrange/10 text-brandOrange rounded-xl flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-2xl font-bold">phone_android</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary dark:text-white mb-2">App-Based Learning</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs font-light leading-relaxed">
+              Review course lectures, check your daily attendance, and submit assignments easily via our customized Android app.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: OUR LEARNING JOURNEY -->
+  <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden border-t border-slate-100 dark:border-white/5">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          Timeline
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          Our Learning Journey
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base font-light">
+          From enrollment to career support, every step is designed to help students learn, practice, and grow.
+        </p>
+      </div>
+
+      <!-- Roadmap Timeline Layout -->
+      <div class="relative">
+        <!-- Connecting Line (Desktop) -->
+        <div class="hidden lg:block absolute top-[40px] left-[8%] right-[8%] h-[3px] bg-gradient-to-r from-secondary via-brandOrange to-accent opacity-30 z-0"></div>
+        
+        <!-- Connecting Line (Mobile/Tablet vertical) -->
+        <div class="lg:hidden absolute left-1/2 -translate-x-1/2 top-10 bottom-10 w-[2px] bg-gradient-to-b from-secondary via-brandOrange to-accent opacity-20 z-0"></div>
+
+        <!-- Steps Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
+          
+          <!-- Step 1: Enroll -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 50ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-secondary transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-secondary">person_add</span>
+            </div>
+            <div>
+              <span class="inline-block bg-secondary/10 text-secondary text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 1</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Enroll</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Register for your chosen vocational or coding program.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2: Learn -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 100ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-brandOrange transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-brandOrange">menu_book</span>
+            </div>
+            <div>
+              <span class="inline-block bg-brandOrange/10 text-brandOrange text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 2</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Learn</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Attend live online modules or physical mentor sessions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3: Practice -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 150ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-accent transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-accent">computer</span>
+            </div>
+            <div>
+              <span class="inline-block bg-accent/15 text-[#FF9100] dark:text-accent text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 3</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Practice</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Work on live databases and commercial client case files.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4: Internship -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 200ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-secondary transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-secondary">work</span>
+            </div>
+            <div>
+              <span class="inline-block bg-secondary/10 text-secondary text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 4</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Internship</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Obtain hands-on corporate experience for 1 full month.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5: Certification -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 250ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-brandOrange transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-brandOrange">workspace_premium</span>
+            </div>
+            <div>
+              <span class="inline-block bg-brandOrange/10 text-brandOrange text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 5</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Certification</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Receive government-approved, MCA-registered certificates.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 6: Career Support -->
+          <div class="text-center space-y-4 group hover-lift reveal reveal-slide-up" style="transition-delay: 300ms">
+            <div class="w-20 h-20 bg-white dark:bg-slate-950 border-4 border-slate-100 dark:border-slate-800 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 group-hover:border-accent transition-all duration-300 shadow-md relative z-10">
+              <span class="material-symbols-outlined text-3xl text-accent">handshake</span>
+            </div>
+            <div>
+              <span class="inline-block bg-accent/15 text-[#FF9100] dark:text-accent text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase">Step 6</span>
+              <h4 class="font-bold text-base text-primary dark:text-white mb-1">Career Support</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed px-4">
+                Get placement help, resume reviews, and interview schedules.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 7: FINAL CTA -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      
+      <!-- Gradient Mesh Core Container -->
+      <div class="relative bg-gradient-to-tr from-primary to-slate-950 rounded-3xl p-8 md:p-16 text-white overflow-hidden shadow-premium border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-12">
+        <!-- Accent Glow Blobs -->
+        <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-secondary/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -top-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl space-y-6">
+          <div class="inline-block bg-white/10 text-accent font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider border border-white/15">
+            Build Your Skills
+          </div>
+          <h2 class="text-3xl md:text-5xl font-headline font-black leading-tight">
+            Ready to Build Your Future with Margdarshak?
+          </h2>
+          <p class="text-slate-300 text-base md:text-lg leading-relaxed font-light">
+            Join practical courses, internships, and career-focused programs designed to help you learn real skills and grow with confidence.
           </p>
         </div>
-        <a href="/register" class="bg-secondary text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#c12f31] transition-all shrink-0 shadow-lg hover:scale-105">
-          Register for a Course
-        </a>
+
+        <div class="relative z-10 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-4 w-full lg:w-auto shrink-0">
+          <a href="/register" class="btn-brand-gradient text-white px-8 py-4 rounded-xl font-bold text-sm text-center shadow-premium transition-all duration-300 hover:scale-105">
+            Register Now
+          </a>
+          <a href="/courses" class="bg-white/10 hover:bg-white/15 border border-white/20 text-white px-8 py-4 rounded-xl font-bold text-sm text-center transition-all duration-300 shadow-glass hover:scale-105">
+            Explore Courses
+          </a>
+          <a href="/internships" class="bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white px-8 py-4 rounded-xl font-bold text-sm text-center transition-all duration-300 shadow-glass hover:scale-105">
+            Explore Internships
+          </a>
+        </div>
       </div>
 
     </div>
