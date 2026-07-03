@@ -1,50 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 56" width="280" height="56">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" width="320" height="56">
   <defs>
-    <!-- Load League Spartan and Outfit fonts -->
     <style>
       @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&amp;family=Outfit:wght@600;700&amp;display=swap');
-      .icon-left-wing { fill: url(#redGrad); }
-      .icon-right-wing { fill: url(#yellowGrad); }
-      .icon-needle { fill: url(#needleGrad); }
-      .title-marg { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 25px; fill: #EF4444; letter-spacing: -0.01em; }
-      .title-darshak { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 25px; fill: #FACC15; letter-spacing: -0.01em; }
-      .tagline { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 7.2px; fill: #E2E8F0; letter-spacing: 0.38em; text-transform: uppercase; }
+      .title-marg { font-family: 'League Spartan', 'Arial Black', sans-serif; font-weight: 800; font-size: 32px; fill: #E53935; letter-spacing: -0.01em; }
+      .title-darshak { font-family: 'League Spartan', 'Arial Black', sans-serif; font-weight: 800; font-size: 32px; fill: #FFC107; letter-spacing: -0.01em; }
+      .tagline { font-family: 'Outfit', 'Arial', sans-serif; font-weight: 700; font-size: 9.5px; fill: #E2E8F0; letter-spacing: 0.32em; text-transform: uppercase; }
     </style>
-    
-    <!-- Red Gradient -->
-    <linearGradient id="redGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#EF4444" />
-      <stop offset="100%" stop-color="#B91C1C" />
-    </linearGradient>
-    
-    <!-- Yellow Gradient -->
-    <linearGradient id="yellowGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FBBF24" />
-      <stop offset="100%" stop-color="#D97706" />
-    </linearGradient>
-    
-    <!-- Needle Gradient -->
-    <linearGradient id="needleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#94A3B8" />
-    </linearGradient>
   </defs>
-  
-  <!-- Icon Group -->
-  <g transform="translate(6, 6)">
-    <!-- Left Page / Wing -->
-    <path d="M 22,34 C 15,34 9,30 4,26 L 4,11 C 9,15 15,19 22,19 Z" class="icon-left-wing" />
-    
-    <!-- Right Page / Wing -->
-    <path d="M 22,34 C 29,34 35,30 40,26 L 40,11 C 35,15 29,19 22,19 Z" class="icon-right-wing" />
-    
-    <!-- Center Needle / Spine -->
-    <path d="M 22,4 L 25.5,19 L 22,16.5 L 18.5,19 Z" class="icon-needle" />
-  </g>
-  
-  <!-- Text Elements -->
-  <g transform="translate(58, 0)">
-    <text x="0" y="29"><tspan class="title-marg">MARG</tspan><tspan class="title-darshak">DARSHAK</tspan></text>
-    <text x="1.5" y="42" class="tagline">SHIKSHAN SANSTHAN</text>
-  </g>
+
+  <!-- MARGDARSHAK text -->
+  <text x="160" y="32" text-anchor="middle">
+    <tspan class="title-marg">MARG</tspan><tspan class="title-darshak">DARSHAK</tspan>
+  </text>
+
+  <!-- SHIKSHAN SANSTHAN tagline -->
+  <text x="160" y="48" text-anchor="middle" class="tagline">SHIKSHAN SANSTHAN</text>
 </svg>

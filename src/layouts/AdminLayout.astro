@@ -25,7 +25,12 @@ const menuItems = [
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&amp;family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <!-- Icons -->
   <link href="/assets/a39f5c6fcbb87b419667ec984d2e579a.css" rel="stylesheet" />
   <!-- Tailwind CSS -->
@@ -76,6 +81,87 @@ const menuItems = [
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 10px 30px -10px rgba(7, 20, 38, 0.04);
+    }
+
+    /* Sidebar Collapsed Styles */
+    #sidebar-desktop {
+      transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .sidebar-collapsed {
+      width: 72px !important;
+    }
+    
+    .logo-text, .logout-text, .menu-label {
+      display: inline-block;
+      max-width: 180px;
+      opacity: 1;
+      transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1), max-width 200ms cubic-bezier(0.4, 0, 0.2, 1), margin 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-collapsed .logo-text,
+    .sidebar-collapsed .logout-text,
+    .sidebar-collapsed .menu-label,
+    .sidebar-collapsed .active-dot {
+      opacity: 0 !important;
+      max-width: 0 !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      pointer-events: none !important;
+    }
+    
+    .sidebar-collapsed .sidebar-header-container {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      justify-content: center !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    
+    .sidebar-collapsed nav {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+    
+    .sidebar-collapsed nav a,
+    .sidebar-collapsed #desktop-logout-btn {
+      justify-content: center !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      gap: 0 !important;
+    }
+    
+    /* Tooltip styles for Collapsed Sidebar */
+    @media (min-width: 768px) {
+      .sidebar-collapsed nav a::after,
+      .sidebar-collapsed #desktop-logout-btn::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: calc(100% + 12px);
+        top: 50%;
+        transform: translateY(-50%) translateX(-8px);
+        background: #071426;
+        color: #f8fafc;
+        font-family: 'Outfit', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 9999;
+      }
+      
+      .sidebar-collapsed nav a:hover::after,
+      .sidebar-collapsed #desktop-logout-btn:hover::after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
     }
     .btn-brand-gradient {
       background: linear-gradient(135deg, #E53935 0%, #FF7043 50%, #FFB300 100%);
@@ -225,16 +311,28 @@ const menuItems = [
   <div class="flex h-screen overflow-hidden">
     
     <!-- Sidebar for Desktop -->
-    <aside class="hidden md:flex md:flex-col md:w-64 glass-sidebar text-white flex-shrink-0 relative z-20">
+    <aside id="sidebar-desktop" class="hidden md:flex md:flex-col w-64 glass-sidebar text-white flex-shrink-0 relative z-20">
+      <script is:inline>
+        if (localStorage.getItem('sidebar-collapsed') === 'true') {
+          document.getElementById('sidebar-desktop').classList.add('sidebar-collapsed');
+        }
+      </script>
       <!-- Sidebar Header -->
-      <div class="flex items-center gap-3 px-6 py-6 border-b border-white/10 bg-slate-950/40">
-        <a href="/" class="flex items-center gap-3 transition-transform hover:scale-105">
-          <img src="/favicon.svg" alt="Margdarshak Logo" class="h-8 w-auto object-contain bg-white rounded-lg p-1" />
-          <div>
+      <div class="flex items-center justify-between px-6 py-6 border-b border-white/10 bg-slate-950/40 sidebar-header-container transition-all duration-300">
+        <a href="/" class="flex items-center gap-3 transition-transform hover:scale-105 logo-container shrink-0">
+          <img src="/favicon.svg" alt="Margdarshak Logo" class="h-8 w-auto object-contain bg-white rounded-lg p-1 shrink-0" />
+          <div class="logo-text transition-all duration-200">
             <h1 class="font-headline font-bold text-sm leading-tight tracking-wide text-white">Margdarshak</h1>
             <span class="text-[9px] text-[#FFB300] uppercase tracking-widest font-extrabold block">Admin Console</span>
           </div>
         </a>
+        <button 
+          id="sidebar-collapse-btn" 
+          class="hidden md:flex p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors shrink-0"
+          aria-label="Collapse Sidebar"
+        >
+          <span class="material-symbols-outlined text-lg" id="sidebar-collapse-icon">menu_open</span>
+        </button>
       </div>
       
       <!-- Navigation Links -->
@@ -244,6 +342,7 @@ const menuItems = [
           return (
             <a 
               href={item.href}
+              data-tooltip={item.name}
               class={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-headline font-semibold text-sm transition-all duration-200 group relative ${
                 isTabActive 
                   ? "bg-gradient-to-r from-[#E53935] to-[#FF7043] text-white shadow-lg shadow-[#E53935]/20" 
@@ -253,9 +352,9 @@ const menuItems = [
               <span class={`material-symbols-outlined text-lg ${
                 isTabActive ? "text-white" : "text-slate-400 group-hover:text-white transition-colors"
               }`}>{item.icon}</span>
-              {item.name}
+              <span class="menu-label transition-all duration-200">{item.name}</span>
               {isTabActive && (
-                <span class="absolute right-3 w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                <span class="active-dot absolute right-3 w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               )}
             </a>
           );
@@ -266,10 +365,11 @@ const menuItems = [
       <div class="p-4 border-t border-white/10 bg-slate-950/30">
         <button 
           id="desktop-logout-btn"
+          data-tooltip="Logout"
           class="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl font-headline font-semibold text-sm text-slate-400 hover:bg-[#E53935]/10 hover:text-[#E53935] transition-all duration-200 group"
         >
           <span class="material-symbols-outlined text-lg text-slate-400 group-hover:text-[#E53935] transition-colors">logout</span>
-          Logout
+          <span class="logout-text transition-all duration-200">Logout</span>
         </button>
       </div>
     </aside>
@@ -390,7 +490,7 @@ const menuItems = [
         <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#FF7043]/5 blur-[80px] pointer-events-none -z-10"></div>
         <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[#FFB300]/5 blur-[80px] pointer-events-none -z-10"></div>
         
-        <div class="relative z-10 max-w-7xl mx-auto">
+        <div class="relative z-10 max-w-7xl xl:max-w-[92rem] 2xl:max-w-[95rem] mx-auto transition-all duration-300">
           <slot />
         </div>
       </main>
@@ -403,7 +503,30 @@ const menuItems = [
 
   <!-- Shared Logout Confirmation Script -->
   <script is:inline>
-    // Mobile Drawer Toggle
+    // Desktop Collapsible Sidebar
+    const sidebarDesktop = document.getElementById('sidebar-desktop');
+    const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
+    const sidebarCollapseIcon = document.getElementById('sidebar-collapse-icon');
+
+    if (sidebarDesktop && sidebarCollapseBtn) {
+      sidebarCollapseBtn.addEventListener('click', () => {
+        const isCollapsed = sidebarDesktop.classList.toggle('sidebar-collapsed');
+        localStorage.setItem('sidebar-collapsed', isCollapsed ? 'true' : 'false');
+        if (sidebarCollapseIcon) {
+          sidebarCollapseIcon.textContent = isCollapsed ? 'menu' : 'menu_open';
+        }
+      });
+      // Initial Sync
+      const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+      if (isCollapsed) {
+        sidebarDesktop.classList.add('sidebar-collapsed');
+        if (sidebarCollapseIcon) sidebarCollapseIcon.textContent = 'menu';
+      } else {
+        sidebarDesktop.classList.remove('sidebar-collapsed');
+        if (sidebarCollapseIcon) sidebarCollapseIcon.textContent = 'menu_open';
+      }
+    }
+
     // Mobile Drawer Toggle
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const mobileSidebarMenu = document.getElementById('mobile-sidebar-menu');

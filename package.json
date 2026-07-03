@@ -16,9 +16,14 @@
     "astro": "^5.18.2"
   },
   "devDependencies": {
+    "sharp": "^0.35.3",
     "vercel": "^54.13.0"
   },
   "engines": {
     "node": ">=18.20.8"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "sharp@0.35.3": true
   }
 }

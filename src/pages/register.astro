@@ -82,7 +82,7 @@ import { internships } from '../data/internships.js';
   </section>
 
   <!-- Registration Section -->
-  <section id="registration-section" class="py-16 md:py-24 bg-slate-50 relative">
+  <section id="registration-section" class="py-16 md:py-24 bg-slate-50 relative" style="scroll-margin-top: 80px;">
     <div class="max-w-[1440px] mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       
       <!-- Left Column: Trust-Building & Social Proof -->
@@ -862,10 +862,14 @@ import { internships } from '../data/internships.js';
           step3El.classList.add('step-active-fade');
           updateReviewSection();
         }
-        window.scrollTo({
-          top: document.getElementById('registration-funnel-form').offsetTop - 150,
-          behavior: 'smooth'
-        });
+        // Smooth scroll to the registration section (not top of page)
+        const registrationSection = document.getElementById('registration-section');
+        if (registrationSection) {
+          registrationSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       }
 
       // Step 1 Validation
