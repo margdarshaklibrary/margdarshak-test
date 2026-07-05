@@ -6,9 +6,10 @@ import { internships as initialInternships } from './internships.js';
 
 // Resolve database path
 // Using process.cwd() ensures it resolves to the project root
-const DB_PATH = path.resolve('src/data/db.json');
-const COURSES_PATH = path.resolve('src/data/courses.js');
-const INTERNSHIPS_PATH = path.resolve('src/data/internships.js');
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true' || !!process.env.VERCEL;
+const DB_PATH = isVercel ? '/tmp/db.json' : path.resolve('src/data/db.json');
+const COURSES_PATH = isVercel ? '/tmp/courses.js' : path.resolve('src/data/courses.js');
+const INTERNSHIPS_PATH = isVercel ? '/tmp/internships.js' : path.resolve('src/data/internships.js');
 
 // Helper to hash password
 export function hashPassword(password) {
