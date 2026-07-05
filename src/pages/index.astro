@@ -121,100 +121,70 @@ const popularInternships = internships.filter(item =>
     </div>
   </section>
 
-  <!-- Floating Achievement Bar (Fulfilling Issue 6: Redesigned statistics section integrated) -->
+  <!-- Key Features / Why Choose Us Section -->
   <div class="relative z-20 max-w-[1440px] mx-auto px-4 md:px-6 mt-8 md:mt-16 mb-8 animate-on-scroll">
-    <div class="bg-[#071426] border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-premium grid grid-cols-2 md:flex md:flex-row justify-around items-center gap-3 sm:gap-4">
-      
-      <!-- Students Trained -->
-      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
-        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">groups</span>
-        </div>
-        <div class="flex flex-col items-center md:items-start">
-          <div class="flex items-baseline text-white">
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="5000">0</span>
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">+</span>
-          </div>
-          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Students Trained</span>
-        </div>
-      </div>
-      
-      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
+    <div class="bg-[#071426] border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-premium">
 
-      <!-- Courses -->
-      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
-        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">book</span>
-        </div>
-        <div class="flex flex-col items-center md:items-start">
-          <div class="flex items-baseline text-white">
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="25">0</span>
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">+</span>
-          </div>
-          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Job-Oriented Courses</span>
-        </div>
+      <!-- Section Label -->
+      <div class="text-center mb-6">
+        <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-slate-300">
+          <span class="material-symbols-outlined text-accent text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+          Why Choose Us
+        </span>
       </div>
 
-      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
+      <!-- Feature Cards Grid -->
+      <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
 
-      <!-- Internships -->
-      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
-        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">work</span>
-        </div>
-        <div class="flex flex-col items-center md:items-start">
-          <div class="flex items-baseline text-white">
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="100">0</span>
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">%</span>
+        <!-- Practical Training -->
+        <div class="group flex flex-col items-center text-center gap-3 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-secondary/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-glass">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 group-hover:bg-secondary/20 transition-all duration-300 shadow-inner">
+            <span class="material-symbols-outlined text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
           </div>
-          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Refund Integrity</span>
-        </div>
-      </div>
-
-      <div class="hidden md:block w-[1px] h-8 bg-white/10"></div>
-
-      <!-- Career Support -->
-      <div class="flex flex-col md:flex-row items-center justify-center md:justify-start text-center md:text-left gap-2 md:gap-4 group p-3.5 md:p-0 rounded-2xl md:rounded-none bg-white/5 md:bg-transparent border border-white/5 md:border-none w-full h-full">
-        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span class="material-symbols-outlined text-xl md:text-2xl font-bold">handshake</span>
-        </div>
-        <div class="flex flex-col items-center md:items-start">
-          <div class="flex items-baseline text-white">
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight stats-counter" data-target="100">0</span>
-            <span class="text-xl md:text-2xl font-black leading-none tracking-tight">%</span>
+          <div class="space-y-1">
+            <p class="text-white font-bold text-sm sm:text-base leading-tight tracking-tight">Practical Training</p>
+            <p class="text-slate-400 text-[10px] sm:text-xs font-medium uppercase tracking-wider">Hands-on Learning</p>
           </div>
-          <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1 md:mt-0">Placement Support</span>
         </div>
-      </div>
 
+        <!-- Hybrid Learning -->
+        <div class="group flex flex-col items-center text-center gap-3 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-glass">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 group-hover:bg-accent/20 transition-all duration-300 shadow-inner">
+            <span class="material-symbols-outlined text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">laptop_mac</span>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-bold text-sm sm:text-base leading-tight tracking-tight">Hybrid Learning</p>
+            <p class="text-slate-400 text-[10px] sm:text-xs font-medium uppercase tracking-wider">Classroom & Online</p>
+          </div>
+        </div>
+
+        <!-- Career Support -->
+        <div class="group flex flex-col items-center text-center gap-3 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-secondary/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-glass">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 group-hover:bg-secondary/20 transition-all duration-300 shadow-inner">
+            <span class="material-symbols-outlined text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">handshake</span>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-bold text-sm sm:text-base leading-tight tracking-tight">Career Support</p>
+            <p class="text-slate-400 text-[10px] sm:text-xs font-medium uppercase tracking-wider">Guidance & Mentorship</p>
+          </div>
+        </div>
+
+        <!-- Internship Programs -->
+        <div class="group flex flex-col items-center text-center gap-3 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-glass">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 group-hover:bg-accent/20 transition-all duration-300 shadow-inner">
+            <span class="material-symbols-outlined text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">work</span>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-bold text-sm sm:text-base leading-tight tracking-tight">Internship Programs</p>
+            <p class="text-slate-400 text-[10px] sm:text-xs font-medium uppercase tracking-wider">Real Industry Exposure</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <!-- SECTION 8 – TRUST BADGES STRIP -->
-  <div class="relative z-10 max-w-[1440px] mx-auto px-4 md:px-6 mt-12 mb-6 animate-on-scroll">
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
-        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">psychology</span>
-        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Practical Training</span>
-      </div>
-      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
-        <span class="material-symbols-outlined text-accent font-bold text-base sm:text-lg">laptop_mac</span>
-        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Hybrid Learning</span>
-      </div>
-      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
-        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">handshake</span>
-        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Career Support</span>
-      </div>
-      <div class="glass-card-premium px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
-        <span class="material-symbols-outlined text-accent font-bold text-base sm:text-lg">work</span>
-        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Internship Programs</span>
-      </div>
-      <div class="glass-card-premium col-span-2 md:col-span-1 px-2 py-2.5 sm:px-4 sm:py-3 rounded-xl border-slate-200/50 dark:border-white/5 shadow-glass flex items-center justify-center gap-2 hover-lift">
-        <span class="material-symbols-outlined text-secondary font-bold text-base sm:text-lg">workspace_premium</span>
-        <span class="text-[9px] xs:text-[10px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-center">Skill Development</span>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Institute Introduction & Bento Grid Section -->
   <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
@@ -249,7 +219,7 @@ const popularInternships = internships.filter(item =>
         </div>
         
         <!-- Bento Grid Side (Issue 4: Same rounded-2xl and shadow-premium) -->
-        <div class="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-6">
+        <div class="lg:col-span-7 grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-6">
           
           <!-- Card 1: Govt. Registered -->
           <div class="glass-card-premium p-3.5 xs:p-4 sm:p-8 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between min-h-[160px] xs:min-h-[185px] sm:min-h-[220px] reveal reveal-slide-up" style="transition-delay: 50ms">
@@ -300,66 +270,6 @@ const popularInternships = internships.filter(item =>
     </div>
   </section>
 
-  <!-- SECTION 5 – CERTIFICATIONS & RECOGNITION -->
-  <section class="py-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-white/5 relative overflow-hidden animate-on-scroll">
-    <div class="glow-blob bg-secondary/5 w-80 h-80 top-10 left-10 opacity-10" style="filter: blur(100px);"></div>
-    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
-      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
-        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
-          Official Accreditation
-        </div>
-        <h2 class="text-3xl md:text-4xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
-          Certifications & Recognition
-        </h2>
-        <p class="text-slate-500 dark:text-slate-400 text-sm font-light">
-          Margdarshak Shikshan Sansthan is fully authorized, recognized, and certified under national regulatory guidelines.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card 1 -->
-        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 50ms">
-          <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined text-2xl font-bold">domain</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">Govt. of India Registered</h4>
-            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Incorporated & registered under the Ministry of Corporate Affairs, Govt. of India. Reg No: U85300BR2022NPL056729.</p>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 150ms">
-          <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined text-2xl font-bold">workspace_premium</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">ISO 9001:2015 Certified</h4>
-            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Internationally recognized standard for quality management systems in educational and training services.</p>
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 250ms">
-          <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined text-2xl font-bold">verified</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">GST Practitioner Approved</h4>
-            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Practical training curriculum structured around direct tax filings and active GST portal administration systems.</p>
-          </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="glass-card-premium p-6 rounded-2xl border-slate-200/50 dark:border-slate-800 shadow-premium hover-lift flex flex-col justify-between reveal reveal-slide-up" style="transition-delay: 350ms">
-          <div class="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined text-2xl font-bold">account_balance</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary dark:text-white text-base mb-1 tracking-tight">Ministry of MSME</h4>
-            <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">Registered under Ministry of Micro, Small & Medium Enterprises, supporting local skill growth and job readiness.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Highlighted 100% Fee Refund Section -->
   <section class="py-12 bg-white dark:bg-slate-900/40 relative overflow-hidden">
@@ -434,7 +344,7 @@ const popularInternships = internships.filter(item =>
           <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-none tracking-tight">Job-Oriented Courses</h2>
           <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-light">Acquire hands-on expertise with Darbhanga’s most in-demand curriculum.</p>
         </div>
-        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/courses">
+        <a class="hidden md:inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/courses">
           View All Courses 
           <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
         </a>
@@ -444,7 +354,7 @@ const popularInternships = internships.filter(item =>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
         {popularCourses.map((course, idx) => (
           <div 
-            class="group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex flex-col justify-between reveal reveal-slide-up"
+            class={`group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex-col justify-between reveal reveal-slide-up ${idx === 0 ? 'flex' : 'hidden md:flex'}`}
             style={`transition-delay: ${(idx % 3) * 100}ms`}
           >
             <div>
@@ -503,6 +413,14 @@ const popularInternships = internships.filter(item =>
           </div>
         ))}
       </div>
+
+      <!-- Mobile-only View All Courses Button -->
+      <div class="mt-8 flex justify-center md:hidden relative z-10">
+        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 border-b border-transparent hover:border-secondary pb-1" href="/courses">
+          View All Courses 
+          <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -521,7 +439,7 @@ const popularInternships = internships.filter(item =>
           <h2 class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-none tracking-tight">1-Month Internship Programs</h2>
           <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-light">Work on live client tasks, build a portfolio, and boost your resume.</p>
         </div>
-        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/internships">
+        <a class="hidden md:inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 shrink-0 border-b border-transparent hover:border-secondary pb-1" href="/internships">
           View All Internships 
           <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
         </a>
@@ -531,7 +449,7 @@ const popularInternships = internships.filter(item =>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
         {popularInternships.map((internship, idx) => (
           <div 
-            class="group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex flex-col justify-between reveal reveal-slide-up"
+            class={`group bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-secondary/35 hover:shadow-premium-hover hover-lift transition-all duration-500 flex-col justify-between reveal reveal-slide-up ${idx === 0 ? 'flex' : 'hidden md:flex'}`}
             style={`transition-delay: ${(idx % 3) * 100}ms`}
           >
             <div>
@@ -589,6 +507,14 @@ const popularInternships = internships.filter(item =>
           </div>
         ))}
       </div>
+
+      <!-- Mobile-only View All Internships Button -->
+      <div class="mt-8 flex justify-center md:hidden relative z-10">
+        <a class="inline-flex items-center gap-2 font-bold text-secondary hover:text-secondary/95 group transition-colors duration-300 border-b border-transparent hover:border-secondary pb-1" href="/internships">
+          View All Internships 
+          <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -597,7 +523,7 @@ const popularInternships = internships.filter(item =>
   <!-- Lightbox Modal Markup (Section 3 Lightbox Preview) -->
   <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-primary/95 backdrop-blur-md hidden items-center justify-center p-4">
     <!-- Close Button -->
-    <button id="lightbox-close" class="absolute top-6 right-6 text-white/80 hover:text-white hover:scale-110 transition-all cursor-pointer" aria-label="Close Gallery">
+    <button id="lightbox-close" class="absolute top-12 md:top-6 right-6 md:right-8 text-white/80 hover:text-white hover:scale-110 transition-all cursor-pointer" aria-label="Close Gallery">
       <span class="material-symbols-outlined text-4xl">close</span>
     </button>
     <!-- Previous Button -->

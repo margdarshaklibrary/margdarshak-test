@@ -217,13 +217,51 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
           </div>
         </div>
 
+        <!-- Hidden inputs for resolved Cloudinary values -->
+        <input type="hidden" id="internship-image-url" name="image" />
+        <input type="hidden" id="internship-image-public-id" />
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Internship Image -->
-          <div class="space-y-1">
-            <label for="internship-image" class="text-[10px] font-headline font-extrabold text-slate-500 uppercase tracking-wider block">Internship Image URL *</label>
-            <input type="text" id="internship-image" name="image" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#E53935] bg-white transition-all font-medium" placeholder="e.g. /assets/course_digital_marketing.png" />
+          <!-- Internship Image Upload -->
+          <div class="space-y-1.5 sm:col-span-2">
+            <label class="text-[10px] font-headline font-extrabold text-slate-500 uppercase tracking-wider block">Internship Image *</label>
+
+            <!-- Dropzone -->
+            <div
+              id="internship-image-dropzone"
+              class="relative flex flex-col items-center justify-center gap-2 w-full rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/60 px-6 py-7 cursor-pointer transition-all duration-200 hover:border-[#E53935] hover:bg-rose-50/20 group"
+            >
+              <input type="file" id="internship-image-file-input" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+              <div id="internship-image-dropzone-content" class="flex flex-col items-center gap-2 pointer-events-none text-center">
+                <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-rose-100 flex items-center justify-center transition-colors">
+                  <span class="material-symbols-outlined text-xl text-slate-400 group-hover:text-[#E53935] transition-colors">cloud_upload</span>
+                </div>
+                <div>
+                  <p class="text-xs font-headline font-bold text-slate-600">Click to upload or drag &amp; drop</p>
+                  <p class="text-[10px] text-slate-400 font-medium mt-0.5">JPG, JPEG, PNG or WEBP &nbsp;&bull;&nbsp; Max 5 MB</p>
+                </div>
+              </div>
+              <!-- Preview (hidden by default) -->
+              <div id="internship-image-preview-wrap" class="hidden w-full flex-col items-center gap-3 pointer-events-none">
+                <img id="internship-image-preview" src="" alt="Preview" class="w-full max-h-40 object-contain rounded-xl border border-slate-200 bg-white shadow-sm" />
+                <div class="flex items-center gap-2 w-full">
+                  <span class="material-symbols-outlined text-sm text-emerald-500">check_circle</span>
+                  <span id="internship-image-filename" class="text-[10px] font-semibold text-slate-600 truncate flex-1"></span>
+                  <button type="button" id="internship-image-remove-btn" class="shrink-0 text-[10px] font-headline font-bold text-[#E53935] hover:underline pointer-events-auto">Remove</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error message -->
+            <p id="internship-image-error" class="hidden text-[10px] font-semibold text-[#E53935] flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">error</span>
+              <span id="internship-image-error-text"></span>
+            </p>
           </div>
-          <!-- Status -->
+        </div>
+
+        <!-- Status (now full-width row after image) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-1">
             <label for="internship-status" class="text-[10px] font-headline font-extrabold text-slate-500 uppercase tracking-wider block">Status *</label>
             <select id="internship-status" name="status" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white font-semibold text-slate-600 focus:outline-none focus:border-[#E53935]">
@@ -383,6 +421,16 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
     function resetForm() {
       internshipForm.reset();
       document.getElementById('edit-id').value = '';
+      document.getElementById('internship-image-url').value = '';
+      document.getElementById('internship-image-public-id').value = '';
+      resetImageWidget(
+        'internship-image-dropzone',
+        'internship-image-file-input',
+        'internship-image-preview-wrap',
+        'internship-image-preview',
+        'internship-image-filename',
+        'internship-image-error'
+      );
       modalTitle.textContent = 'Add Internship';
       saveInternshipBtn.innerHTML = '<span class="material-symbols-outlined text-sm">save</span> Save Internship';
     }
@@ -612,7 +660,6 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
           document.getElementById('internship-mode').value = intern.mode || 'Hybrid';
           document.getElementById('internship-duration').value = intern.duration || '';
           document.getElementById('internship-fee').value = intern.fee || '';
-          document.getElementById('internship-image').value = intern.image || '';
           document.getElementById('internship-status').value = intern.status || 'Active';
           document.getElementById('internship-short-desc').value = intern.shortDescription || '';
           document.getElementById('internship-full-desc').value = intern.fullDescription || '';
@@ -625,6 +672,21 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
           document.getElementById('internship-learn-items').value = Array.isArray(intern.learnItems) ? intern.learnItems.join('\n') : '';
           document.getElementById('internship-tasks').value = Array.isArray(intern.practicalTasks) ? intern.practicalTasks.join('\n') : '';
           document.getElementById('internship-benefits').value = Array.isArray(intern.careerBenefits) ? intern.careerBenefits.join('\n') : '';
+
+          // Populate image widget with existing image
+          document.getElementById('internship-image-url').value = intern.image || '';
+          document.getElementById('internship-image-public-id').value = intern.imagePublicId || '';
+          if (intern.image) {
+            showExistingImage(
+              'internship-image-dropzone',
+              'internship-image-file-input',
+              'internship-image-preview-wrap',
+              'internship-image-preview',
+              'internship-image-filename',
+              'internship-image-error',
+              intern.image
+            );
+          }
           
           modalTitle.textContent = 'Edit Internship';
           saveInternshipBtn.innerHTML = '<span class="material-symbols-outlined text-sm">save</span> Update Internship';
@@ -642,17 +704,210 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
       });
     }
 
+    // ─── Shared Image Upload Widget Helpers ──────────────────────────────────
+
+    function showImageError(errorEl, text) {
+      errorEl.classList.remove('hidden');
+      errorEl.querySelector('span:last-child').textContent = text;
+    }
+    function clearImageError(errorEl) {
+      errorEl.classList.add('hidden');
+    }
+
+    function resetImageWidget(dropzoneId, fileInputId, previewWrapId, previewImgId, filenameId, errorId) {
+      const dz = document.getElementById(dropzoneId);
+      const fileInput = document.getElementById(fileInputId);
+      const previewWrap = document.getElementById(previewWrapId);
+      const dzContent = dz.querySelector('[id$="dropzone-content"]') || dz.querySelector('.pointer-events-none.text-center');
+      const errorEl = document.getElementById(errorId);
+      if (fileInput) fileInput.value = '';
+      if (previewWrap) previewWrap.classList.add('hidden');
+      if (dzContent) dzContent.classList.remove('hidden');
+      if (dz) {
+        dz.classList.remove('border-[#E53935]', 'bg-rose-50/40', 'border-emerald-400', 'bg-emerald-50/20');
+        dz.classList.add('border-slate-200', 'bg-slate-50/60');
+      }
+      if (errorEl) clearImageError(errorEl);
+      if (window._internshipSelectedFile !== undefined) window._internshipSelectedFile = null;
+    }
+
+    function showExistingImage(dropzoneId, fileInputId, previewWrapId, previewImgId, filenameId, errorId, imageUrl) {
+      const dz = document.getElementById(dropzoneId);
+      const previewWrap = document.getElementById(previewWrapId);
+      const previewImg = document.getElementById(previewImgId);
+      const filenameEl = document.getElementById(filenameId);
+      const dzContent = dz.querySelector('[id$="dropzone-content"]') || dz.querySelector('.pointer-events-none.text-center');
+      if (previewImg) previewImg.src = imageUrl;
+      if (filenameEl) filenameEl.textContent = 'Current image (click dropzone to replace)';
+      if (previewWrap) {
+        previewWrap.classList.remove('hidden');
+        previewWrap.classList.add('flex');
+      }
+      if (dzContent) dzContent.classList.add('hidden');
+      if (dz) {
+        dz.classList.remove('border-slate-200', 'border-[#E53935]');
+        dz.classList.add('border-emerald-400', 'bg-emerald-50/20');
+      }
+    }
+
+    function showSelectedFile(dropzoneId, previewWrapId, previewImgId, filenameId, errorId, file) {
+      const ALLOWED = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      const MAX_MB = 5;
+      const dz = document.getElementById(dropzoneId);
+      const previewWrap = document.getElementById(previewWrapId);
+      const previewImg = document.getElementById(previewImgId);
+      const filenameEl = document.getElementById(filenameId);
+      const errorEl = document.getElementById(errorId);
+      const dzContent = dz.querySelector('[id$="dropzone-content"]') || dz.querySelector('.pointer-events-none.text-center');
+
+      clearImageError(errorEl);
+
+      if (!ALLOWED.includes(file.type)) {
+        showImageError(errorEl, 'Only JPG, JPEG, PNG or WEBP images are accepted.');
+        return false;
+      }
+      if (file.size > MAX_MB * 1024 * 1024) {
+        showImageError(errorEl, `File must be under ${MAX_MB} MB. This file is ${(file.size / 1024 / 1024).toFixed(1)} MB.`);
+        return false;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (previewImg) previewImg.src = e.target.result;
+        if (filenameEl) filenameEl.textContent = file.name;
+        if (previewWrap) {
+          previewWrap.classList.remove('hidden');
+          previewWrap.classList.add('flex');
+        }
+        if (dzContent) dzContent.classList.add('hidden');
+        if (dz) {
+          dz.classList.remove('border-slate-200', 'border-[#E53935]');
+          dz.classList.add('border-emerald-400', 'bg-emerald-50/20');
+        }
+      };
+      reader.readAsDataURL(file);
+      return true;
+    }
+
+    // ─── Wire up Internship Image Widget ───────────────────────────────────────
+
+    window._internshipSelectedFile = null;
+
+    const internshipDropzone = document.getElementById('internship-image-dropzone');
+    const internshipFileInput = document.getElementById('internship-image-file-input');
+    const internshipRemoveBtn = document.getElementById('internship-image-remove-btn');
+
+    if (internshipFileInput) {
+      internshipFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const valid = showSelectedFile(
+          'internship-image-dropzone', 'internship-image-preview-wrap',
+          'internship-image-preview', 'internship-image-filename', 'internship-image-error', file
+        );
+        if (valid) window._internshipSelectedFile = file;
+        else { internshipFileInput.value = ''; window._internshipSelectedFile = null; }
+      });
+    }
+
+    if (internshipDropzone) {
+      internshipDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        internshipDropzone.classList.add('border-[#E53935]', 'bg-rose-50/20');
+        internshipDropzone.classList.remove('border-slate-200');
+      });
+      internshipDropzone.addEventListener('dragleave', () => {
+        internshipDropzone.classList.remove('border-[#E53935]', 'bg-rose-50/20');
+        internshipDropzone.classList.add('border-slate-200');
+      });
+      internshipDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        internshipDropzone.classList.remove('border-[#E53935]', 'bg-rose-50/20');
+        internshipDropzone.classList.add('border-slate-200');
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        const valid = showSelectedFile(
+          'internship-image-dropzone', 'internship-image-preview-wrap',
+          'internship-image-preview', 'internship-image-filename', 'internship-image-error', file
+        );
+        if (valid) window._internshipSelectedFile = file;
+        else window._internshipSelectedFile = null;
+      });
+    }
+
+    if (internshipRemoveBtn) {
+      internshipRemoveBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window._internshipSelectedFile = null;
+        document.getElementById('internship-image-url').value = '';
+        document.getElementById('internship-image-public-id').value = '';
+        resetImageWidget(
+          'internship-image-dropzone', 'internship-image-file-input',
+          'internship-image-preview-wrap', 'internship-image-preview',
+          'internship-image-filename', 'internship-image-error'
+        );
+      });
+    }
+
+    // ─── Submit Handler ───────────────────────────────────────────────────────
+
     // Submit handler
     if (internshipForm) {
       internshipForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Validate that we have an image
+        const existingUrl = document.getElementById('internship-image-url').value;
+        const hasNewFile = !!window._internshipSelectedFile;
+        if (!hasNewFile && !existingUrl) {
+          showImageError(document.getElementById('internship-image-error'), 'Please upload an internship image.');
+          return;
+        }
         
         const originalBtnContent = saveInternshipBtn.innerHTML;
         saveInternshipBtn.disabled = true;
-        saveInternshipBtn.textContent = 'Saving...';
+        saveInternshipBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Uploading...';
 
         const editId = document.getElementById('edit-id').value;
-        const url = editId ? `/api/internships?id=${editId}` : '/api/internships';
+        let imageUrl = existingUrl;
+        let imagePublicId = document.getElementById('internship-image-public-id').value;
+
+        // Upload new file to Cloudinary if one was selected
+        if (hasNewFile) {
+          try {
+            const oldPublicId = imagePublicId;
+
+            const formData = new FormData();
+            formData.append('image', window._internshipSelectedFile);
+            const uploadRes = await fetch('/api/upload-image?folder=internships', {
+              method: 'POST',
+              body: formData
+            });
+            const uploadData = await uploadRes.json();
+
+            if (!uploadRes.ok || !uploadData.success) {
+              throw new Error(uploadData.error || 'Image upload failed.');
+            }
+
+            imageUrl = uploadData.url;
+            imagePublicId = uploadData.publicId;
+
+            // Delete old Cloudinary image if replacing
+            if (oldPublicId && oldPublicId !== imagePublicId) {
+              fetch(`/api/upload-image?publicId=${encodeURIComponent(oldPublicId)}`, { method: 'DELETE' })
+                .catch(() => {}); // non-fatal
+            }
+          } catch (uploadErr) {
+            window.showToast(uploadErr.message || 'Failed to upload image.', 'error');
+            saveInternshipBtn.disabled = false;
+            saveInternshipBtn.innerHTML = originalBtnContent;
+            return;
+          }
+        }
+
+        saveInternshipBtn.innerHTML = '<span class="material-symbols-outlined text-sm">refresh</span> Saving...';
+
+        const apiUrl = editId ? `/api/internships?id=${editId}` : '/api/internships';
         const method = editId ? 'PUT' : 'POST';
 
         const payload = {
@@ -661,11 +916,11 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
           mode: document.getElementById('internship-mode').value,
           duration: document.getElementById('internship-duration').value,
           fee: document.getElementById('internship-fee').value,
-          image: document.getElementById('internship-image').value,
+          image: imageUrl,
+          imagePublicId: imagePublicId,
           status: document.getElementById('internship-status').value,
           shortDescription: document.getElementById('internship-short-desc').value,
           fullDescription: document.getElementById('internship-full-desc').value,
-          
           eligible: document.getElementById('internship-eligible').value,
           tags: document.getElementById('internship-tags').value,
           refundDetails: document.getElementById('internship-refund').value,
@@ -676,7 +931,7 @@ const categories = [...new Set(internships.map(i => i.category || 'General'))];
         };
 
         try {
-          const res = await fetch(url, {
+          const res = await fetch(apiUrl, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
