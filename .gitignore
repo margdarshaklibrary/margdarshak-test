@@ -24,6 +24,8 @@ logs/
 .DS_Store
 Thumbs.db
 
+# Vercel deployment outputs
+.vercel/
+
 # Stitch MCP / Temp JSON files
-*.json
-!package.json
+.stitch-mcp/*.json

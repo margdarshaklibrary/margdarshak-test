@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://margdarshak.in',
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   integrations: [
     sitemap({
