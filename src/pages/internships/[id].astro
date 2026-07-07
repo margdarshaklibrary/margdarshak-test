@@ -2,19 +2,15 @@
 import Layout from '../../layouts/Layout.astro';
 import { getInternships } from '../../data/db.js';
 
-export async function getStaticPaths() {
-  const internships = getInternships();
-  return internships.map((internship) => ({
-    params: { id: internship.id },
-    props: { internship },
-  }));
-}
+export const prerender = false;
 
-const { internship } = Astro.props;
+const { id } = Astro.params;
+const allInternships = await getInternships();
+const internship = allInternships.find(i => i.id === id);
+
 const isNotFound = !internship || internship.status === 'Inactive';
 
 // Fetch related internships
-const allInternships = getInternships();
 const relatedInternships = allInternships
   .filter(i => i.id !== internship?.id && i.status !== 'Inactive')
   .slice(0, 3);

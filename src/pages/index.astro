@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCourses } from '../data/db.js';
-import { internships } from '../data/internships.js';
+import { getCourses, getInternships } from '../data/db.js';
 
 // Get 3 popular courses and 3 popular internships for previews
 const allCourses = await getCourses();
 const popularCourses = allCourses.slice(0, 3); // DCA, Web Dev, Digital Marketing
-const popularInternships = internships.filter(item => 
+const allInternships = await getInternships();
+const popularInternships = allInternships.filter(item => 
   ["web-development", "gst-filing", "ai-tools"].includes(item.id)
 );
 ---

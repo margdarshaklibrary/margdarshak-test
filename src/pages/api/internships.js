@@ -15,7 +15,7 @@ export async function GET({ cookies }) {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-  return new Response(JSON.stringify(getInternships()), {
+  return new Response(JSON.stringify(await getInternships()), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
@@ -51,7 +51,7 @@ export async function POST({ request, cookies }) {
       data.careerBenefits = data.careerBenefits.split('\n').map(t => t.trim()).filter(Boolean);
     }
 
-    const created = addInternship(data);
+    const created = await addInternship(data);
     return new Response(JSON.stringify({ success: true, internship: created }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' }
@@ -97,7 +97,7 @@ export async function PUT({ request, cookies }) {
       data.careerBenefits = data.careerBenefits.split('\n').map(t => t.trim()).filter(Boolean);
     }
 
-    const updated = updateInternship(id, data);
+    const updated = await updateInternship(id, data);
     return new Response(JSON.stringify({ success: true, internship: updated }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -129,7 +129,7 @@ export async function DELETE({ request, cookies }) {
       });
     }
 
-    deleteInternship(id);
+    await deleteInternship(id);
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

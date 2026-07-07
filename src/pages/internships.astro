@@ -4,7 +4,7 @@ import { getInternships } from '../data/db.js';
 
 export const prerender = false;
 
-const internships = getInternships().filter(i => i.status !== 'Inactive');
+const internships = (await getInternships()).filter(i => i.status !== 'Inactive');
 
 // Helper to assign categories for filtering
 function getCategory(id) {

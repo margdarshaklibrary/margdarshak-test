@@ -5,7 +5,7 @@ import { getCourses, getInternships } from '../../data/db.js';
 export const prerender = false;
 
 const courses = await getCourses();
-const internships = getInternships();
+const internships = await getInternships();
 ---
 
 <AdminLayout title="Registered Students - Margdarshak Admin" activeTab="students">

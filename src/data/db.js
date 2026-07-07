@@ -303,47 +303,94 @@ export async function deleteCourse(id) {
 }
 
 // Internship CRUD Operations
-export function getInternships() {
-  const db = readDb();
-  return db.internships;
+async function ensureInternshipsMigrated() {
+  console.log('[DEBUG] [ensureInternshipsMigrated] Started check');
+  const dbClient = await getDb();
+  const internshipsCol = dbClient.collection('internships');
+  
+  const existingInternship = await internshipsCol.findOne({});
+  if (existingInternship) {
+    return;
+  }
+  
+  console.log('[DEBUG] [ensureInternshipsMigrated] Internships collection is empty. Starting automatic migration from JSON');
+  const dbData = readDb(); // Fallback to JSON read
+  const internshipsToMigrate = dbData.internships && dbData.internships.length > 0 ? dbData.internships : initialInternships;
+  
+  if (internshipsToMigrate && internshipsToMigrate.length > 0) {
+    const docs = internshipsToMigrate.map((i, index) => ({ ...i, _order: index }));
+    await internshipsCol.insertMany(docs);
+    console.log(`[DEBUG] [ensureInternshipsMigrated] Migration completed: ${docs.length} internships inserted into MongoDB`);
+  }
 }
 
-export function addInternship(internshipData) {
-  const db = readDb();
+export async function getInternships() {
+  await ensureInternshipsMigrated();
+  const dbClient = await getDb();
+  const internships = await dbClient.collection('internships').find({}).sort({ _order: 1 }).toArray();
+  return internships.map(i => {
+    const { _id, _order, ...rest } = i;
+    return rest;
+  });
+}
+
+export async function getInternship(id) {
+  await ensureInternshipsMigrated();
+  const dbClient = await getDb();
+  const internship = await dbClient.collection('internships').findOne({ id });
+  if (!internship) return null;
+  const { _id, _order, ...rest } = internship;
+  return rest;
+}
+
+export async function addInternship(internshipData) {
+  await ensureInternshipsMigrated();
+  const dbClient = await getDb();
+  const internshipsCol = dbClient.collection('internships');
+
   if (!internshipData.id) {
     internshipData.id = internshipData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   }
-  if (db.internships.some(i => i.id === internshipData.id)) {
+  
+  const existing = await internshipsCol.findOne({ id: internshipData.id });
+  if (existing) {
     internshipData.id = `${internshipData.id}-${crypto.randomBytes(3).toString('hex')}`;
   }
 
-  db.internships.push(internshipData);
-  writeDb(db);
-  syncInternshipsJs(db.internships);
+  const lastInternship = await internshipsCol.find().sort({ _order: -1 }).limit(1).toArray();
+  const nextOrder = lastInternship.length > 0 ? (lastInternship[0]._order || 0) + 1 : 0;
+
+  const doc = { ...internshipData, _order: nextOrder };
+  await internshipsCol.insertOne(doc);
   return internshipData;
 }
 
-export function updateInternship(id, internshipData) {
-  const db = readDb();
-  const index = db.internships.findIndex(i => i.id === id);
-  if (index === -1) throw new Error('Internship not found');
+export async function updateInternship(id, internshipData) {
+  await ensureInternshipsMigrated();
+  const dbClient = await getDb();
+  const internshipsCol = dbClient.collection('internships');
 
-  db.internships[index] = {
-    ...db.internships[index],
+  const existing = await internshipsCol.findOne({ id });
+  if (!existing) throw new Error('Internship not found');
+
+  const updateDoc = {
     ...internshipData,
-    id
+    id // keep ID same
   };
+  delete updateDoc._id;
+  delete updateDoc._order;
 
-  writeDb(db);
-  syncInternshipsJs(db.internships);
-  return db.internships[index];
+  await internshipsCol.updateOne({ id }, { $set: updateDoc });
+  
+  const updated = await internshipsCol.findOne({ id });
+  const { _id, _order, ...rest } = updated;
+  return rest;
 }
 
-export function deleteInternship(id) {
-  const db = readDb();
-  db.internships = db.internships.filter(i => i.id !== id);
-  writeDb(db);
-  syncInternshipsJs(db.internships);
+export async function deleteInternship(id) {
+  await ensureInternshipsMigrated();
+  const dbClient = await getDb();
+  await dbClient.collection('internships').deleteOne({ id });
 }
 
 // Student Operations
