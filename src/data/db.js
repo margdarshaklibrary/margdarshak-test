@@ -1,17 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import { getDb } from '../lib/mongodb.js';
-import { courses as initialCourses } from './courses.js';
-import { internships as initialInternships } from './internships.js';
-
-// Resolve database path
-// Using process.cwd() ensures it resolves to the project root
-const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true' || !!process.env.VERCEL;
-const DB_PATH = isVercel ? '/tmp/db.json' : path.resolve('src/data/db.json');
-const COURSES_PATH = isVercel ? '/tmp/courses.js' : path.resolve('src/data/courses.js');
-const INTERNSHIPS_PATH = isVercel ? '/tmp/internships.js' : path.resolve('src/data/internships.js');
 
 // Helper to hash password
 export async function hashPassword(password) {
@@ -31,111 +20,22 @@ export async function verifyPassword(password, storedHash) {
   return await bcrypt.compare(password, storedHash);
 }
 
-// Admin Migration from JSON to MongoDB
-async function ensureAdminMigrated() {
-  console.log('[DEBUG] [ensureAdminMigrated] Started check');
-  const dbClient = await getDb();
-  const adminsCol = dbClient.collection('admins');
-  
-  const existingAdmin = await adminsCol.findOne({});
-  if (existingAdmin) {
-    console.log('[DEBUG] [ensureAdminMigrated] Admin already exists in MongoDB, skipping migration');
-    return;
-  }
-  
-  console.log('[DEBUG] [ensureAdminMigrated] Admins collection is empty. Starting automatic migration from JSON');
-  const dbData = readDb(); // Fallback to JSON read
-  console.log('[DEBUG] [ensureAdminMigrated] JSON admin loaded:', dbData.admin ? dbData.admin.username : 'none');
-  
-  if (dbData.admin && dbData.admin.username) {
-    let passwordHash = dbData.admin.passwordHash;
-    if (passwordHash && !passwordHash.includes(':') && !passwordHash.startsWith('$2')) {
-       console.log('[DEBUG] [ensureAdminMigrated] Plain-text password detected. Hashing with bcrypt...');
-       passwordHash = await hashPassword(passwordHash);
-    }
-    await adminsCol.insertOne({
-      username: dbData.admin.username,
-      passwordHash: passwordHash
-    });
-    console.log('[DEBUG] [ensureAdminMigrated] Migration completed: admin document inserted into MongoDB');
-  } else {
-    console.log('[DEBUG] [ensureAdminMigrated] No admin found in JSON. Creating default admin with username "admin"');
-    await adminsCol.insertOne({
-      username: 'admin',
-      passwordHash: await hashPassword('admin')
-    });
-    console.log('[DEBUG] [ensureAdminMigrated] Migration completed: default admin inserted');
-  }
-}
-
 // Fetch Admin Credentials from MongoDB
 export async function getAdminUsername() {
-  await ensureAdminMigrated();
   const dbClient = await getDb();
   const admin = await dbClient.collection('admins').findOne({});
   return admin ? admin.username : 'admin';
 }
 
 export async function getAdminPasswordHash() {
-  await ensureAdminMigrated();
   const dbClient = await getDb();
   const admin = await dbClient.collection('admins').findOne({});
   return admin ? admin.passwordHash : '';
 }
 
-// Atomic file writer to avoid file corruption
-function writeJsonAtomic(filePath, data) {
-  const tempPath = `${filePath}.${crypto.randomBytes(8).toString('hex')}.tmp`;
-  try {
-    fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
-    fs.renameSync(tempPath, filePath);
-  } catch (err) {
-    if (fs.existsSync(tempPath)) {
-      try { fs.unlinkSync(tempPath); } catch (_) { }
-    }
-    throw err;
-  }
-}
-
-// Read database
-export function readDb() {
-  if (!fs.existsSync(DB_PATH)) {
-    // Seed database
-    const defaultPassword = 'admin'; // Feel free to change or update in settings
-    const initialDb = {
-      admin: {
-        username: 'admin',
-        passwordHash: hashPassword(defaultPassword)
-      },
-      sessions: [],
-      courses: initialCourses,
-      internships: initialInternships,
-      students: []
-    };
-    // Ensure parent directories exist
-    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-    writeJsonAtomic(DB_PATH, initialDb);
-    return initialDb;
-  }
-
-  try {
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading JSON db, returning empty state:', err);
-    return { admin: { username: 'admin', passwordHash: '' }, sessions: [], courses: [], internships: [], students: [] };
-  }
-}
-
-// Write database
-export function writeDb(data) {
-  writeJsonAtomic(DB_PATH, data);
-}
-
 // Authenticate Admin
 export async function authenticateAdmin(username, password) {
   console.log('[DEBUG] [authenticateAdmin] Started for username:', username);
-  await ensureAdminMigrated();
   const dbClient = await getDb();
   const adminsCol = dbClient.collection('admins');
   
@@ -207,42 +107,8 @@ export async function changeAdminCredentials(token, username, newPassword) {
   await sessionsCol.deleteMany({ token: { $ne: token } });
 }
 
-// Synchronize static courses.js file
-function syncCoursesJs(coursesList) {
-  const content = `export const courses = ${JSON.stringify(coursesList, null, 2)};\n`;
-  fs.writeFileSync(COURSES_PATH, content, 'utf-8');
-}
-
-// Synchronize static internships.js file
-function syncInternshipsJs(internshipsList) {
-  const content = `export const internships = ${JSON.stringify(internshipsList, null, 2)};\n`;
-  fs.writeFileSync(INTERNSHIPS_PATH, content, 'utf-8');
-}
-
 // Course CRUD Operations
-async function ensureCoursesMigrated() {
-  console.log('[DEBUG] [ensureCoursesMigrated] Started check');
-  const dbClient = await getDb();
-  const coursesCol = dbClient.collection('courses');
-  
-  const existingCourse = await coursesCol.findOne({});
-  if (existingCourse) {
-    return;
-  }
-  
-  console.log('[DEBUG] [ensureCoursesMigrated] Courses collection is empty. Starting automatic migration from JSON');
-  const dbData = readDb(); // Fallback to JSON read
-  const coursesToMigrate = dbData.courses && dbData.courses.length > 0 ? dbData.courses : initialCourses;
-  
-  if (coursesToMigrate && coursesToMigrate.length > 0) {
-    const docs = coursesToMigrate.map((c, index) => ({ ...c, _order: index }));
-    await coursesCol.insertMany(docs);
-    console.log(`[DEBUG] [ensureCoursesMigrated] Migration completed: ${docs.length} courses inserted into MongoDB`);
-  }
-}
-
 export async function getCourses() {
-  await ensureCoursesMigrated();
   const dbClient = await getDb();
   const courses = await dbClient.collection('courses').find({}).sort({ _order: 1 }).toArray();
   return courses.map(c => {
@@ -252,7 +118,6 @@ export async function getCourses() {
 }
 
 export async function addCourse(courseData) {
-  await ensureCoursesMigrated();
   const dbClient = await getDb();
   const coursesCol = dbClient.collection('courses');
 
@@ -274,7 +139,6 @@ export async function addCourse(courseData) {
 }
 
 export async function updateCourse(id, courseData) {
-  await ensureCoursesMigrated();
   const dbClient = await getDb();
   const coursesCol = dbClient.collection('courses');
 
@@ -297,35 +161,12 @@ export async function updateCourse(id, courseData) {
 }
 
 export async function deleteCourse(id) {
-  await ensureCoursesMigrated();
   const dbClient = await getDb();
   await dbClient.collection('courses').deleteOne({ id });
 }
 
 // Internship CRUD Operations
-async function ensureInternshipsMigrated() {
-  console.log('[DEBUG] [ensureInternshipsMigrated] Started check');
-  const dbClient = await getDb();
-  const internshipsCol = dbClient.collection('internships');
-  
-  const existingInternship = await internshipsCol.findOne({});
-  if (existingInternship) {
-    return;
-  }
-  
-  console.log('[DEBUG] [ensureInternshipsMigrated] Internships collection is empty. Starting automatic migration from JSON');
-  const dbData = readDb(); // Fallback to JSON read
-  const internshipsToMigrate = dbData.internships && dbData.internships.length > 0 ? dbData.internships : initialInternships;
-  
-  if (internshipsToMigrate && internshipsToMigrate.length > 0) {
-    const docs = internshipsToMigrate.map((i, index) => ({ ...i, _order: index }));
-    await internshipsCol.insertMany(docs);
-    console.log(`[DEBUG] [ensureInternshipsMigrated] Migration completed: ${docs.length} internships inserted into MongoDB`);
-  }
-}
-
 export async function getInternships() {
-  await ensureInternshipsMigrated();
   const dbClient = await getDb();
   const internships = await dbClient.collection('internships').find({}).sort({ _order: 1 }).toArray();
   return internships.map(i => {
@@ -335,7 +176,6 @@ export async function getInternships() {
 }
 
 export async function getInternship(id) {
-  await ensureInternshipsMigrated();
   const dbClient = await getDb();
   const internship = await dbClient.collection('internships').findOne({ id });
   if (!internship) return null;
@@ -344,7 +184,6 @@ export async function getInternship(id) {
 }
 
 export async function addInternship(internshipData) {
-  await ensureInternshipsMigrated();
   const dbClient = await getDb();
   const internshipsCol = dbClient.collection('internships');
 
@@ -366,7 +205,6 @@ export async function addInternship(internshipData) {
 }
 
 export async function updateInternship(id, internshipData) {
-  await ensureInternshipsMigrated();
   const dbClient = await getDb();
   const internshipsCol = dbClient.collection('internships');
 
@@ -388,35 +226,12 @@ export async function updateInternship(id, internshipData) {
 }
 
 export async function deleteInternship(id) {
-  await ensureInternshipsMigrated();
   const dbClient = await getDb();
   await dbClient.collection('internships').deleteOne({ id });
 }
 
 // Student Operations
-async function ensureStudentsMigrated() {
-  console.log('[DEBUG] [ensureStudentsMigrated] Started check');
-  const dbClient = await getDb();
-  const studentsCol = dbClient.collection('leadstudents');
-  
-  const existingStudent = await studentsCol.findOne({});
-  if (existingStudent) {
-    return;
-  }
-  
-  console.log('[DEBUG] [ensureStudentsMigrated] leadstudents collection is empty. Starting automatic migration from JSON');
-  const dbData = readDb(); // Fallback to JSON read
-  const studentsToMigrate = dbData.students && dbData.students.length > 0 ? dbData.students : [];
-  
-  if (studentsToMigrate && studentsToMigrate.length > 0) {
-    // Preserve exact schema and _id generation delegation to MongoDB
-    await studentsCol.insertMany(studentsToMigrate);
-    console.log(`[DEBUG] [ensureStudentsMigrated] Migration completed: ${studentsToMigrate.length} students inserted into MongoDB`);
-  }
-}
-
 export async function getStudents() {
-  await ensureStudentsMigrated();
   const dbClient = await getDb();
   const students = await dbClient.collection('leadstudents').find({}).toArray();
   return students.map(s => {
@@ -426,7 +241,6 @@ export async function getStudents() {
 }
 
 export async function addStudent(studentData) {
-  await ensureStudentsMigrated();
   const dbClient = await getDb();
   const studentsCol = dbClient.collection('leadstudents');
 
@@ -455,13 +269,10 @@ export async function addStudent(studentData) {
   };
 
   await studentsCol.insertOne(student);
-  
-  // Do NOT write to JSON anymore
   return student;
 }
 
 export async function updateStudent(id, updateData) {
-  await ensureStudentsMigrated();
   const dbClient = await getDb();
   const studentsCol = dbClient.collection('leadstudents');
 
@@ -514,7 +325,6 @@ export async function updateStudent(id, updateData) {
 }
 
 export async function deleteStudent(id) {
-  await ensureStudentsMigrated();
   const dbClient = await getDb();
   await dbClient.collection('leadstudents').deleteOne({ id });
 }
