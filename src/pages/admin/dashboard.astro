@@ -7,7 +7,7 @@ export const prerender = false;
 // Fetch current stats from database
 const courses = await getCourses();
 const internships = await getInternships();
-const students = getStudents();
+const students = await getStudents();
 
 // Calculate stats
 const totalCourses = courses.length;
