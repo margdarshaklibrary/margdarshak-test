@@ -2,19 +2,16 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCourses } from '../../data/db.js';
 
-export async function getStaticPaths() {
-  const courses = getCourses();
-  return courses.map((course) => ({
-    params: { id: course.id },
-    props: { course },
-  }));
-}
+export const prerender = false;
 
-const { course } = Astro.props;
+const { id } = Astro.params;
+const allCourses = await getCourses();
+const course = allCourses.find(c => c.id === id);
+
 const isNotFound = !course || course.status === 'Inactive';
 
 // Fetch related courses
-const allCourses = getCourses();
+
 const relatedCourses = allCourses
   .filter(c => c.id !== course?.id && c.status !== 'Inactive')
   .slice(0, 3);

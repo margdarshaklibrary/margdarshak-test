@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { courses } from '../data/courses.js';
+import { getCourses } from '../data/db.js';
 import { internships } from '../data/internships.js';
+
+const courses = await getCourses();
 ---
 
 <Layout 

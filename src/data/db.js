@@ -220,50 +220,86 @@ function syncInternshipsJs(internshipsList) {
 }
 
 // Course CRUD Operations
-export function getCourses() {
-  const db = readDb();
-  return db.courses;
+async function ensureCoursesMigrated() {
+  console.log('[DEBUG] [ensureCoursesMigrated] Started check');
+  const dbClient = await getDb();
+  const coursesCol = dbClient.collection('courses');
+  
+  const existingCourse = await coursesCol.findOne({});
+  if (existingCourse) {
+    return;
+  }
+  
+  console.log('[DEBUG] [ensureCoursesMigrated] Courses collection is empty. Starting automatic migration from JSON');
+  const dbData = readDb(); // Fallback to JSON read
+  const coursesToMigrate = dbData.courses && dbData.courses.length > 0 ? dbData.courses : initialCourses;
+  
+  if (coursesToMigrate && coursesToMigrate.length > 0) {
+    const docs = coursesToMigrate.map((c, index) => ({ ...c, _order: index }));
+    await coursesCol.insertMany(docs);
+    console.log(`[DEBUG] [ensureCoursesMigrated] Migration completed: ${docs.length} courses inserted into MongoDB`);
+  }
 }
 
-export function addCourse(courseData) {
-  const db = readDb();
-  // Ensure the course has a unique id (slugified name if not provided)
+export async function getCourses() {
+  await ensureCoursesMigrated();
+  const dbClient = await getDb();
+  const courses = await dbClient.collection('courses').find({}).sort({ _order: 1 }).toArray();
+  return courses.map(c => {
+    const { _id, _order, ...rest } = c;
+    return rest;
+  });
+}
+
+export async function addCourse(courseData) {
+  await ensureCoursesMigrated();
+  const dbClient = await getDb();
+  const coursesCol = dbClient.collection('courses');
+
   if (!courseData.id) {
     courseData.id = courseData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   }
-  // Check if course with same ID already exists
-  if (db.courses.some(c => c.id === courseData.id)) {
+  
+  const existing = await coursesCol.findOne({ id: courseData.id });
+  if (existing) {
     courseData.id = `${courseData.id}-${crypto.randomBytes(3).toString('hex')}`;
   }
 
-  db.courses.push(courseData);
-  writeDb(db);
-  syncCoursesJs(db.courses);
+  const lastCourse = await coursesCol.find().sort({ _order: -1 }).limit(1).toArray();
+  const nextOrder = lastCourse.length > 0 ? (lastCourse[0]._order || 0) + 1 : 0;
+
+  const doc = { ...courseData, _order: nextOrder };
+  await coursesCol.insertOne(doc);
   return courseData;
 }
 
-export function updateCourse(id, courseData) {
-  const db = readDb();
-  const index = db.courses.findIndex(c => c.id === id);
-  if (index === -1) throw new Error('Course not found');
+export async function updateCourse(id, courseData) {
+  await ensureCoursesMigrated();
+  const dbClient = await getDb();
+  const coursesCol = dbClient.collection('courses');
 
-  // Keep original fields that are not in the edit form if not provided
-  db.courses[index] = {
-    ...db.courses[index],
+  const existing = await coursesCol.findOne({ id });
+  if (!existing) throw new Error('Course not found');
+
+  const updateDoc = {
     ...courseData,
     id // keep ID same
   };
+  // Don't overwrite _id or _order in the $set, delete them if they somehow got in
+  delete updateDoc._id;
+  delete updateDoc._order;
 
-  writeDb(db);
-  syncCoursesJs(db.courses);
-  return db.courses[index];
+  await coursesCol.updateOne({ id }, { $set: updateDoc });
+  
+  const updated = await coursesCol.findOne({ id });
+  const { _id, _order, ...rest } = updated;
+  return rest;
 }
 
-export function deleteCourse(id) {
-  const db = readDb();
-  db.courses = db.courses.filter(c => c.id !== id);
-  writeDb(db);
-  syncCoursesJs(db.courses);
+export async function deleteCourse(id) {
+  await ensureCoursesMigrated();
+  const dbClient = await getDb();
+  await dbClient.collection('courses').deleteOne({ id });
 }
 
 // Internship CRUD Operations

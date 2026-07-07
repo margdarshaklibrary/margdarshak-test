@@ -5,7 +5,7 @@ import { getCourses, getInternships, getStudents } from '../../data/db.js';
 export const prerender = false;
 
 // Fetch current stats from database
-const courses = getCourses();
+const courses = await getCourses();
 const internships = getInternships();
 const students = getStudents();
 

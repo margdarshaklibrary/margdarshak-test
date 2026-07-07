@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { courses } from '../data/courses.js';
+import { getCourses } from '../data/db.js';
 import { internships } from '../data/internships.js';
 
 // Get 3 popular courses and 3 popular internships for previews
-const popularCourses = courses.slice(0, 3); // DCA, Web Dev, Digital Marketing
+const allCourses = await getCourses();
+const popularCourses = allCourses.slice(0, 3); // DCA, Web Dev, Digital Marketing
 const popularInternships = internships.filter(item => 
   ["web-development", "gst-filing", "ai-tools"].includes(item.id)
 );
@@ -365,7 +366,7 @@ const popularInternships = internships.filter(item =>
                 
                 <!-- Price Badge -->
                 <div class="absolute top-4 right-4 z-20 bg-secondary text-white text-xs font-black px-4 py-2 rounded-full shadow-premium tracking-wide">
-                  ₹1,000/Month
+                  {course.fee}
                 </div>
               </div>
               

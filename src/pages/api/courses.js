@@ -15,7 +15,8 @@ export async function GET({ cookies }) {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-  return new Response(JSON.stringify(getCourses()), {
+  const courses = await getCourses();
+  return new Response(JSON.stringify(courses), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
@@ -49,7 +50,7 @@ export async function POST({ request, cookies }) {
       data.careerOpportunities = data.careerOpportunities.split('\n').map(t => t.trim()).filter(Boolean);
     }
 
-    const created = addCourse(data);
+    const created = await addCourse(data);
     return new Response(JSON.stringify({ success: true, course: created }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' }
@@ -92,7 +93,7 @@ export async function PUT({ request, cookies }) {
       data.careerOpportunities = data.careerOpportunities.split('\n').map(t => t.trim()).filter(Boolean);
     }
 
-    const updated = updateCourse(id, data);
+    const updated = await updateCourse(id, data);
     return new Response(JSON.stringify({ success: true, course: updated }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -124,7 +125,7 @@ export async function DELETE({ request, cookies }) {
       });
     }
 
-    deleteCourse(id);
+    await deleteCourse(id);
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
