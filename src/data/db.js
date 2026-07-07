@@ -394,13 +394,42 @@ export async function deleteInternship(id) {
 }
 
 // Student Operations
-export function getStudents() {
-  const db = readDb();
-  return db.students;
+async function ensureStudentsMigrated() {
+  console.log('[DEBUG] [ensureStudentsMigrated] Started check');
+  const dbClient = await getDb();
+  const studentsCol = dbClient.collection('leadstudents');
+  
+  const existingStudent = await studentsCol.findOne({});
+  if (existingStudent) {
+    return;
+  }
+  
+  console.log('[DEBUG] [ensureStudentsMigrated] leadstudents collection is empty. Starting automatic migration from JSON');
+  const dbData = readDb(); // Fallback to JSON read
+  const studentsToMigrate = dbData.students && dbData.students.length > 0 ? dbData.students : [];
+  
+  if (studentsToMigrate && studentsToMigrate.length > 0) {
+    // Preserve exact schema and _id generation delegation to MongoDB
+    await studentsCol.insertMany(studentsToMigrate);
+    console.log(`[DEBUG] [ensureStudentsMigrated] Migration completed: ${studentsToMigrate.length} students inserted into MongoDB`);
+  }
 }
 
-export function addStudent(studentData) {
-  const db = readDb();
+export async function getStudents() {
+  await ensureStudentsMigrated();
+  const dbClient = await getDb();
+  const students = await dbClient.collection('leadstudents').find({}).toArray();
+  return students.map(s => {
+    const { _id, ...rest } = s;
+    return rest;
+  });
+}
+
+export async function addStudent(studentData) {
+  await ensureStudentsMigrated();
+  const dbClient = await getDb();
+  const studentsCol = dbClient.collection('leadstudents');
+
   const now = new Date().toISOString();
   const student = {
     id: crypto.randomUUID(),
@@ -425,20 +454,21 @@ export function addStudent(studentData) {
     ]
   };
 
-  db.students.push(student);
-  writeDb(db);
+  await studentsCol.insertOne(student);
+  
+  // Do NOT write to JSON anymore
   return student;
 }
 
-export function updateStudent(id, updateData) {
-  const db = readDb();
-  const index = db.students.findIndex(s => s.id === id);
-  if (index === -1) throw new Error('Student not found');
+export async function updateStudent(id, updateData) {
+  await ensureStudentsMigrated();
+  const dbClient = await getDb();
+  const studentsCol = dbClient.collection('leadstudents');
 
-  const existing = db.students[index];
+  const existing = await studentsCol.findOne({ id });
+  if (!existing) throw new Error('Student not found');
+
   const now = new Date().toISOString();
-
-  // Build timeline entries for tracked changes
   const timelineAdditions = [];
 
   if (updateData.status && updateData.status !== existing.status) {
@@ -455,27 +485,36 @@ export function updateStudent(id, updateData) {
     timelineAdditions.push({ event: `Next action: ${updateData.nextAction}`, timestamp: now });
   }
 
-  // Merge existing timeline with new entries (newest first)
-  const existingTimeline = existing.timeline || [];
-  const mergedTimeline = [...timelineAdditions, ...existingTimeline];
+  const setDoc = { ...updateData };
+  delete setDoc.id; // never update id
+  delete setDoc._id; // never update mongo _id
+  delete setDoc.timeline; // handle timeline manually via $push
 
-  db.students[index] = {
-    ...existing,
-    status: updateData.status !== undefined ? updateData.status : existing.status,
-    assignedEmployee: updateData.assignedEmployee !== undefined ? updateData.assignedEmployee : existing.assignedEmployee,
-    followUpDate: updateData.followUpDate !== undefined ? updateData.followUpDate : existing.followUpDate,
-    followUpTime: updateData.followUpTime !== undefined ? updateData.followUpTime : existing.followUpTime,
-    nextAction: updateData.nextAction !== undefined ? updateData.nextAction : existing.nextAction,
-    notes: updateData.notes !== undefined ? updateData.notes : existing.notes,
-    timeline: mergedTimeline
-  };
+  const updateOp = {};
+  if (Object.keys(setDoc).length > 0) {
+    updateOp.$set = setDoc;
+  }
 
-  writeDb(db);
-  return db.students[index];
+  if (timelineAdditions.length > 0) {
+    updateOp.$push = {
+      timeline: {
+        $each: timelineAdditions,
+        $position: 0
+      }
+    };
+  }
+
+  if (Object.keys(updateOp).length > 0) {
+    await studentsCol.updateOne({ id }, updateOp);
+  }
+
+  const updated = await studentsCol.findOne({ id });
+  const { _id, ...rest } = updated;
+  return rest;
 }
 
-export function deleteStudent(id) {
-  const db = readDb();
-  db.students = db.students.filter(s => s.id !== id);
-  writeDb(db);
+export async function deleteStudent(id) {
+  await ensureStudentsMigrated();
+  const dbClient = await getDb();
+  await dbClient.collection('leadstudents').deleteOne({ id });
 }

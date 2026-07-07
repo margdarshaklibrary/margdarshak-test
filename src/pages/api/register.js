@@ -14,7 +14,7 @@ export async function POST({ request }) {
       });
     }
 
-    const newStudent = addStudent(data);
+    const newStudent = await addStudent(data);
 
     return new Response(JSON.stringify({ success: true, student: newStudent }), {
       status: 200,

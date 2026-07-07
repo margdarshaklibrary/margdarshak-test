@@ -19,7 +19,7 @@ export async function GET({ cookies, url }) {
     const search = url.searchParams.get('search')?.toLowerCase() || '';
     const programId = url.searchParams.get('programId') || '';
 
-    let list = getStudents();
+    let list = await getStudents();
 
     // Apply filters
     if (search) {
@@ -69,7 +69,7 @@ export async function DELETE({ cookies, url }) {
       });
     }
 
-    deleteStudent(id);
+    await deleteStudent(id);
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -102,7 +102,7 @@ export async function PUT({ cookies, request }) {
       });
     }
 
-    const updated = updateStudent(id, updateData);
+    const updated = await updateStudent(id, updateData);
     return new Response(JSON.stringify(updated), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

@@ -26,7 +26,7 @@ export async function GET({ cookies }) {
   }
 
   try {
-    const list = getStudents();
+    const list = await getStudents();
 
     // Sort by date descending
     list.sort((a, b) => new Date(b.date) - new Date(a.date));
