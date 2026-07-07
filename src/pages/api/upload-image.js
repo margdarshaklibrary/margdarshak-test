@@ -14,9 +14,9 @@ cloudinary.config({
   secure: true,
 });
 
-function checkAuth(cookies) {
+async function checkAuth(cookies) {
   const token = cookies.get('admin_session')?.value;
-  return verifySession(token);
+  return await verifySession(token);
 }
 
 /**
@@ -25,7 +25,7 @@ function checkAuth(cookies) {
  * Returns { success: true, url, publicId }
  */
 export async function POST({ request, cookies, url }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -116,7 +116,7 @@ export async function POST({ request, cookies, url }) {
  * Deletes a Cloudinary asset by publicId. Called when replacing an existing image.
  */
 export async function DELETE({ request, cookies, url }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },

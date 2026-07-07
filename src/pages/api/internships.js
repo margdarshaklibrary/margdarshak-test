@@ -3,13 +3,13 @@ import { verifySession, getInternships, addInternship, updateInternship, deleteI
 export const prerender = false;
 
 // Middleware to check admin session
-function checkAuth(cookies) {
+async function checkAuth(cookies) {
   const token = cookies.get('admin_session')?.value;
-  return verifySession(token);
+  return await verifySession(token);
 }
 
 export async function GET({ cookies }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -22,7 +22,7 @@ export async function GET({ cookies }) {
 }
 
 export async function POST({ request, cookies }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -66,7 +66,7 @@ export async function POST({ request, cookies }) {
 }
 
 export async function PUT({ request, cookies }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -112,7 +112,7 @@ export async function PUT({ request, cookies }) {
 }
 
 export async function DELETE({ request, cookies }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }

@@ -2,9 +2,9 @@ import { verifySession, getStudents } from '../../data/db.js';
 
 export const prerender = false;
 
-function checkAuth(cookies) {
+async function checkAuth(cookies) {
   const token = cookies.get('admin_session')?.value;
-  return verifySession(token);
+  return await verifySession(token);
 }
 
 // Helper to escape values for CSV
@@ -21,7 +21,7 @@ function csvEscape(val) {
 }
 
 export async function GET({ cookies }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response('Unauthorized', { status: 401 });
   }
 

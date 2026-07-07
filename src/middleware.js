@@ -19,7 +19,7 @@ export async function onRequest(context, next) {
   // Check if accessing admin route
   if (pathname === '/admin') {
     const sessionToken = context.cookies.get('admin_session')?.value;
-    const isAuthenticated = verifySession(sessionToken);
+    const isAuthenticated = await verifySession(sessionToken);
     
     if (isAuthenticated) {
       return context.redirect('/admin/dashboard');
@@ -31,7 +31,7 @@ export async function onRequest(context, next) {
   // Guard protected admin routes
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const sessionToken = context.cookies.get('admin_session')?.value;
-    const isAuthenticated = verifySession(sessionToken);
+    const isAuthenticated = await verifySession(sessionToken);
 
     if (!isAuthenticated) {
       return context.redirect('/admin/login');
@@ -41,7 +41,7 @@ export async function onRequest(context, next) {
   // Redirect logged-in admin away from login page
   if (pathname === '/admin/login') {
     const sessionToken = context.cookies.get('admin_session')?.value;
-    const isAuthenticated = verifySession(sessionToken);
+    const isAuthenticated = await verifySession(sessionToken);
     
     if (isAuthenticated) {
       return context.redirect('/admin/dashboard');

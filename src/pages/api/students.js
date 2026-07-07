@@ -2,13 +2,13 @@ import { verifySession, getStudents, deleteStudent, updateStudent } from '../../
 
 export const prerender = false;
 
-function checkAuth(cookies) {
+async function checkAuth(cookies) {
   const token = cookies.get('admin_session')?.value;
-  return verifySession(token);
+  return await verifySession(token);
 }
 
 export async function GET({ cookies, url }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -53,7 +53,7 @@ export async function GET({ cookies, url }) {
 }
 
 export async function DELETE({ cookies, url }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -84,7 +84,7 @@ export async function DELETE({ cookies, url }) {
 }
 
 export async function PUT({ cookies, request }) {
-  if (!checkAuth(cookies)) {
+  if (!(await checkAuth(cookies))) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }

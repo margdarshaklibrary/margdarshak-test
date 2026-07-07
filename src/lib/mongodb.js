@@ -34,11 +34,22 @@
  */
 
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import dns from 'dns';
+
+// Fix local Node.js DNS resolution issues (e.g. querySrv ECONNREFUSED) in local development
+if (process.env.NODE_ENV === 'development' || !process.env.VERCEL) {
+  try {
+    dns.setServers(['8.8.8.8', '8.8.4.4']);
+    console.log('[DEBUG] Local development/non-Vercel environment detected. Google DNS servers set.');
+  } catch (e) {
+    console.warn('[DEBUG] Failed to set custom DNS servers:', e);
+  }
+}
 
 // ─── Validate required environment variables ─────────────────────────────────
 
-const MONGODB_URI     = import.meta.env.MONGODB_URI     || process.env.MONGODB_URI;
-const MONGODB_DB_NAME = import.meta.env.MONGODB_DB_NAME || process.env.MONGODB_DB_NAME;
+const MONGODB_URI     = import.meta.env?.MONGODB_URI     || process.env.MONGODB_URI;
+const MONGODB_DB_NAME = import.meta.env?.MONGODB_DB_NAME || process.env.MONGODB_DB_NAME;
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -85,10 +96,16 @@ export async function getClient() {
   }
 
   if (!cachedClientPromise) {
+    console.log('[DEBUG] Creating new MongoClient with URI:', MONGODB_URI ? `${MONGODB_URI.substring(0, 30)}...` : 'undefined');
     const client = new MongoClient(MONGODB_URI, options);
     cachedClientPromise = client.connect().then((connectedClient) => {
+      console.log('[DEBUG] MongoClient connected successfully');
       cachedClient = connectedClient;
       return connectedClient;
+    }).catch(err => {
+      console.error('[DEBUG] MongoClient connection failed:', err);
+      cachedClientPromise = null;
+      throw err;
     });
   }
 
@@ -102,6 +119,7 @@ export async function getClient() {
  */
 export async function getDb() {
   const client = await getClient();
+  console.log('[DEBUG] Selecting database:', MONGODB_DB_NAME);
   return client.db(MONGODB_DB_NAME);
 }
 

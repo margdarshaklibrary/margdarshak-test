@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
+import { getDb } from '../lib/mongodb.js';
 import { courses as initialCourses } from './courses.js';
 import { internships as initialInternships } from './internships.js';
 
@@ -12,19 +14,73 @@ const COURSES_PATH = isVercel ? '/tmp/courses.js' : path.resolve('src/data/cours
 const INTERNSHIPS_PATH = isVercel ? '/tmp/internships.js' : path.resolve('src/data/internships.js');
 
 // Helper to hash password
-export function hashPassword(password) {
-  const salt = crypto.randomBytes(16).toString('hex');
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return `${salt}:${hash}`;
+export async function hashPassword(password) {
+  return await bcrypt.hash(password, 10);
 }
 
 // Helper to verify password
-export function verifyPassword(password, storedHash) {
-  const parts = storedHash.split(':');
-  if (parts.length !== 2) return false;
-  const [salt, hash] = parts;
-  const verifyHash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return hash === verifyHash;
+export async function verifyPassword(password, storedHash) {
+  if (!storedHash) return false;
+  if (storedHash.includes(':')) {
+    const parts = storedHash.split(':');
+    if (parts.length !== 2) return false;
+    const [salt, hash] = parts;
+    const verifyHash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+    return hash === verifyHash;
+  }
+  return await bcrypt.compare(password, storedHash);
+}
+
+// Admin Migration from JSON to MongoDB
+async function ensureAdminMigrated() {
+  console.log('[DEBUG] [ensureAdminMigrated] Started check');
+  const dbClient = await getDb();
+  const adminsCol = dbClient.collection('admins');
+  
+  const existingAdmin = await adminsCol.findOne({});
+  if (existingAdmin) {
+    console.log('[DEBUG] [ensureAdminMigrated] Admin already exists in MongoDB, skipping migration');
+    return;
+  }
+  
+  console.log('[DEBUG] [ensureAdminMigrated] Admins collection is empty. Starting automatic migration from JSON');
+  const dbData = readDb(); // Fallback to JSON read
+  console.log('[DEBUG] [ensureAdminMigrated] JSON admin loaded:', dbData.admin ? dbData.admin.username : 'none');
+  
+  if (dbData.admin && dbData.admin.username) {
+    let passwordHash = dbData.admin.passwordHash;
+    if (passwordHash && !passwordHash.includes(':') && !passwordHash.startsWith('$2')) {
+       console.log('[DEBUG] [ensureAdminMigrated] Plain-text password detected. Hashing with bcrypt...');
+       passwordHash = await hashPassword(passwordHash);
+    }
+    await adminsCol.insertOne({
+      username: dbData.admin.username,
+      passwordHash: passwordHash
+    });
+    console.log('[DEBUG] [ensureAdminMigrated] Migration completed: admin document inserted into MongoDB');
+  } else {
+    console.log('[DEBUG] [ensureAdminMigrated] No admin found in JSON. Creating default admin with username "admin"');
+    await adminsCol.insertOne({
+      username: 'admin',
+      passwordHash: await hashPassword('admin')
+    });
+    console.log('[DEBUG] [ensureAdminMigrated] Migration completed: default admin inserted');
+  }
+}
+
+// Fetch Admin Credentials from MongoDB
+export async function getAdminUsername() {
+  await ensureAdminMigrated();
+  const dbClient = await getDb();
+  const admin = await dbClient.collection('admins').findOne({});
+  return admin ? admin.username : 'admin';
+}
+
+export async function getAdminPasswordHash() {
+  await ensureAdminMigrated();
+  const dbClient = await getDb();
+  const admin = await dbClient.collection('admins').findOne({});
+  return admin ? admin.passwordHash : '';
 }
 
 // Atomic file writer to avoid file corruption
@@ -77,59 +133,78 @@ export function writeDb(data) {
 }
 
 // Authenticate Admin
-export function authenticateAdmin(username, password) {
-  const db = readDb();
-  if (db.admin.username !== username) return null;
+export async function authenticateAdmin(username, password) {
+  console.log('[DEBUG] [authenticateAdmin] Started for username:', username);
+  await ensureAdminMigrated();
+  const dbClient = await getDb();
+  const adminsCol = dbClient.collection('admins');
+  
+  console.log('[DEBUG] [authenticateAdmin] Querying admin document for username:', username);
+  const admin = await adminsCol.findOne({ username });
+  if (!admin) {
+    console.log('[DEBUG] [authenticateAdmin] Admin document not found for username:', username);
+    return null;
+  }
 
-  if (verifyPassword(password, db.admin.passwordHash)) {
-    // Generate session token
+  console.log('[DEBUG] [authenticateAdmin] Password verification started');
+  const isValid = await verifyPassword(password, admin.passwordHash);
+  console.log('[DEBUG] [authenticateAdmin] Password verification result:', isValid);
+  
+  if (isValid) {
     const token = crypto.randomUUID();
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // 24 hours
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
-    db.sessions = db.sessions.filter(s => new Date(s.expiresAt) > new Date()); // Clean expired sessions
-    db.sessions.push({ token, expiresAt });
-    writeDb(db);
+    console.log('[DEBUG] [authenticateAdmin] Inserting session token into sessions collection');
+    const sessionsCol = dbClient.collection('sessions');
+    await sessionsCol.deleteMany({ expiresAt: { $lt: new Date() } }); // Clean expired sessions
+    await sessionsCol.insertOne({ token, expiresAt });
+    console.log('[DEBUG] [authenticateAdmin] Session created successfully');
+
     return token;
   }
   return null;
 }
 
 // Verify Session Token
-export function verifySession(token) {
+export async function verifySession(token) {
   if (!token) return false;
-  const db = readDb();
-  const session = db.sessions.find(s => s.token === token);
+  const dbClient = await getDb();
+  const sessionsCol = dbClient.collection('sessions');
+  
+  const session = await sessionsCol.findOne({ token });
   if (!session) return false;
 
   const isExpired = new Date(session.expiresAt) < new Date();
   if (isExpired) {
-    // Clean expired session
-    db.sessions = db.sessions.filter(s => s.token !== token);
-    writeDb(db);
+    await sessionsCol.deleteOne({ token });
     return false;
   }
   return true;
 }
 
 // Logout Admin
-export function logoutAdmin(token) {
+export async function logoutAdmin(token) {
   if (!token) return;
-  const db = readDb();
-  db.sessions = db.sessions.filter(s => s.token !== token);
-  writeDb(db);
+  const dbClient = await getDb();
+  await dbClient.collection('sessions').deleteOne({ token });
 }
 
 // Change Admin Credentials
-export function changeAdminCredentials(token, username, newPassword) {
-  if (!verifySession(token)) throw new Error('Unauthorized');
-  const db = readDb();
-  db.admin.username = username;
+export async function changeAdminCredentials(token, username, newPassword) {
+  const isValid = await verifySession(token);
+  if (!isValid) throw new Error('Unauthorized');
+  
+  const dbClient = await getDb();
+  const adminsCol = dbClient.collection('admins');
+  const sessionsCol = dbClient.collection('sessions');
+  
+  const updateData = { username };
   if (newPassword) {
-    db.admin.passwordHash = hashPassword(newPassword);
+    updateData.passwordHash = await hashPassword(newPassword);
   }
-  // Clear all other sessions except current one
-  db.sessions = db.sessions.filter(s => s.token === token);
-  writeDb(db);
+  
+  await adminsCol.updateOne({}, { $set: updateData });
+  await sessionsCol.deleteMany({ token: { $ne: token } });
 }
 
 // Synchronize static courses.js file

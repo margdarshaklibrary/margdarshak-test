@@ -13,7 +13,7 @@ export async function POST({ request, cookies }) {
       });
     }
 
-    const token = authenticateAdmin(username, password);
+    const token = await authenticateAdmin(username, password);
 
     if (token) {
       cookies.set('admin_session', token, {

@@ -6,7 +6,7 @@ export async function POST({ cookies }) {
   try {
     const token = cookies.get('admin_session')?.value;
     if (token) {
-      logoutAdmin(token);
+      await logoutAdmin(token);
     }
     
     // Clear the session cookie

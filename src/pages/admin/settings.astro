@@ -1,12 +1,11 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
-import { readDb, changeAdminCredentials, verifyPassword } from '../../data/db.js';
+import { getAdminUsername, getAdminPasswordHash, changeAdminCredentials, verifyPassword } from '../../data/db.js';
 
 export const prerender = false;
 
 const token = Astro.cookies.get('admin_session')?.value;
-const db = readDb();
-const currentUsername = db.admin.username;
+const currentUsername = await getAdminUsername();
 
 let errorMsg = '';
 let successMsg = '';
@@ -21,15 +20,19 @@ if (Astro.request.method === 'POST') {
 
     if (!username || !currentPassword) {
       errorMsg = 'Username and Current Password are required.';
-    } else if (!verifyPassword(currentPassword, db.admin.passwordHash)) {
-      errorMsg = 'The current password you entered is incorrect.';
-    } else if (newPassword && newPassword.length < 5) {
-      errorMsg = 'New password must be at least 5 characters long.';
-    } else if (newPassword && newPassword !== confirmPassword) {
-      errorMsg = 'New password and confirmation password do not match.';
     } else {
-      changeAdminCredentials(token, username, newPassword || null);
-      return Astro.redirect('/admin/settings?success=true');
+      const passwordHash = await getAdminPasswordHash();
+      const isValid = await verifyPassword(currentPassword, passwordHash);
+      if (!isValid) {
+        errorMsg = 'The current password you entered is incorrect.';
+      } else if (newPassword && newPassword.length < 5) {
+        errorMsg = 'New password must be at least 5 characters long.';
+      } else if (newPassword && newPassword !== confirmPassword) {
+        errorMsg = 'New password and confirmation password do not match.';
+      } else {
+        await changeAdminCredentials(token, username, newPassword || null);
+        return Astro.redirect('/admin/settings?success=true');
+      }
     }
   } catch (err) {
     console.error('Error changing credentials:', err);
