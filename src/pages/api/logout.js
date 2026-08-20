@@ -2,7 +2,7 @@ import { logoutAdmin } from '../../data/db.js';
 
 export const prerender = false;
 
-export async function POST({ cookies }) {
+export async function POST({ request, cookies }) {
   try {
     const token = cookies.get('admin_session')?.value;
     if (token) {
@@ -10,7 +10,12 @@ export async function POST({ cookies }) {
     }
     
     // Clear the session cookie
-    cookies.delete('admin_session', { path: '/' });
+    cookies.delete('admin_session', { 
+      path: '/',
+      httpOnly: true,
+      secure: request.url.startsWith('https://'),
+      sameSite: 'strict'
+    });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
@@ -24,7 +29,7 @@ export async function POST({ cookies }) {
     });
   }
 }
-export async function GET({ cookies }) {
+export async function GET({ request, cookies }) {
   // Support GET logout for fallback
-  return POST({ cookies });
+  return POST({ request, cookies });
 }
