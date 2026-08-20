@@ -3,7 +3,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://margdarshak.in',
+  site: 'https://margdarshakss.com',
   output: 'server',
   adapter: vercel(),
   integrations: [
