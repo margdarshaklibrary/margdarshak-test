@@ -6,6 +6,23 @@ export default defineConfig({
   site: 'https://margdarshakss.com',
   output: 'server',
   adapter: vercel(),
+  security: {
+    checkOrigin: true,
+    allowedDomains: [
+      {
+        hostname: 'margdarshakss.com',
+        protocol: 'https',
+      },
+      {
+        hostname: 'www.margdarshakss.com',
+        protocol: 'https',
+      },
+      {
+        hostname: '**.vercel.app',
+        protocol: 'https',
+      },
+    ],
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/admin/') && !page.includes('/api/'),
