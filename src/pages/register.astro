@@ -913,6 +913,18 @@ const internships = await getInternships();
 
       nextBtn1.addEventListener('click', () => {
         if (validateStep1()) {
+          try {
+            if (!sessionStorage.getItem('lead_tracked')) {
+              if (typeof window.fbq === 'function') {
+                window.fbq('track', 'Lead');
+              }
+              sessionStorage.setItem('lead_tracked', 'true');
+            }
+          } catch (e) {
+            if (typeof window.fbq === 'function') {
+              window.fbq('track', 'Lead');
+            }
+          }
           showStep(2);
         }
       });
@@ -1088,6 +1100,9 @@ const internships = await getInternships();
 
             const data = await res.json();
             if (res.ok && data.success) {
+              if (typeof window.fbq === 'function') {
+                window.fbq('track', 'CompleteRegistration');
+              }
               // Redirect to success page
               const redirectUrl = `/register/success?name=${encodeURIComponent(name)}&programName=${encodeURIComponent(programName)}&mode=${encodeURIComponent(learningMode)}`;
               window.location.href = redirectUrl;

@@ -523,6 +523,7 @@ src="https://www.facebook.com/tr?id=2430797710777301&ev=PageView&noscript=1"
         ))}
         <a 
           href="/register" 
+          data-registration-source="header"
           class={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_25px_rgba(229,57,53,0.3)] focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 focus:outline-none ${
             isActive("/register")
               ? "bg-primary text-white border border-white/10"
@@ -581,6 +582,7 @@ src="https://www.facebook.com/tr?id=2430797710777301&ev=PageView&noscript=1"
       <div class="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30 space-y-4">
         <a 
           href="/register" 
+          data-registration-source="header_mobile"
           class="block text-center btn-brand-gradient text-white py-3.5 rounded-xl font-bold transition-all shadow-md hover:shadow-glow-red active:scale-[0.98]"
         >
           Register Now
@@ -622,7 +624,7 @@ src="https://www.facebook.com/tr?id=2430797710777301&ev=PageView&noscript=1"
           <a class="social-icon social-icon-map w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 hover:scale-110 transition-all" href="/contact" aria-label="Location Map">
             <span class="material-symbols-outlined text-lg">location_on</span>
           </a>
-          <a class="social-icon social-icon-register w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 hover:scale-110 transition-all" href="/register" aria-label="Register Now">
+          <a class="social-icon social-icon-register w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 hover:scale-110 transition-all" href="/register" data-registration-source="footer" aria-label="Register Now">
             <span class="material-symbols-outlined text-lg">app_registration</span>
           </a>
         </div>
@@ -828,6 +830,84 @@ src="https://www.facebook.com/tr?id=2430797710777301&ev=PageView&noscript=1"
       }
       
       target.appendChild(circle);
+    });
+
+    // Meta Pixel CTA Event Delegation Tracking
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!target) return;
+      const link = target.closest('a, button');
+      if (!link) return;
+
+      const href = link.getAttribute('href') || '';
+
+      // 1. Contact CTAs: WhatsApp, Phone, Email
+      if (
+        href.startsWith('tel:') ||
+        href.startsWith('mailto:') ||
+        href.includes('wa.me/') ||
+        href.includes('whatsapp.com') ||
+        href.startsWith('whatsapp:')
+      ) {
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Contact');
+        }
+        return;
+      }
+
+      // 2. App Download CTAs: Android & iOS
+      if (href.includes('play.google.com')) {
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'AppDownloadClick', { platform: 'android' });
+        }
+        return;
+      }
+      if (href.includes('apps.apple.com')) {
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'AppDownloadClick', { platform: 'ios' });
+        }
+        return;
+      }
+
+      // 3. Course-specific Registration Click
+      const courseName = link.getAttribute('data-course-name');
+      const courseId = link.getAttribute('data-course-id');
+      if (courseName && courseId) {
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'CourseRegistrationClick', {
+            content_name: courseName,
+            content_type: 'course',
+            content_id: courseId
+          });
+        }
+        return;
+      }
+
+      // 4. Internship-specific Registration Click
+      const internshipName = link.getAttribute('data-internship-name');
+      const internshipId = link.getAttribute('data-internship-id');
+      if (internshipName && internshipId) {
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'InternshipRegistrationClick', {
+            content_name: internshipName,
+            content_type: 'internship',
+            content_id: internshipId
+          });
+        }
+        return;
+      }
+
+      // 5. Generic Registration Start Click
+      const regSource = link.getAttribute('data-registration-source');
+      if (regSource || href === '/register' || href.startsWith('/register?')) {
+        const source = regSource || 'general';
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'RegistrationStart', {
+            source: source
+          });
+        }
+        return;
+      }
     });
   </script>
 </body>

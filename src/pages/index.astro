@@ -321,7 +321,7 @@ const popularInternships = allInternships.filter(item =>
           <div class="w-full border-t border-white/10 pt-4 mb-6 text-[10px] text-slate-400 font-bold tracking-wide uppercase">
             Available on all Courses & Internships
           </div>
-          <a href="/register" class="block w-full bg-white hover:bg-slate-100 text-primary hover:scale-[1.03] transition-all py-3.5 rounded-xl font-bold text-sm text-center shadow-premium">
+          <a href="/register" data-registration-source="homepage_trust_card" class="block w-full bg-white hover:bg-slate-100 text-primary hover:scale-[1.03] transition-all py-3.5 rounded-xl font-bold text-sm text-center shadow-premium">
             Register & Apply Now
           </a>
         </div>
@@ -402,7 +402,7 @@ const popularInternships = allInternships.filter(item =>
                 <a href={`/courses/${course.id}`} class="py-3 rounded-xl border border-primary/20 dark:border-white/10 text-primary dark:text-white font-bold text-center text-xs hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300 hover:scale-[1.02]">
                   View Details
                 </a>
-                <a href="/register" class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs">
+                <a href="/register" data-course-name={course.name} data-course-id={course.id} class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs">
                   Register Now
                 </a>
               </div>
@@ -496,7 +496,7 @@ const popularInternships = allInternships.filter(item =>
                 <a href={`/internships/${internship.id}`} class="py-3 rounded-xl border border-primary/20 dark:border-white/10 text-primary dark:text-white font-bold text-center text-xs hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300 hover:scale-[1.02] flex items-center justify-center min-h-[44px]">
                   View Details
                 </a>
-                <a href="/register" class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs flex items-center justify-center min-h-[44px]">
+                <a href="/register" data-internship-name={internship.name} data-internship-id={internship.id} class="py-3 rounded-xl btn-brand-gradient text-white font-bold text-center text-xs flex items-center justify-center min-h-[44px]">
                   Register Now
                 </a>
               </div>
@@ -833,7 +833,7 @@ const popularInternships = allInternships.filter(item =>
               </div>
               
               <div class="pt-2">
-                <a href="/register" class="block w-full btn-brand-gradient text-white py-4 rounded-xl font-bold text-sm text-center shadow-premium">
+                <a href="/register" data-registration-source="homepage_guidance" class="block w-full btn-brand-gradient text-white py-4 rounded-xl font-bold text-sm text-center shadow-premium">
                   Open Registration Form
                 </a>
               </div>
