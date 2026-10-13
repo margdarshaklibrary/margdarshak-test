@@ -247,11 +247,15 @@ export async function addStudent(studentData) {
   const now = new Date().toISOString();
   const student = {
     id: crypto.randomUUID(),
+    // source identifies which service/subdomain originated this lead.
+    // Undefined for legacy records (no source stored rather than null to keep
+    // MongoDB queries for missing-source records consistent).
+    ...(studentData.source !== undefined && { source: studentData.source }),
     name: studentData.name,
     mobile: studentData.mobile,
     whatsapp: studentData.whatsapp || studentData.mobile,
     email: studentData.email,
-    programType: studentData.programType, // 'course' or 'internship'
+    programType: studentData.programType,
     programId: studentData.programId,
     programName: studentData.programName,
     learningMode: studentData.learningMode || 'Hybrid',
@@ -265,7 +269,17 @@ export async function addStudent(studentData) {
     notes: studentData.notes || '',
     timeline: [
       { event: 'Registration Submitted', timestamp: studentData.date || now }
-    ]
+    ],
+    // Service-specific optional fields (library / hostel / digital)
+    ...(studentData.query !== undefined && { query: studentData.query }),
+    ...(studentData.preferredSlot !== undefined && { preferredSlot: studentData.preferredSlot }),
+    ...(studentData.gender !== undefined && { gender: studentData.gender }),
+    ...(studentData.roomPreference !== undefined && { roomPreference: studentData.roomPreference }),
+    ...(studentData.moveInDate !== undefined && { moveInDate: studentData.moveInDate }),
+    ...(studentData.duration !== undefined && { duration: studentData.duration }),
+    ...(studentData.serviceInterested !== undefined && { serviceInterested: studentData.serviceInterested }),
+    ...(studentData.preferredCallTime !== undefined && { preferredCallTime: studentData.preferredCallTime }),
+    ...(studentData.businessName !== undefined && { businessName: studentData.businessName }),
   };
 
   await studentsCol.insertOne(student);

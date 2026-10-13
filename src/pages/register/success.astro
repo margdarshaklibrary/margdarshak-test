@@ -121,8 +121,15 @@ import Layout from '../../layouts/Layout.astro';
       const mode = params.get('mode') || 'Hybrid';
 
       // Update welcome text if name exists
+      // XSS fix: build welcome DOM nodes without innerHTML to prevent injection
       if (name) {
-        document.getElementById('success-welcome').innerHTML = `Thank you <strong>${name}</strong> for enrolling! Your seat query has been successfully registered in our database.`;
+        const welcomeEl = document.getElementById('success-welcome');
+        welcomeEl.textContent = '';
+        welcomeEl.appendChild(document.createTextNode('Thank you '));
+        const strong = document.createElement('strong');
+        strong.textContent = name; // textContent is XSS-safe
+        welcomeEl.appendChild(strong);
+        welcomeEl.appendChild(document.createTextNode(' for enrolling! Your seat query has been successfully registered in our database.'));
         document.getElementById('summary-name').textContent = name;
       } else {
         document.getElementById('summary-name').textContent = 'Student Candidate';

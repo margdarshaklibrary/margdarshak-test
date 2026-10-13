@@ -1082,6 +1082,9 @@ const internships = await getInternships();
           const message = messageInput.value.trim();
 
           try {
+            // Map programType ('course'/'internship') to source ('courses'/'internships')
+            const source = programType === 'course' ? 'courses' : 'internships';
+
             const res = await fetch('/api/register', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -1094,7 +1097,8 @@ const internships = await getInternships();
                 programId,
                 programName,
                 learningMode,
-                message
+                message,
+                source
               })
             });
 
