@@ -9,30 +9,98 @@ const allInternships = await getInternships();
 const popularInternships = allInternships.filter(item => 
   ["web-development", "gst-filing", "ai-tools"].includes(item.id)
 );
+
+// Central brand services — single source for the service cards and their structured data.
+// Each card links to that service's own subdomain.
+const services = [
+  {
+    id: "courses",
+    name: "Courses",
+    url: "https://courses.margdarshakss.com",
+    description: "Career-focused courses to build computer and digital skills.",
+    icon: "school",
+    iconClass: "bg-secondary/10 text-secondary",
+  },
+  {
+    id: "internships",
+    name: "Internships",
+    url: "https://internships.margdarshakss.com",
+    description: "Build workplace skills through guided internship opportunities.",
+    icon: "work",
+    iconClass: "bg-brandOrange/10 text-brandOrange",
+  },
+  {
+    id: "library",
+    name: "Library",
+    url: "https://library.margdarshakss.com",
+    description: "A quiet, focused study space for students.",
+    icon: "local_library",
+    iconClass: "bg-accent/10 text-accent",
+  },
+  {
+    id: "hostel",
+    name: "Hostel / PG",
+    url: "https://hostel.margdarshakss.com",
+    description: "Student accommodation options in Darbhanga.",
+    icon: "hotel",
+    iconClass: "bg-secondary/10 text-secondary",
+  },
+  {
+    id: "digital",
+    name: "Digital",
+    url: "https://digital.margdarshakss.com",
+    description: "Website development, content creation and digital marketing services.",
+    icon: "devices",
+    iconClass: "bg-brandOrange/10 text-brandOrange",
+  },
+];
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Margdarshak Shikshan Sansthan Services",
+  "itemListElement": services.map((service, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "Service",
+      "name": service.name,
+      "description": service.description,
+      "url": service.url,
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": "Margdarshak Shikshan Sansthan",
+        "url": "https://margdarshakss.com"
+      }
+    }
+  }))
+};
+
+const popularCoursesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Popular Courses at Margdarshak",
+  "itemListElement": popularCourses.map((course, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "Course",
+      "name": course.name,
+      "description": course.shortDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Margdarshak Shikshan Sansthan"
+      }
+    }
+  }))
+};
 ---
 
 <Layout 
-  title="Margdarshak Shikshan Sansthan — Job-Ready Courses & Internships in Darbhanga | 100% Fee Refund" 
-  description="Margdarshak Shikshan Sansthan offers affordable, job-oriented courses in Web Development, Tally, GST, Digital Marketing & more in Darbhanga, Bihar. 100% fee refund with 90%+ attendance. Enroll for just ₹1,000/month."
+  title="Margdarshak Shikshan Sansthan, Darbhanga — Courses, Internships, Library, Hostel & Digital Services"
+  description="Margdarshak Shikshan Sansthan, Darbhanga, Bihar: job-oriented courses in Web Development, Tally, GST, Digital Marketing & more, plus internships, a study library, student hostel/PG and digital services. Courses & internships offer a 100% fee refund with 90%+ attendance."
   ogImage="/assets/new_hero_illustration.png"
-  jsonLd={{
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Popular Courses at Margdarshak",
-    "itemListElement": popularCourses.map((course, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "item": {
-        "@type": "Course",
-        "name": course.name,
-        "description": course.shortDescription,
-        "provider": {
-          "@type": "Organization",
-          "name": "Margdarshak Shikshan Sansthan"
-        }
-      }
-    }))
-  }}
+  jsonLd={[servicesSchema, popularCoursesSchema]}
 >
   
   <!-- Hero Section -->
@@ -47,51 +115,29 @@ const popularInternships = allInternships.filter(item =>
       <div class="space-y-5 lg:space-y-6 lg:max-w-xl reveal reveal-slide-up">
         <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md shadow-glass animate-float-slow">
           <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-          <span class="text-accent font-headline font-bold text-xs tracking-wider uppercase">LEARN • INTERN • GROW</span>
+          <span class="text-accent font-headline font-bold text-xs tracking-wider uppercase">Darbhanga, Bihar</span>
         </div>
         
-        <h1 class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-display font-black leading-[1.15] tracking-tight">
-          Padhega Bharat, <br />
-          <span class="text-gradient-purple-orange">Badhega Bharat</span>
+        <h1 class="font-display font-black tracking-tight">
+          <span class="block text-2xl sm:text-3xl xl:text-4xl leading-tight">Margdarshak Shikshan Sansthan</span>
+          <span class="block mt-3 text-3xl sm:text-5xl lg:text-5xl xl:text-6xl leading-[1.15]">
+            Padhega Bharat, <br />
+            <span class="text-gradient-purple-orange">Badhega Bharat</span>
+          </span>
         </h1>
         
         <p class="text-base text-slate-300 leading-relaxed font-light max-w-lg">
-          Industry-ready certification programs with a unique <span class="font-semibold text-secondary dark:text-purpleglow border-b border-secondary/30 pb-0.5">100% Fee Refund guarantee</span>. Join India's most student-friendly learning ecosystem in Darbhanga.
+          Margdarshak brings together job-oriented courses, internships, a focused study library, student accommodation and digital services — empowering the youth of Bharat with job-ready skills and affordable education.
         </p>
-        
-        <!-- Key Perks cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-          <div class="flex items-center gap-3 bg-white/5 py-2.5 px-3.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 shadow-glass group">
-            <span class="material-symbols-outlined text-accent text-2xl shrink-0 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">payments</span>
-            <div>
-              <p class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Affordable Fee</p>
-              <span class="font-bold text-white text-xs md:text-sm">₹1,000/month fee</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-3 bg-white/5 py-2.5 px-3.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 shadow-glass group">
-            <span class="material-symbols-outlined text-secondary text-2xl shrink-0 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-            <div>
-              <p class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Refund Trust</p>
-              <span class="font-bold text-white text-xs md:text-sm">90%+ Attendance = 100% Refund</span>
-            </div>
-          </div>
-        </div>
         
         <!-- CTA buttons -->
         <div class="flex flex-col sm:flex-row gap-3 pt-3">
-          <a class="btn-brand-gradient text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-premium" href="/courses">
-            Explore Courses
-            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          <a class="btn-brand-gradient text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-premium" href="#services">
+            Explore Our Services
+            <span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_downward</span>
           </a>
-          <a class="bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-glass" href="/internships">
-            Apply for Internship
-          </a>
-          <a class="flex items-center justify-center gap-2 bg-[#071426] hover:bg-[#0c1c38] border border-accent/20 hover:border-accent/40 text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center transition-all duration-300 w-full sm:w-auto hover:scale-105 hover:shadow-glow-orange whitespace-nowrap" href="https://play.google.com/store/apps/details?id=co.varys.shacc" target="_blank" rel="noopener noreferrer" aria-label="Download App on Google Play Store">
-            <!-- Google Play Icon (Bootstrap SVG) -->
-            <svg class="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96 2.694-1.586Zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055l7.294-4.295ZM1 13.396V2.603L6.847 8 1 13.396ZM1.03 1.27C1.984.716 3.143 1.297 3.344 2.326L7.583 7.32 10.627 5.5l-3.044 2.82L1.03 1.27Z"/>
-            </svg>
-            Download App
+          <a class="bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 text-white px-6 h-12 rounded-xl font-bold text-sm lg:text-base text-center flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto transition-all duration-300 hover:scale-105 shadow-glass" href="/contact">
+            Contact Us
           </a>
         </div>
       </div>
@@ -119,6 +165,53 @@ const popularInternships = allInternships.filter(item =>
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Our Services Section: one card per service subdomain.
+       Cards deliberately carry no .reveal/.animate-on-scroll classes so they stay visible without JavaScript. -->
+  <section id="services" class="py-16 md:py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden scroll-mt-20" aria-labelledby="services-heading">
+    <div class="glow-blob bg-secondary/5 w-96 h-96 top-10 -right-20 opacity-15" style="filter: blur(120px);" aria-hidden="true"></div>
+
+    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-10 md:mb-14 space-y-4">
+        <div class="inline-block bg-secondary/10 text-secondary px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-secondary/15">
+          Our Services
+        </div>
+        <h2 id="services-heading" class="text-3xl md:text-5xl font-headline font-black text-primary dark:text-white leading-tight tracking-tight">
+          One Brand, Five Services
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-base md:text-lg font-light leading-relaxed">
+          Choose a service to visit its dedicated website.
+        </p>
+      </div>
+
+      <ul class="flex flex-wrap justify-center gap-6" role="list">
+        {services.map((service) => (
+          <li class="flex w-full sm:w-[calc(50%-0.8rem)] lg:w-[calc(33.333%-1.05rem)] xl:w-[calc(20%-1.25rem)]">
+            <a
+              href={service.url}
+              class="group glass-card-premium w-full p-6 rounded-2xl border-slate-200/60 dark:border-slate-800 shadow-premium hover-lift hover:shadow-premium-hover flex flex-col gap-4"
+              aria-labelledby={`service-${service.id}-name`}
+              aria-describedby={`service-${service.id}-desc`}
+            >
+              <span class={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${service.iconClass}`} aria-hidden="true">
+                <span class="material-symbols-outlined text-2xl">{service.icon}</span>
+              </span>
+              <h3 id={`service-${service.id}-name`} class="font-headline font-bold text-xl text-primary dark:text-white tracking-tight group-hover:text-secondary transition-colors duration-300">
+                {service.name}
+              </h3>
+              <p id={`service-${service.id}-desc`} class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light flex-grow">
+                {service.description}
+              </p>
+              <span class="inline-flex items-center gap-1.5 text-sm font-bold text-secondary" aria-hidden="true">
+                Visit
+                <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -519,32 +612,6 @@ const popularInternships = allInternships.filter(item =>
     </div>
   </section>
 
-  
-
-  <!-- Lightbox Modal Markup (Section 3 Lightbox Preview) -->
-  <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-primary/95 backdrop-blur-md hidden items-center justify-center p-4">
-    <!-- Close Button -->
-    <button id="lightbox-close" class="absolute top-12 md:top-6 right-6 md:right-8 text-white/80 hover:text-white hover:scale-110 transition-all cursor-pointer" aria-label="Close Gallery">
-      <span class="material-symbols-outlined text-4xl">close</span>
-    </button>
-    <!-- Previous Button -->
-    <button id="lightbox-prev" class="absolute left-6 text-white/80 hover:text-white hover:scale-110 transition-all p-2 bg-white/5 rounded-xl border border-white/10 cursor-pointer" aria-label="Previous Image">
-      <span class="material-symbols-outlined text-3xl">chevron_left</span>
-    </button>
-    <!-- Image Content -->
-    <div class="max-w-5xl max-h-[80vh] flex flex-col items-center justify-center space-y-4">
-      <img id="lightbox-img" src="" alt="Gallery Image" class="max-w-full max-h-[70vh] object-contain rounded-xl border border-white/10 shadow-2xl" />
-      <div class="text-center">
-        <span id="lightbox-tag" class="bg-secondary text-white font-bold text-[9px] px-2 py-0.5 rounded uppercase tracking-wider"></span>
-        <h4 id="lightbox-title" class="text-white font-bold text-lg mt-2 font-headline"></h4>
-      </div>
-    </div>
-    <!-- Next Button -->
-    <button id="lightbox-next" class="absolute right-6 text-white/80 hover:text-white hover:scale-110 transition-all p-2 bg-white/5 rounded-xl border border-white/10 cursor-pointer" aria-label="Next Image">
-      <span class="material-symbols-outlined text-3xl">chevron_right</span>
-    </button>
-  </div>
-
   <!-- Hybrid Learning Split Section -->
   <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden border-t border-slate-100 dark:border-white/5">
     <div class="glow-blob bg-secondary/5 w-96 h-96 top-10 left-10 opacity-15" style="filter: blur(120px);"></div>
@@ -677,77 +744,6 @@ const popularInternships = allInternships.filter(item =>
     </div>
   </section>
 
-
-
-  <!-- App Download / SaaS dashboard Section -->
-  <section class="py-24 bg-white dark:bg-slate-950 relative overflow-hidden">
-    <div class="glow-blob bg-secondary/5 w-96 h-96 top-10 right-10 opacity-20" style="filter: blur(120px);"></div>
-
-    <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
-      
-      <div class="relative bg-gradient-to-tr from-primary to-slate-950 rounded-2xl px-8 py-8 md:px-16 md:py-0 text-white overflow-hidden shadow-premium border border-white/10 flex flex-col md:flex-row items-center gap-12">
-        <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <!-- Left Side Text copy -->
-        <div class="w-full md:w-[55%] py-0 md:py-16 space-y-6">
-          <div class="inline-block bg-accent text-primary font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-            Mobile-First Classroom
-          </div>
-          <h2 class="text-3xl md:text-5xl font-headline font-black tracking-tight leading-tight">Your Learning Partner in Your Pocket</h2>
-          <p class="text-slate-300 text-base md:text-lg font-light leading-relaxed">
-            Download our mobile app to access online course modules, verify your daily attendance record, log interactive practical tasks, submit projects, and coordinate with internship directors on the go.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 pt-2 w-full">
-            <a 
-              href="https://play.google.com/store/apps/details?id=co.varys.shacc" 
-              target="_blank" 
-              class="inline-flex items-center justify-center sm:justify-start gap-3 px-6 py-3.5 bg-gradient-to-r from-[#E9313E] via-[#FF6A00] to-[#FFAA00] text-white rounded-xl font-bold text-sm shadow-premium transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-orange-500/25 active:scale-[0.98] w-full sm:w-auto shrink-0 group"
-            >
-              <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5,3.0001C4.69,3.0001 4.38,3.0901 4.12,3.2701L13.56,12.7101L16.97,9.3001L5.88,3.3201C5.61,3.1201 5.31,3.0001 5,3.0001ZM3.27,4.1201C3.1,4.3801 3,4.6901 3,5.0001V19.0001C3,19.3101 3.1,19.6201 3.27,19.8801L12.85,10.3001L3.27,4.1201ZM13.56,12.7101L4.12,22.1501C4.38,22.3301 4.69,22.4201 5,22.4201C5.31,22.4201 5.61,22.3001 5.88,22.1001L16.97,16.1201L13.56,12.7101ZM17.68,10.0101L21.41,12.0101C21.78,12.2101 21.78,12.7901 21.41,12.9901L17.68,14.9901L14.27,11.5801L17.68,10.0101Z"/>
-              </svg>
-              <div class="text-left leading-none">
-                <span class="block text-[10px] font-medium text-white/80 uppercase tracking-wider">Download for</span>
-                <span class="block text-sm font-black mt-1">Android</span>
-              </div>
-            </a>
-            <a 
-              href="https://apps.apple.com/app/id1472483563" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Download Margdarshak App on the App Store"
-              class="inline-flex items-center justify-center sm:justify-start gap-3 px-6 py-3.5 bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-white rounded-xl font-bold text-sm shadow-premium transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] w-full sm:w-auto shrink-0 group"
-            >
-              <svg class="w-5 h-5 fill-current text-white shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.85-1.01 2.96 1.12.09 2.27-.58 2.94-1.39z"/>
-              </svg>
-              <div class="text-left leading-none">
-                <span class="block text-[10px] font-medium text-white/80 uppercase tracking-wider">Download for</span>
-                <span class="block text-sm font-black mt-1">iPhone</span>
-              </div>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Right side mockup illustration -->
-        <div class="w-full md:w-[45%] py-4 md:py-2 flex justify-center items-center relative">
-          <div class="absolute -inset-4 bg-accent/20 rounded-full blur-3xl pointer-events-none"></div>
-          <img 
-            src="/assets/mobile_app_preview.png" 
-            alt="Margdarshak mobile app mockup showing course dashboard" 
-            class="relative z-10 w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] h-auto object-contain max-h-[280px] md:max-h-[450px] filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.35)] animate-float-slow"
-            loading="lazy"
-            decoding="async"
-            width="480"
-            height="450"
-          />
-        </div>
-      </div>
-
-      
-    </div>
-  </section>
-
   <!-- Contact CTA Section (Issue 8: Redesigned with Purple + Orange gradient, glass overlay, typography) -->
   <section class="py-24 bg-slate-50 dark:bg-slate-900/10 border-t border-slate-100 dark:border-slate-900 relative overflow-hidden">
     <div class="glow-blob bg-secondary/5 w-96 h-96 top-1/3 left-10 opacity-20" style="filter: blur(120px);"></div>
@@ -848,143 +844,5 @@ const popularInternships = allInternships.filter(item =>
       </div>
     </div>
   </section>
-
-  <!-- CSS & JS for Testimonials, Gallery Lightbox, Counters & Scroll Reveal -->
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-      // --- 2. STATS ANIMATED COUNTERS ---
-      const statsCounters = document.querySelectorAll('.stats-counter');
-      const counterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const counter = entry.target;
-            const targetVal = parseInt(counter.getAttribute('data-target'), 10);
-            let currentVal = 0;
-            const duration = 1500; // ms
-            const stepTime = Math.max(Math.floor(duration / targetVal), 10);
-            const increment = Math.ceil(targetVal / (duration / stepTime));
-            
-            const timer = setInterval(() => {
-              currentVal += increment;
-              if (currentVal >= targetVal) {
-                counter.textContent = targetVal.toLocaleString('en-IN');
-                clearInterval(timer);
-              } else {
-                counter.textContent = currentVal.toLocaleString('en-IN');
-              }
-            }, stepTime);
-            
-            observer.unobserve(counter);
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      statsCounters.forEach(counter => counterObserver.observe(counter));
-
-      // --- 3. PHOTO GALLERY FILTERING & LIGHTBOX ---
-      const filterBtns = document.querySelectorAll('.gallery-filter-btn');
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      const lightbox = document.getElementById('gallery-lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const lightboxTag = document.getElementById('lightbox-tag');
-      const lightboxTitle = document.getElementById('lightbox-title');
-      const lightboxClose = document.getElementById('lightbox-close');
-      const lightboxPrev = document.getElementById('lightbox-prev');
-      const lightboxNext = document.getElementById('lightbox-next');
-      
-      let activeGalleryItems = Array.from(galleryItems);
-      let activeImageIndex = 0;
-
-      // Gallery Filtering
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // Remove active styles from other buttons
-          filterBtns.forEach(b => {
-            b.classList.remove('active', 'bg-secondary', 'text-white');
-            b.classList.add('bg-slate-100', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300');
-          });
-          // Add active style to clicked button
-          btn.classList.add('active', 'bg-secondary', 'text-white');
-          btn.classList.remove('bg-slate-100', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300');
-
-          const filter = btn.getAttribute('data-filter');
-          activeGalleryItems = [];
-
-          galleryItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-              item.style.display = 'block';
-              activeGalleryItems.push(item);
-            } else {
-              item.style.display = 'none';
-            }
-          });
-        });
-      });
-
-      // Lightbox open
-      galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-          activeImageIndex = activeGalleryItems.indexOf(item);
-          updateLightboxContent();
-          lightbox.classList.remove('hidden');
-          lightbox.classList.add('flex');
-          document.body.style.overflow = 'hidden'; // Lock background scroll
-        });
-      });
-
-      function updateLightboxContent() {
-        if (activeGalleryItems.length === 0) return;
-        const currentItem = activeGalleryItems[activeImageIndex];
-        const img = currentItem.querySelector('img');
-        const title = currentItem.querySelector('h4');
-        const tag = currentItem.querySelector('span');
-
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightboxTitle.textContent = title.textContent;
-        lightboxTag.textContent = tag.textContent;
-      }
-
-      // Close Lightbox
-      function closeLightbox() {
-        lightbox.classList.add('hidden');
-        lightbox.classList.remove('flex');
-        document.body.style.overflow = ''; // Restore scroll
-      }
-      lightboxClose.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-      });
-
-      // Next / Prev Lightbox Image
-      lightboxNext.addEventListener('click', (e) => {
-        e.stopPropagation();
-        activeImageIndex = (activeImageIndex + 1) % activeGalleryItems.length;
-        updateLightboxContent();
-      });
-
-      lightboxPrev.addEventListener('click', (e) => {
-        e.stopPropagation();
-        activeImageIndex = (activeImageIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
-        updateLightboxContent();
-      });
-
-      // Keyboard support
-      document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('hidden')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') {
-          activeImageIndex = (activeImageIndex + 1) % activeGalleryItems.length;
-          updateLightboxContent();
-        }
-        if (e.key === 'ArrowLeft') {
-          activeImageIndex = (activeImageIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
-          updateLightboxContent();
-        }
-      });
-
-    });
-  </script>
 
 </Layout>
