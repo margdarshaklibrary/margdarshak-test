@@ -693,13 +693,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const closeMenuBtn = document.getElementById('close-menu-btn');
 
+    // Pending animation timers. Each action cancels the other's, so a quick
+    // close → reopen can't leave the menu hidden with scrolling still locked.
+    let openTimer = null;
+    let closeTimer = null;
+
+    function isMenuOpen() {
+      return document.body.classList.contains('menu-open');
+    }
+
     function openDrawer() {
       if (mobileMenu && mobileMenuDrawer && mobileMenuOverlay) {
+        clearTimeout(closeTimer);
+        clearTimeout(openTimer);
         document.body.classList.add('overflow-hidden', 'menu-open');
         if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.remove('hidden');
         mobileMenu.classList.add('flex');
-        setTimeout(() => {
+        openTimer = setTimeout(() => {
           mobileMenuOverlay.classList.remove('opacity-0');
           mobileMenuOverlay.classList.add('opacity-100');
           mobileMenuDrawer.classList.remove('translate-x-full');
@@ -709,12 +720,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     function closeDrawer() {
       if (mobileMenu && mobileMenuDrawer && mobileMenuOverlay) {
+        clearTimeout(openTimer);
+        clearTimeout(closeTimer);
         document.body.classList.remove('overflow-hidden', 'menu-open');
         if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
         mobileMenuOverlay.classList.remove('opacity-100');
         mobileMenuOverlay.classList.add('opacity-0');
         mobileMenuDrawer.classList.add('translate-x-full');
-        setTimeout(() => {
+        closeTimer = setTimeout(() => {
           mobileMenu.classList.remove('flex');
           mobileMenu.classList.add('hidden');
         }, 400);
@@ -724,6 +737,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (menuBtn) menuBtn.addEventListener('click', openDrawer);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeDrawer);
     if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeDrawer);
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen()) closeDrawer();
+    });
+
+    // The drawer is md:hidden, so crossing the md breakpoint while it is open
+    // would hide it but leave scrolling locked. Close it properly instead.
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const onBreakpointChange = (e) => {
+      if (e.matches && isMenuOpen()) closeDrawer();
+    };
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener('change', onBreakpointChange);
+    } else if (desktopQuery.addListener) {
+      desktopQuery.addListener(onBreakpointChange); // Safari < 14
+    }
 
     // Auto-close on drawer link click
     if (mobileMenuDrawer) {
