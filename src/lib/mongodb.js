@@ -103,7 +103,11 @@ export async function getClient() {
       cachedClient = connectedClient;
       return connectedClient;
     }).catch(err => {
-      console.error('[DEBUG] MongoClient connection failed:', err);
+      if (err.code === 8000 || err.message?.includes('bad auth')) {
+        console.error('[DEBUG] MongoDB Atlas Authentication Failed: Please check that the username and password in MONGODB_URI (.env) match a valid Database User in MongoDB Atlas -> Security -> Database Access.');
+      } else {
+        console.error('[DEBUG] MongoClient connection failed:', err);
+      }
       cachedClientPromise = null;
       throw err;
     });

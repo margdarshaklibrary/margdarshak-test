@@ -109,12 +109,22 @@ export async function changeAdminCredentials(token, username, newPassword) {
 
 // Course CRUD Operations
 export async function getCourses() {
-  const dbClient = await getDb();
-  const courses = await dbClient.collection('courses').find({}).sort({ _order: 1 }).toArray();
-  return courses.map(c => {
-    const { _id, _order, ...rest } = c;
-    return rest;
-  });
+  try {
+    const dbClient = await getDb();
+    const courses = await dbClient.collection('courses').find({}).sort({ _order: 1 }).toArray();
+    if (!courses || courses.length === 0) {
+      const { courses: fallbackCourses } = await import('./courses.js');
+      return fallbackCourses;
+    }
+    return courses.map(c => {
+      const { _id, _order, ...rest } = c;
+      return rest;
+    });
+  } catch (err) {
+    console.warn('[MongoDB] Database query failed, using static fallback courses:', err.message);
+    const { courses: fallbackCourses } = await import('./courses.js');
+    return fallbackCourses;
+  }
 }
 
 export async function addCourse(courseData) {
@@ -167,20 +177,39 @@ export async function deleteCourse(id) {
 
 // Internship CRUD Operations
 export async function getInternships() {
-  const dbClient = await getDb();
-  const internships = await dbClient.collection('internships').find({}).sort({ _order: 1 }).toArray();
-  return internships.map(i => {
-    const { _id, _order, ...rest } = i;
-    return rest;
-  });
+  try {
+    const dbClient = await getDb();
+    const internships = await dbClient.collection('internships').find({}).sort({ _order: 1 }).toArray();
+    if (!internships || internships.length === 0) {
+      const { internships: fallbackInternships } = await import('./internships.js');
+      return fallbackInternships;
+    }
+    return internships.map(i => {
+      const { _id, _order, ...rest } = i;
+      return rest;
+    });
+  } catch (err) {
+    console.warn('[MongoDB] Database query failed, using static fallback internships:', err.message);
+    const { internships: fallbackInternships } = await import('./internships.js');
+    return fallbackInternships;
+  }
 }
 
 export async function getInternship(id) {
-  const dbClient = await getDb();
-  const internship = await dbClient.collection('internships').findOne({ id });
-  if (!internship) return null;
-  const { _id, _order, ...rest } = internship;
-  return rest;
+  try {
+    const dbClient = await getDb();
+    const internship = await dbClient.collection('internships').findOne({ id });
+    if (!internship) {
+      const { internships: fallbackInternships } = await import('./internships.js');
+      return fallbackInternships.find(i => i.id === id) || null;
+    }
+    const { _id, _order, ...rest } = internship;
+    return rest;
+  } catch (err) {
+    console.warn('[MongoDB] Database query failed, using static fallback internship:', err.message);
+    const { internships: fallbackInternships } = await import('./internships.js');
+    return fallbackInternships.find(i => i.id === id) || null;
+  }
 }
 
 export async function addInternship(internshipData) {
@@ -232,12 +261,17 @@ export async function deleteInternship(id) {
 
 // Student Operations
 export async function getStudents() {
-  const dbClient = await getDb();
-  const students = await dbClient.collection('leadstudents').find({}).toArray();
-  return students.map(s => {
-    const { _id, ...rest } = s;
-    return rest;
-  });
+  try {
+    const dbClient = await getDb();
+    const students = await dbClient.collection('leadstudents').find({}).toArray();
+    return students.map(s => {
+      const { _id, ...rest } = s;
+      return rest;
+    });
+  } catch (err) {
+    console.warn('[MongoDB] Database query failed for students:', err.message);
+    return [];
+  }
 }
 
 export async function addStudent(studentData) {
